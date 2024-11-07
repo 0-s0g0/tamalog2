@@ -8,7 +8,8 @@ import Image from 'next/image';
 
 //copmponentsのインポート
 import ChartsUI from './components/charts_UI';  
-import Datatable_UI from './components/Datatable_UI';  
+import Datatable_UI from './components/Datatable_UI'; 
+import TextInputModal from './components/Modal/TextInput_UI' ; 
 
 // Firebase関連のインポート
 import { auth } from '../firebase/firebase';
@@ -442,70 +443,15 @@ const handleLogout = async () => {
           
       </div>
 
-
-
-
       {/* テキスト入力用モーダルフォーム*/}
-      {isTextInputModalOpen && (
-        <div className={styles.modalBackground}>
-          <div className={styles.modalContent}>
-            <h2 className="text-xl font-bold mb-4">Add Data</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label className="block mb-1">Date:</label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="border p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-1">Body Water:</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={bodyWater}
-                  onChange={(e) => setBodyWater(e.target.value)}
-                  className="border p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-1">Protein:</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={protein}
-                  onChange={(e) => setProtein(e.target.value)}
-                  className="border p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-1">Minerals:</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={minerals}
-                  onChange={(e) => setMinerals(e.target.value)}
-                  className="border p-2 w-full"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block mb-1">Body Fat:</label>
-                <input
-                  type="number"
-                  step="any"
-                  value={bodyFat}
-                  onChange={(e) => setBodyFat(e.target.value)}
-                  className="border p-2 w-full"
-                />
-              </div>
-              <button type="submit" className={styles.modalButton}>Add</button>
-              <button type="button" onClick={() => setIsTextInputModalOpen(false)} className={styles.modalButtonclose}>Close</button>
-            </form>
-          </div>
-        </div>
-      )}
+      <TextInputModal
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        setEntries={setEntries}
+        entries={entries}
+        editingId={editingId}
+        setEditingId={setEditingId}
+      />
 
       {/* 画像入力用モーダルフォーム*/}
       {isImageInputModalOpen && (
