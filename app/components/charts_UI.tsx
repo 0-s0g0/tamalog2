@@ -5,7 +5,7 @@
 //共通インポート
 import React from 'react';
 import styles from '../style.module.css'; 
-import { Entry } from '../type'; 
+import { Entry } from './type'; 
 
 //関数をインポート
 import { getLineChartData, getDonutChartData, donutChartOptions } from './charts'; 

@@ -13,6 +13,7 @@ import NicknameModal from './NicknameModal';
 // Firebase関連のインポート
 import { auth } from '../../../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signOut } from "firebase/auth";
 
 interface Props {
     isSignUpModalOpen: boolean;
@@ -81,6 +82,17 @@ interface Props {
        alert('エラーが発生しました。');
      }
    };
+
+   const handleLogoutInternal = async () => {
+    try {
+      await signOut(auth); // Firebaseでログアウト
+      console.log("ログアウトしました");
+      setIsNicknameModalOpen(false); // モーダルを閉じる
+    } catch (error) {
+      console.error("ログアウト時にエラーが発生しました:", error);
+      alert("ログアウト時にエラーが発生しました");
+    }
+  };
  
    if (!isSignUpModalOpen) return null;
  
@@ -121,6 +133,7 @@ interface Props {
                  <button type="submit" className={styles.modalButton}>
                    ログイン
                  </button>
+                 
                </form>
              </>
            ) : (

@@ -10,6 +10,8 @@ import Image from 'next/image';
 import ChartsUI from './components/charts_UI';  
 import Datatable_UI from './components/Datatable_UI'; 
 import TextInputModal from './components/Modal/TextInput_UI' ; 
+import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
+
 
 // Firebase関連のインポート
 import { auth } from '../firebase/firebase';
@@ -105,6 +107,15 @@ export default function Home() {
 
     fetchEntries();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (auth.currentUser) {
+        await fetchEntriesFromFirestore(setEntries);
+      }
+    };
+    fetchData();
+  }, [auth.currentUser]);
 
   ///////////////////////////////////////////
   // 7. ユーティリティ関数
@@ -449,8 +460,8 @@ const handleLogout = async () => {
         setIsTextInputModalOpen={setIsTextInputModalOpen}
         setEntries={setEntries}
         entries={entries}
-        editingId={editingId}
-        setEditingId={setEditingId}
+        editingId={null}
+        setEditingId={() => {}}
       />
 
       {/* 画像入力用モーダルフォーム*/}
@@ -612,6 +623,9 @@ const handleLogout = async () => {
                   <button type="submit" className={styles.modalButton}>
                     ログイン
                   </button>
+
+                  {/* ログアウトボタン */}
+                  <button type="button" onClick={handleLogout} className={styles.modalButtonclose} >log out</button>
                 </form>
               </>
             ) : (

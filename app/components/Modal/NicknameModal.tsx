@@ -38,8 +38,7 @@ interface Icon {
 export const NicknameModal: React.FC<NicknameModalProps> = ({
     isSignupSuccess,
     //setIsNicknameModalOpen,
-    isNicknameModalOpen,
-    setIsNicknameModalOpen,
+    //isNicknameModalOpen,
     icons,
     selectedIcon,
     setSelectedIcon,
@@ -52,7 +51,7 @@ export const NicknameModal: React.FC<NicknameModalProps> = ({
     goalMuscle,
     setGoalMuscle,
   }) => {
-    //const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
+    const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
     const handleIconSelect = (index: number) => {
       setSelectedIcon(index); // アイコン選択
     };

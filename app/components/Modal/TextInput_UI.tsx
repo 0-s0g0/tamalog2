@@ -8,6 +8,50 @@ import { useState, useEffect } from 'react';
 import styles from '../../style.module.css'; 
 import { Entry } from '../type';
 
+import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
+//import { getAuth } from 'firebase/auth';
+import { db, auth } from '../../../firebase/firebase'
+
+// エントリーをFirestoreに保存する関数
+const saveEntryToFirestore = async (entry: Entry) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userEntries', user.uid);
+      await setDoc(userDocRef, {
+        entries: arrayUnion(entry)
+      }, { merge: true });
+      console.log('Data successfully written to Firestore');
+    } else {
+      alert('ユーザーがログインしていません。');
+    }
+  } catch (error) {
+    console.error('Error writing to Firestore:', error);
+    alert('データ保存中にエラーが発生しました。');
+  }
+};
+
+// Firestoreからユーザーのエントリーを取得する関数
+export const fetchEntriesFromFirestore = async (setEntries: React.Dispatch<React.SetStateAction<Entry[]>>) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userEntries', user.uid);
+      const docSnap = await getDoc(userDocRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setEntries(data.entries || []);
+        console.log('User data fetched successfully:', data);
+      } else {
+        console.log('No user data found');
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching data from Firestore:', error);
+    alert('データの取得中にエラーが発生しました。');
+  }
+};
+
 
 interface Props {
   isTextInputModalOpen: boolean;
@@ -34,17 +78,14 @@ const TextInputModal: React.FC<Props> = ({
 
   // フォーム送信処理（エントリー追加・更新）
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // フォーム送信時にページ遷移を防ぐ
     e.preventDefault();
-    // 必須フィールドが未入力の場合、エラーメッセージを表示
     if (!date || !bodyWater || !protein || !minerals || !bodyFat) {
       alert('全てのフィールドに入力してください');
       return;
     }
-    // 入力された各フィールドの値を合計して総体重を算出
     const totalWeight = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals) + parseFloat(bodyFat);
     const newEntry: Entry = { 
-      id: editingId || Date.now().toString(), // 編集モードならそのIDを使用、そうでなければ新しいIDを生成
+      id: editingId || Date.now().toString(),
       date, 
       bodyWater, 
       protein, 
@@ -52,29 +93,17 @@ const TextInputModal: React.FC<Props> = ({
       bodyFat, 
       totalWeight 
     };
+  
     try {
-      // 編集モードの場合、PUTリクエストでエントリーを更新
       if (editingId) {
-        const response = await fetch('/api/post', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newEntry),
-        });
-        if (!response.ok) throw new Error('Error updating the entry');
-        // エントリーの更新
-        setEntries(entries.map(entry => (entry.id === editingId ? newEntry : entry)));
+        // 編集モードのロジックが必要であればここに記述
       } else {
-        // 新規エントリーの場合、POSTリクエストで追加
-        const response = await fetch('/api/post', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newEntry),
-        });
-        if (!response.ok) throw new Error('Error adding the new entry');
-        // エントリーをリストに追加
+        // Firestoreにデータを保存
+        await saveEntryToFirestore(newEntry);
         setEntries([...entries, newEntry]);
       }
-      // フォームリセット
+  
+      // フォームをリセット
       setDate('');
       setBodyWater('');
       setProtein('');
@@ -83,11 +112,11 @@ const TextInputModal: React.FC<Props> = ({
       setEditingId(null);
       setIsTextInputModalOpen(false);
     } catch (error) {
-      // エラーハンドリング
       console.error('Error processing form submission:', error);
       alert('データの処理中にエラーが発生しました。');
     }
   };
+  
 
   if (!isTextInputModalOpen) return null;
 
