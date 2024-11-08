@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 
-def extract_largest_contour_region(image_path, output_path='output_image.jpg'):
+def extract_largest_contour_region(image_path, output_path='output_image_with_contours.jpg'):
     # 画像の読み込み
     image = cv2.imread(image_path)
 
@@ -39,17 +39,21 @@ def extract_largest_contour_region(image_path, output_path='output_image.jpg'):
     # 最大領域を含む画像を切り出し
     max_region = image[y:y+h, x:x+w]
 
-    # 切り出した領域を新しい画像として保存
-    cv2.imwrite(output_path, max_region)
 
-    return output_path
+    # 結果を保存
+    contour_image_path = 'output_image_with_contours.jpg'
+    cv2.imwrite(contour_image_path, max_region)
+
+    return contour_image_path  # 輪郭描画済み画像のパスを返す
 
 def detect_numbers(image_path):
     # テンプレート画像のパス
     template_folder = 'backend/temp'
     template_files = [f"tem ({i}).png" for i in range(1, 45)]
     templates = {}
-    labels = [2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0, 0, 1, 1, 1]
+    #labels = [2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0, 0, 1, 1, 1,1]
+    #labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]
+    labels = [ 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0, 0, 1, 1]
 
     # テンプレート画像の読み込み
     for file in template_files:
@@ -119,17 +123,30 @@ def detect_numbers(image_path):
                     break
 
     # 最もスコアが高いテンプレートを選んだ結果をY座標が小さい順、同じ場合はX座標が小さい順にソート
-    filtered_numbers.sort(key=lambda x: (x[2][1], x[2][0]))
+    filtered_numbers.sort(key=lambda x: (x[2][1] // 5, x[2][0]))
 
     # 最後の部分
     detected_list = []
     for number, _, pos in filtered_numbers:
         detected_list.append(number)
 
+    # 検出した数字の位置に矩形を描画し、その数字を表示する
+    for number, _, pos in filtered_numbers:
+        x, y = pos
+        # 矩形を描画
+        cv2.rectangle(input_image_left, (x, y), (x + 40, y + 40), (0, 255, 0), 2)
+        # 数字を表示
+        cv2.putText(input_image_left, str(number), (x + 5, y + 35), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+
+    # 結果を表示
+    output_image_path = 'output_with_numbers.jpg'
+    cv2.imwrite(output_image_path, input_image_left)
+    print(f"Processed image saved as {output_image_path}")
+
     # リストをJSON形式で出力
     import json
     print(json.dumps(detected_list))
-    
-    return  detected_list
+
+    return detected_list
 
 

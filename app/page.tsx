@@ -5,12 +5,15 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import axios from 'axios';
 
 //copmponentsのインポート
 import ChartsUI from './components/charts_UI';  
 import Datatable_UI from './components/Datatable_UI'; 
 import TextInputModal from './components/Modal/TextInput_UI' ; 
+import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
+
 
 
 // Firebase関連のインポート
@@ -28,6 +31,7 @@ import sample_img from './public/image01.png';
 import sideBarImage00 from './public/Sidever_image00.png';
 import sideBarImage01 from './public/Sidever_image01.png';
 import sideBarImage02 from './public/Sidever_image02.png';
+import sideBarImage03 from './public/Sidever_image03.png';
 import icon01 from './public/icon1.png';
 import icon02 from './public/icon2.png';
 import icon03 from './public/icon3.png';
@@ -76,8 +80,12 @@ export default function Home() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // 画像関連のstate
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const [detectedNumbers, setDetectedNumbers] = useState([]);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
+
 
   // 認証関連のstate
   const [email, setEmail] = useState('');
@@ -92,6 +100,7 @@ export default function Home() {
   const [goalWeight, setGoalWeight] = useState<string>('');
   const [goalFat, setGoalFat] = useState<string>('');
   const [goalMuscle, setGoalMuscle] = useState<string>('');
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   ///////////////////////////////////////////
   // 6. データフェッチと副作用
@@ -179,90 +188,52 @@ const saveImageUrlToFirestore = async (url: string) => {
 };
 
 // 画像アップロードイベント
-const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-  // ファイルが選択されていない場合は処理を終了
-  const file = event.target.files?.[0];
-  if (!file) return;
-
-  // 画像のプレビューURLを生成してプレビュー用にセット
-  const previewUrl = URL.createObjectURL(file);
-  setImagePreview(previewUrl);
-
-  // Firebase Storageへのアップロード処理
-  const storage = getStorage();
-  const storageRef = ref(storage, `images/${file.name}`);
-
-  try {
-    // 画像を Firebase Storage にアップロード
-    await uploadBytes(storageRef, file);
-    // アップロードした画像のURLを取得
-    const url = await getDownloadURL(storageRef);
-    // 画像URLをFirestoreに保存
-    await saveImageUrlToFirestore(url);
-    // 画像アップロード後、モーダルを閉じる
-    setIsImageInputModalOpen(false);
-    setIsModalOpen(true);
-  } catch (error) {
-    // エラーハンドリング
-    console.error('Error uploading image:', error);
-    alert('画像のアップロード中にエラーが発生しました。');
+const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files) {
+    const file = e.target.files[0];
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   }
 };
 
 // フォーム送信処理（エントリー追加・更新）
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  // フォーム送信時にページ遷移を防ぐ
+const handleImageSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  // 必須フィールドが未入力の場合、エラーメッセージを表示
-  if (!date || !bodyWater || !protein || !minerals || !bodyFat) {
-    alert('全てのフィールドに入力してください');
-    return;
-  }
-  // 入力された各フィールドの値を合計して総体重を算出
-  const totalWeight = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals) + parseFloat(bodyFat);
-  const newEntry: Entry = { 
-    id: editingId || Date.now().toString(), // 編集モードならそのIDを使用、そうでなければ新しいIDを生成
-    date, 
-    bodyWater, 
-    protein, 
-    minerals, 
-    bodyFat, 
-    totalWeight 
-  };
-  try {
-    // 編集モードの場合、PUTリクエストでエントリーを更新
-    if (editingId) {
-      const response = await fetch('/api/post', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newEntry),
+  if (imageFile) {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+      const response = await axios.post(`http://127.0.0.1:5000/backend/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-      if (!response.ok) throw new Error('Error updating the entry');
-      // エントリーの更新
-      setEntries(entries.map(entry => (entry.id === editingId ? newEntry : entry)));
-    } else {
-      // 新規エントリーの場合、POSTリクエストで追加
-      const response = await fetch('/api/post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newEntry),
-      });
-      if (!response.ok) throw new Error('Error adding the new entry');
-      // エントリーをリストに追加
-      setEntries([...entries, newEntry]);
+
+      // 画像処理結果を取得
+      const result = response.data;
+      setImageProcessingResults(result);  // 結果を状態に保存
+      setIsTextInputModalOpen(true);  // モーダルを開く
+
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        // Axios固有のエラーの場合
+        if (error.response) {
+          // サーバーがエラーを返した場合（4xx, 5xx）
+          const statusCode = error.response.status;
+          if (statusCode >= 400 && statusCode < 500) {
+            alert(`クライアントエラーが発生しました: ${statusCode} - ${error.response.data.error || '不明なエラー'}`);
+          } else if (statusCode >= 500) {
+            alert(`サーバーエラーが発生しました: ${statusCode} - サーバーが正常に処理できませんでした`);
+          }
+        } else if (error.request) {
+          // サーバーからのレスポンスがなかった場合（ネットワークエラーなど）
+          alert('ネットワークエラーが発生しました。サーバーに接続できませんでした。');
+        }
+      } else {
+        // その他のエラー（一般的なJavaScriptエラーなど）
+        console.error('エラー詳細:', error);
+        alert('画像アップロード中にエラーが発生しました');
+      }
     }
-    // フォームリセット
-    setDate('');
-    setBodyWater('');
-    setProtein('');
-    setMinerals('');
-    setBodyFat('');
-    setEditingId(null);
-    setIsTextInputModalOpen(false);
-  } catch (error) {
-    // エラーハンドリング
-    console.error('Error processing form submission:', error);
-    alert('データの処理中にエラーが発生しました。');
   }
 };
 
@@ -365,7 +336,7 @@ const handleLogout = async () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div style={{ backgroundColor: '#f5f5f5', display: 'flex' }} className="flex">
+    <div style={{ backgroundColor: '#EFF4FB', display: 'flex' }} className="flex">
       {/* サイドバー */}
       <aside className={styles.sidebar}>
         <button onClick={() => setIsSignUpModalOpen(true)} className={styles.sidebarButton}>
@@ -387,6 +358,14 @@ const handleLogout = async () => {
         <button onClick={() => setIsImageInputModalOpen(true)} className={styles.sidebarButton}>
           <Image
             src={sideBarImage02}
+            alt="Open Modal"
+            width={50} // 画像の幅を設定
+            height={50} // 画像の高さを設定
+          />
+        </button>
+        <button onClick={() => setIsNicknameModalOpen(true)} className={styles.sidebarButton}>
+          <Image
+            src={sideBarImage03}
             alt="Open Modal"
             width={50} // 画像の幅を設定
             height={50} // 画像の高さを設定
@@ -464,12 +443,12 @@ const handleLogout = async () => {
         setEditingId={() => {}}
       />
 
-      {/* 画像入力用モーダルフォーム*/}
-      {isImageInputModalOpen && (
+       {/* 画像入力用モーダル */}
+       {isImageInputModalOpen && (
         <div className={styles.modalBackground}>
           <div className={styles.modalContent}>
             <h2 className="text-xl font-bold mb-4">Upload Image</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleImageSubmit}>
               <div className="mb-4">
                 <label className="block mb-1">Choose Image:</label>
                 <input
@@ -492,8 +471,20 @@ const handleLogout = async () => {
         </div>
       )}
 
+
+      {/* TextfromIMAGEModal を組み込む */}
+      <TextfromIMAGEModal 
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        imageProcessingResults={imageProcessingResults}
+        entries={[]}
+        setEntries={() => {}}
+        editingId={null}
+        setEditingId={() => {}}
+      />
+
       {/* ログインまたはサインアップ後のニックネーム設定モーダル */}
-      {isSignupSuccess && isNicknameModalOpen && (
+      {isNicknameModalOpen && (
         <div className={styles.modalBackground}>
         <div className={styles.modalContent}>
           <h2 className="text-xl font-bold mb-4">My Account</h2>
