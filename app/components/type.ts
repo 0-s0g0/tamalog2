@@ -9,9 +9,9 @@ export interface Entry {
     minerals: string;
     bodyFat: string;
     totalWeight: number;
-    /*
-    totalmuscle: number;//bodywater+protein
+    totalMuscle: number;//bodywater+protein
     removeFat: number; //bodywater+protein+minerals
+    /*
     goalWeight: string;//from nicknameMOdal
     goalFat: string;//from nicknameMOdal
     goalMuscle: string;//from nicknameMOdal
@@ -22,3 +22,14 @@ export interface Entry {
     */
   }
   
+// EntryACインターフェースの定義
+  export interface EntryAC {
+    id: string;
+    goalWeight: string;//from nicknameMOdal
+    goalFat: string;//from nicknameMOdal
+    goalMuscle: string;//from nicknameMOdal
+    nickname: string;//from nicknameMOdal
+    icon: string;//from nicknameMOdal
+    height:string; //from nicknameMOdal
+    sex: string;//from nicknameMOdal
+  }

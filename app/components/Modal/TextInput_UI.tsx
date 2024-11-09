@@ -13,7 +13,7 @@ import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestor
 import { db, auth } from '../../../firebase/firebase'
 
 
-// エントリーをFirestoreに保存する関数
+// EntryをFirestoreに保存する関数
 const saveEntryToFirestore = async (entry: Entry) => {
   try {
     const user = auth.currentUser;
@@ -85,6 +85,8 @@ const TextInputModal: React.FC<Props> = ({
       return;
     }
     const totalWeight = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals) + parseFloat(bodyFat);
+    const totalMuscle = parseFloat(bodyWater) + parseFloat(protein);
+    const removeFat = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals);
     const newEntry: Entry = { 
       id: editingId || Date.now().toString(),
       date, 
@@ -92,7 +94,9 @@ const TextInputModal: React.FC<Props> = ({
       protein, 
       minerals, 
       bodyFat, 
-      totalWeight 
+      totalWeight, 
+      totalMuscle,
+      removeFat
     };
   
     try {

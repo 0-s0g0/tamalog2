@@ -1,32 +1,37 @@
 "use client";
 ///////////////////////////////////////////
-// 1. 外部ライブラリのインポート
+// import
 ///////////////////////////////////////////
+//main
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import axios from 'axios';
 
-//copmponentsのインポート
+//copmponents
+import CardGoal from './components/CardGoal';
+import CardNow from './components/CardNow';
 import ChartsUI from './components/charts_UI';  
 import Datatable_UI from './components/Datatable_UI'; 
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
+import NicknameModal from './components/Modal/Nickname'
 
 
-
-// Firebase関連のインポート
+// Firebase
 import { auth } from '../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-///////////////////////////////////////////
-// 2. スタイルと画像のインポート
-///////////////////////////////////////////
+//style
 import styles from './style.module.css';
+import { Entry } from './components/type'; 
+import { EntryAC } from './components/type'; 
+
+//Image
 import sample_img from './public/image01.png';
 import sideBarImage00 from './public/Sidever_image00.png';
 import sideBarImage01 from './public/Sidever_image01.png';
@@ -40,48 +45,30 @@ import { text } from 'node:stream/consumers';
 
 
 
-
 ///////////////////////////////////////////
-// 3. 型定義
-///////////////////////////////////////////
-interface Entry {
-  id: string;
-  date: string;
-  bodyWater: string;
-  protein: string;
-  minerals: string;
-  bodyFat: string;
-  totalWeight: number;
-}
-
-///////////////////////////////////////////
-// 4. メインコンポーネント
+// メインコンポーネント
 ///////////////////////////////////////////
 export default function Home() {
   ///////////////////////////////////////////
-  // 5. ステート管理
+  // ステート管理
   ///////////////////////////////////////////
-  // データ関連のstate
+  // データ関連
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [entryAC, setEntryAC] = useState<EntryAC[]>([]);
   const [date, setDate] = useState('');
   const [bodyWater, setBodyWater] = useState('');
   const [protein, setProtein] = useState('');
   const [minerals, setMinerals] = useState('');
   const [bodyFat, setBodyFat] = useState('');
+  const [editingId, setEditingId] = useState<string | null>(null);
 
-  // モーダル制御のstate
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // モーダル開閉制御
   const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
   const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
-  const [isImageUploadModalOpen, setIsImageUploadModalOpen] = useState(false);
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
-  const [editingId, setEditingId] = useState<string | null>(null);
-
-  // 画像関連のstate
-
-  const [detectedNumbers, setDetectedNumbers] = useState([]);
+  // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
@@ -97,13 +84,12 @@ export default function Home() {
   // アイコンの選択
   const icons = [icon01, icon02, icon03, icon04];
   const [selectedIcon, setSelectedIcon] = useState<number | null>(null); // 選択されたアイコンのインデックス
-  const [goalWeight, setGoalWeight] = useState<string>('');
-  const [goalFat, setGoalFat] = useState<string>('');
-  const [goalMuscle, setGoalMuscle] = useState<string>('');
+  
+  //env
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   ///////////////////////////////////////////
-  // 6. データフェッチと副作用
+  // データフェッチと副作用
   ///////////////////////////////////////////
   useEffect(() => {
     const fetchEntries = async () => {
@@ -127,22 +113,8 @@ export default function Home() {
   }, [auth.currentUser]);
 
   ///////////////////////////////////////////
-  // 7. ユーティリティ関数
+  //関数
   ///////////////////////////////////////////
-  // 変化量を計算する関数
-  const calculateChange = (latest: string, previous: string) => {
-    const latestValue = parseFloat(latest);
-    const previousValue = parseFloat(previous);
-    const change = latestValue - previousValue;
-
-    if (change > 0) {
-      return { change: change.toFixed(2), sign: <span className={styles.changeINIndicator}>▲+</span>, color: 'increase' };
-    } else if (change < 0) {
-      return { change: (-change).toFixed(2), sign: <span className={styles.changeOUTIndicator}>▼-</span>, color: 'decrease' };
-    } else {
-      return { change: '--', sign: '', color: 'noChange' };
-    }
-  };
 
   // 体脂肪率の計算
   const calculateBodyFatPercentage = (bodyFat: number, totalWeight: number) => {
@@ -151,8 +123,8 @@ export default function Home() {
   };
 
   ///////////////////////////////////////////
-// 8. イベントハンドラー
-///////////////////////////////////////////
+  // イベントハンドラー
+  ///////////////////////////////////////////
 
 // エントリー編集
 const handleEdit = (id: string) => {
@@ -276,23 +248,6 @@ const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 };
 
-// ニックネームフォーム送信処理
-const handleNicknameSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault(); // フォーム送信時にページ遷移を防ぐ
-  console.log('Nickname:', nickname); // ニックネームをコンソールに出力（保存処理が必要な場合）
-};
-
-// ニックネームモーダルを閉じる
-const handleCloseNicknameModal = () => {
-  setIsNicknameModalOpen(false); // ニックネーム設定モーダルを閉じる
-  setIsSignupSuccess(false); // サインアップ成功のフラグをリセット
-};
-
-// アイコン選択ハンドラー
-const handleIconSelect = (index: number) => {
-  // 選択したアイコンのインデックスを保存（選択したアイコンのスタイル変更用）
-  setSelectedIcon(index); 
-};
 
 // ログアウト処理
 const handleLogout = async () => {
@@ -309,16 +264,28 @@ const handleLogout = async () => {
   }
 };
   ///////////////////////////////////////////
-  // 9. データの加工と計算
+  // 各データ計算
   ///////////////////////////////////////////
-  // 最新のエントリーと前回のエントリーを取得
+  // 最新のgoal
+  const latestEntryAC = entryAC[entryAC.length - 1] || {
+    goalWeight: '0',
+    goalFat: '0',
+    goalMuscle: '0'
+  };
+  // goal値に対する最新のEntry
+  const latestEntrytoGOAL = entries[entries.length - 1] || {
+    totalWeight: 0,
+    bodyFat: '0',
+    totalMuscle: 0
+  };
+  // 最新(現在の)Entry
   const latestEntry = entries[entries.length - 1] || {
     bodyWater: '0',
     protein: '0',
     minerals: '0',
     bodyFat: '0'
   };
-
+  // 最新からひとつ前のEntry
   const previousEntry = entries[entries.length - 2] || {
     bodyWater: '0',
     protein: '0',
@@ -326,10 +293,7 @@ const handleLogout = async () => {
     bodyFat: '0'
   };
 
-  // 各項目の変化量を計算
-  const bodyWaterChange = calculateChange(latestEntry.bodyWater, previousEntry.bodyWater);
-  const proteinChange = calculateChange(latestEntry.protein, previousEntry.protein);
-  const mineralsChange = calculateChange(latestEntry.minerals, previousEntry.minerals);
+  // 各項目の変化量を計算  
   const bodyFatPercentage = calculateBodyFatPercentage(parseFloat(latestEntry.bodyFat), latestEntry.totalWeight);
 
   ///////////////////////////////////////////
@@ -385,35 +349,17 @@ const handleLogout = async () => {
         />
 
         {/* メトリクスカード */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className={styles.metricCard}>
-            <div className={styles.metricLabel}>Water</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.bodyWater).toFixed(2)} kg
-            </div>
-            <span className={`${styles.changeIndicator} ${bodyWaterChange.color}`}>
-              {bodyWaterChange.sign}{bodyWaterChange.change} kg
-            </span>
-          </div>
-          <div className={styles.metricCard}>
-            <div className={styles.metricLabel}>Protein</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.protein).toFixed(2)} kg
-            </div>
-            <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
-              {proteinChange.sign}{proteinChange.change} kg
-            </span>
-          </div>
-          <div className={styles.metricCard}>
-            <div className={styles.metricLabel}>Minerals</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.minerals).toFixed(2)} kg
-            </div>
-            <span className={`${styles.changeIndicator} ${mineralsChange.color}`}>
-              {mineralsChange.sign}{mineralsChange.change} kg
-            </span>
-          </div>
-        </div>
+        <CardGoal
+        latestEntryAC={latestEntryAC}
+        latestEntry={latestEntrytoGOAL}
+        />
+
+        <CardNow
+        latestEntry={latestEntry}
+        previousEntry={previousEntry}
+        />
+
+        
 
 
         {/* グラフ表示*/}
@@ -484,97 +430,14 @@ const handleLogout = async () => {
       />
 
       {/* ログインまたはサインアップ後のニックネーム設定モーダル */}
-      {isNicknameModalOpen && (
-        <div className={styles.modalBackground}>
-        <div className={styles.modalContent}>
-          <h2 className="text-xl font-bold mb-4">My Account</h2>
-          <form onSubmit={handleNicknameSubmit}>
-            {/* ニックネーム入力欄 */}
-            <div className="mb-4">
-              <label className="block mb-1">ニックネーム:</label>
-              <input
-                type="text"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
-                required
-                className="border p-2 w-full"
-              />
-            </div>
-
-            {/* プロフィール画像選択 */}
-            <div className="mb-4">
-              <label className="block mb-1">プロフィール画像を選択:</label>
-              <div className="flex space-x-4">
-                {icons.map((icon, index) => (
-                  <div
-                    key={index}
-                    className={`relative w-20 h-20 rounded-full cursor-pointer ${
-                      selectedIcon === index ? 'border-4 border-blue-500' : ''
-                    }`}
-                    onClick={() => handleIconSelect(index)} // indexの型がnumberであることを明示
-                  >
-                    <img
-                      src={icon.src} // icon.src を使って画像パスを取得
-                      alt={`Icon ${index + 1}`}
-                      className={`w-full h-full object-cover rounded-full ${
-                        selectedIcon !== index ? 'opacity-50' : 'opacity-100'
-                      }`}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 横棒 */}
-            <div className="my-4 border-t border-gray-300" />
-
-            {/* 目標設定 */}
-            <h3 className="text-lg font-semibold mb-4">目標設定</h3>
-            <div className="mb-4">
-              <label className="block mb-1">体重:</label>
-              <input
-                type="number"
-                step="any"
-                value={goalWeight}
-                onChange={(e) => setGoalWeight(e.target.value)}
-                className="border p-2 w-full"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-1">脂肪:</label>
-              <input
-                type="number"
-                step="any"
-                value={goalFat}
-                onChange={(e) => setGoalFat(e.target.value)}
-                className="border p-2 w-full"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className="block mb-1">筋肉:</label>
-              <input
-                type="number"
-                step="any"
-                value={goalMuscle}
-                onChange={(e) => setGoalMuscle(e.target.value)}
-                className="border p-2 w-full"
-              />
-            </div>
-              {/* ニックネーム設定完了ボタン */}
-              <button type="submit" className={styles.modalButton}>Submit</button>
-
-              {/* モーダルを閉じるボタン */}
-              <button type="button" onClick={handleCloseNicknameModal} className={styles.modalButtonclose} >Close</button>
-
-              {/* ログアウトボタン */}
-              <button type="button" onClick={handleLogout} className={styles.modalButtonclose} >log out</button>
-
-            </form>
-          </div>
-        </div>
-      )}
+      <NicknameModal
+        isNicknameModalOpen={isNicknameModalOpen}
+        setIsNicknameModalOpen={setIsNicknameModalOpen}
+        setEntryAC={setEntryAC}
+        entryAC={entryAC}
+        editingId={null}
+        setEditingId={() => {}}
+      />
 
       {/* 既存のログイン・サインアップモーダル */}
       {isSignUpModalOpen && (

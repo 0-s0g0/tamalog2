@@ -3,64 +3,141 @@
 ///////////////////////////////////////////
 
 //共通インポート
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../../style.module.css'; 
-import { Entry } from '../type';
+import { EntryAC } from '../type'; // EntryAC 型をインポート
+import { db, auth } from '../../../firebase/firebase'; 
+import { setDoc, doc } from 'firebase/firestore';
 
-import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
-//import { getAuth } from 'firebase/auth';
-import { db, auth } from '../../../firebase/firebase'
-import { saveUserInfoToFirestore } from '../../../firebase/saveDataFunctions'; // Firebase関連の保存関数をインポート
+// EntryAC を Firestore に保存する関数
+const saveEntryACToFirestore = async (entryAC: EntryAC) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userProfiles', user.uid);
+      await setDoc(userDocRef, {
+        entryAC: entryAC
+      }, { merge: true });
+      console.log('EntryAC data successfully written to Firestore');
+    } else {
+      alert('ユーザーがログインしていません。');
+    }
+  } catch (error) {
+    console.error('Error writing EntryAC to Firestore:', error);
+    alert('データ保存中にエラーが発生しました。');
+  }
+};
 
 interface Props {
-  setIsNicknameModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setUserInfo: React.Dispatch<React.SetStateAction<any>>;
-}
+    isNicknameModalOpen: boolean;
+    setIsNicknameModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    entryAC: EntryAC[];  
+    setEntryAC: React.Dispatch<React.SetStateAction<EntryAC[]>>;
+    editingId: string | null;
+    setEditingId: React.Dispatch<React.SetStateAction<string | null>>;
+  }
+  
+  
 
-const NicknameModal: React.FC<Props> = ({ setIsNicknameModalOpen, setUserInfo }) => {
-  const [nickname, setNickname] = useState('');
-  const [icon, setIcon] = useState('');
-  const [height, setHeight] = useState('');
-  const [sex, setSex] = useState('');
-  const [goalWeight, setGoalWeight] = useState('');
-  const [goalFat, setGoalFat] = useState('');
-  const [goalMuscle, setGoalMuscle] = useState('');
+const NicknameModal: React.FC<Props> = ({
+  isNicknameModalOpen,
+  setIsNicknameModalOpen,
+  setEntryAC,
+  entryAC,
+  editingId,
+  setEditingId
+}) => {
+  const [goalWeight, setGoalWeight] =  useState('');
+  const [goalFat, setGoalFat] =  useState('');
+  const [goalMuscle, setGoalMuscle] =  useState('');
+  const [nickname, setNickname] =  useState('');
+  const [icon, setIcon] =  useState('');
+  const [height, setHeight] =  useState('');
+  const [sex, setSex] =  useState('');
 
-  // ユーザー情報の保存
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // フォーム送信処理
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!nickname || !icon || !height || !sex || !goalWeight || !goalFat || !goalMuscle) {
+    
+    if (!goalWeight || !goalFat || !goalMuscle || !nickname || !icon || !height || !sex) {
       alert('全てのフィールドに入力してください');
       return;
     }
-
-    const userInfo = {
-      nickname,
-      icon,
-      height,
-      sex,
+  
+    const newEntryAC: EntryAC = {
+        id: editingId || Date.now().toString(),
       goalWeight,
       goalFat,
-      goalMuscle
+      goalMuscle,
+      nickname,
+      icon,
+      height, 
+      sex,
     };
-
+  
     try {
-      await saveUserInfoToFirestore(userInfo); // Firestoreにユーザー情報を保存
-      setUserInfo(userInfo); // 親コンポーネントに情報を渡す
+        if (editingId) {
+            // 編集モードのロジックが必要であればここに記述
+          } else {
+            // Firestoreにデータを保存
+            await saveEntryACToFirestore(newEntryAC);
+            setEntryAC([...entryAC, newEntryAC]);
+          }
+  
+      // フォームリセット
+      setGoalWeight('');
+      setGoalFat('');
+      setGoalMuscle('');
+      setNickname('');
+      setIcon('');
+      setHeight('');
+      setSex('');
+      setEditingId(null);
       setIsNicknameModalOpen(false); // モーダルを閉じる
     } catch (error) {
-      console.error('Error saving user info:', error);
-      alert('ユーザー情報の保存中にエラーが発生しました。');
+      console.error('Error processing form submission:', error);
+      alert('データの処理中にエラーが発生しました。');
     }
   };
+  
+
+  if (!isNicknameModalOpen) return null;
 
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
-        <h2 className="text-xl font-bold mb-4">Set User Information</h2>
+        <h2 className="text-xl font-bold mb-4">Set Your Profile</h2>
         <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block mb-1">Goal Weight:</label>
+            <input
+              type="number"
+              step="any"
+              value={goalWeight}
+              onChange={(e) => setGoalWeight(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1">Goal Fat:</label>
+            <input
+              type="number"
+              step="any"
+              value={goalFat}
+              onChange={(e) => setGoalFat(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1">Goal Muscle:</label>
+            <input
+              type="number"
+              step="any"
+              value={goalMuscle}
+              onChange={(e) => setGoalMuscle(e.target.value)}
+              className="border p-2 w-full"
+            />
+          </div>
           <div className="mb-4">
             <label className="block mb-1">Nickname:</label>
             <input
@@ -71,7 +148,7 @@ const NicknameModal: React.FC<Props> = ({ setIsNicknameModalOpen, setUserInfo })
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Icon:</label>
+            <label className="block mb-1">Icon (URL):</label>
             <input
               type="text"
               value={icon}
@@ -80,9 +157,9 @@ const NicknameModal: React.FC<Props> = ({ setIsNicknameModalOpen, setUserInfo })
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Height:</label>
+            <label className="block mb-1">Height (cm):</label>
             <input
-              type="text"
+              type="text" // height は string 型として扱う
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               className="border p-2 w-full"
@@ -90,39 +167,15 @@ const NicknameModal: React.FC<Props> = ({ setIsNicknameModalOpen, setUserInfo })
           </div>
           <div className="mb-4">
             <label className="block mb-1">Sex:</label>
-            <input
-              type="text"
+            <select
               value={sex}
               onChange={(e) => setSex(e.target.value)}
               className="border p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Goal Weight:</label>
-            <input
-              type="text"
-              value={goalWeight}
-              onChange={(e) => setGoalWeight(e.target.value)}
-              className="border p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Goal Fat:</label>
-            <input
-              type="text"
-              value={goalFat}
-              onChange={(e) => setGoalFat(e.target.value)}
-              className="border p-2 w-full"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1">Goal Muscle:</label>
-            <input
-              type="text"
-              value={goalMuscle}
-              onChange={(e) => setGoalMuscle(e.target.value)}
-              className="border p-2 w-full"
-            />
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
           </div>
           <button type="submit" className={styles.modalButton}>Save</button>
           <button type="button" onClick={() => setIsNicknameModalOpen(false)} className={styles.modalButtonclose}>Close</button>

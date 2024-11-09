@@ -87,6 +87,8 @@ const saveEntryToFirestore = async (entry: Entry) => {
         return;
       }
       const totalWeight = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals) + parseFloat(bodyFat);
+      const totalMuscle = parseFloat(bodyWater) + parseFloat(protein);
+      const removeFat = parseFloat(bodyWater) + parseFloat(protein) + parseFloat(minerals);
       const newEntry: Entry = { 
         id: editingId || Date.now().toString(),
         date, 
@@ -94,7 +96,9 @@ const saveEntryToFirestore = async (entry: Entry) => {
         protein, 
         minerals, 
         bodyFat, 
-        totalWeight 
+        totalWeight,
+        totalMuscle,
+        removeFat
       };
     
       try {
