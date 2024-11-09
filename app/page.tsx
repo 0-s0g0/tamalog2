@@ -15,16 +15,20 @@ import ChartsUI from './components/charts_UI';
 import Datatable_UI from './components/Datatable_UI'; 
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
-import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
+import AuthModal from './components/Modal/AuthModal';
 import NicknameModal from './components/Modal/Nickname'
+import LogoutModal from './components/Modal/LogoutModal';
+import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
+
 
 
 // Firebase
-import { auth } from '../firebase/firebase';
+import { auth, db} from '../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getEntriesFromFirestore, getEntryACFromFirestore } from "../firebase/saveDataFunctions";
 
 //style
 import styles from './style.module.css';
@@ -67,19 +71,23 @@ export default function Home() {
   const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
+  
 
 
   // 認証関連のstate
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState<string>(''); 
   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+ 
 
   // アイコンの選択
   const icons = [icon01, icon02, icon03, icon04];
@@ -89,8 +97,9 @@ export default function Home() {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   ///////////////////////////////////////////
-  // データフェッチと副作用
+  // レンダリング時の処理
   ///////////////////////////////////////////
+  //API
   useEffect(() => {
     const fetchEntries = async () => {
       const response = await fetch('/api/post');
@@ -106,11 +115,21 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       if (auth.currentUser) {
-        await fetchEntriesFromFirestore(setEntries);
+        await getEntriesFromFirestore(setEntries);
+        await getEntryACFromFirestore(setEntryAC);
       }
     };
     fetchData();
   }, [auth.currentUser]);
+
+    // ログイン状態の監視
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        setIsLoggedIn(!!user);  // ユーザーがログインしていればtrue、ログインしていなければfalse
+      });
+  
+      return () => unsubscribe();  // コンポーネントがアンマウントされた際に監視を解除
+    }, []);
 
   ///////////////////////////////////////////
   //関数
@@ -224,29 +243,41 @@ const handleDelete = async (id: string) => {
     setEntries(entries.filter(entry => entry.id !== id));
   }
 };
+//
+const handleSetNickname = (newNickname: string) => {
+  setNickname(newNickname); // NicknameModal から受け取ったニックネームを設定
+};
 
 // 認証関連ハンドラー（ログイン/サインアップ）
 const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault(); // フォーム送信時にページ遷移を防ぐ
+
   try {
     if (isLoginMode) {
-      // ログインモードであれば、ログイン処理を実行
+      // ログイン処理
       await signInWithEmailAndPassword(auth, email, password);
       alert('ログイン成功');
     } else {
-      // サインアップモードであれば、アカウント作成処理を実行
+      // サインアップ処理
       await createUserWithEmailAndPassword(auth, email, password);
-      setIsSignupSuccess(true); // サインアップ成功
-      setIsSignUpModalOpen(false); // アカウントモーダルを閉じる
-      setIsNicknameModalOpen(true); // ニックネーム設定モーダルを開く
       alert('アカウント作成成功');
+      setIsSignUpModalOpen(false);  // サインアップモーダルを閉じる
+      setIsNicknameModalOpen(true); // ニックネーム設定モーダルを開く
     }
-  } catch (error) {
+  } catch (error: any) {
     // エラーハンドリング
-    console.error('Authentication error:', error);
-    alert('エラーが発生しました。');
+    if (error.code === 'auth/email-already-in-use') {
+      alert('このメールアドレスはすでに使用されています。');
+    } else if (error.code === 'auth/invalid-email') {
+      alert('無効なメールアドレスです。');
+    } else if (error.code === 'auth/wrong-password') {
+      alert('間違ったパスワードです。');
+    } else {
+      alert('エラーが発生しました: ' + error.message);
+    }
   }
 };
+
 
 
 // ログアウト処理
@@ -266,6 +297,8 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   // 各データ計算
   ///////////////////////////////////////////
+  const Mynickname = entryAC[entryAC.length - 1]?.nickname || 'user';
+  
   // 最新のgoal
   const latestEntryAC = entryAC[entryAC.length - 1] || {
     goalWeight: '0',
@@ -303,14 +336,26 @@ const handleLogout = async () => {
     <div style={{ backgroundColor: '#EFF4FB', display: 'flex' }} className="flex">
       {/* サイドバー */}
       <aside className={styles.sidebar}>
-        <button onClick={() => setIsSignUpModalOpen(true)} className={styles.sidebarButton}>
-          <Image
-            src={sideBarImage00}
-            alt="Open Modal"
-            width={50} // 画像の幅を設定
-            height={50} // 画像の高さを設定
-          />
-        </button>
+          {/* ログイン状態に応じてボタンを切り替え */}
+            {isLoggedIn ? (
+              <button onClick={() => setIsLogoutModalOpen(true)} className={styles.sidebarButton}>
+                <Image
+                  src={icon01}
+                  alt="Open Modal"
+                  width={50} // 画像の幅を設定
+                  height={50} // 画像の高さを設定
+                />
+              </button>
+            ) : (
+              <button onClick={() => setIsSignUpModalOpen(true)} className={styles.sidebarButton}>
+                <Image
+                  src={sideBarImage00}
+                  alt="Open Modal"
+                  width={50} // 画像の幅を設定
+                  height={50} // 画像の高さを設定
+                />
+              </button>
+            )}
         <button onClick={() => setIsTextInputModalOpen(true)} className={styles.sidebarButton}>
           <Image
             src={sideBarImage01}
@@ -429,7 +474,7 @@ const handleLogout = async () => {
         setEditingId={() => {}}
       />
 
-      {/* ログインまたはサインアップ後のニックネーム設定モーダル */}
+      {/* ニックネーム設定モーダル */}
       <NicknameModal
         isNicknameModalOpen={isNicknameModalOpen}
         setIsNicknameModalOpen={setIsNicknameModalOpen}
@@ -437,128 +482,29 @@ const handleLogout = async () => {
         entryAC={entryAC}
         editingId={null}
         setEditingId={() => {}}
+        handleSetNickname={handleSetNickname}
       />
 
-      {/* 既存のログイン・サインアップモーダル */}
-      {isSignUpModalOpen && (
-        <div className={styles.modalBackground}>
-          <div className={styles.modalContent}>
-            {/* ログインモードの内容 */}
-            {isLoginMode ? (
-              <>
-                <h2 className="text-xl font-bold mb-4">ログイン</h2>
-
-                <form onSubmit={handleAuthSubmit}>
-                  {/* Email入力欄 */}
-                  <div className="mb-4">
-                    <label className="block mb-1">Email:</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="border p-2 w-full"
-                      required
-                    />
-                  </div>
-
-                  {/* Password入力欄 */}
-                  <div className="mb-4">
-                    <label className="block mb-1">Password:</label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="border p-2 w-full"
-                      required
-                    />
-                  </div>
-
-                  {/* ログインボタン */}
-                  <button type="submit" className={styles.modalButton}>
-                    ログイン
-                  </button>
-
-                  {/* ログアウトボタン */}
-                  <button type="button" onClick={handleLogout} className={styles.modalButtonclose} >log out</button>
-                </form>
-              </>
-            ) : (
-              // サインアップモードの内容
-              <>
-                <h2 className="text-xl font-bold mb-4">サインアップ</h2>
-
-                <form onSubmit={handleAuthSubmit}>
-                  {/* Email入力欄 */}
-                  <div className="mb-4">
-                    <label className="block mb-1">Email:</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="border p-2 w-full"
-                      required
-                    />
-                  </div>
-
-                  {/* Password入力欄 */}
-                  <div className="mb-4">
-                    <label className="block mb-1">Password:</label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="border p-2 w-full"
-                      required
-                    />
-                  </div>
-
-                  {/* サインアップボタン */}
-                  <button type="submit" className={styles.modalButton}>
-                    サインアップ
-                  </button>
-                </form>
-              </>
-            )}
-
-            {/* 横棒 */}
-            <div className="my-4 border-t border-gray-300" />
-
-            {/* 新規登録の誘導テキスト */}
-            <div className="text-center mb-4">
-              {isLoginMode ? (
-                <p>
-                  アカウントをお持ちでないですか？{' '}
-                  <span
-                    onClick={() => setIsLoginMode(false)}
-                    className="text-blue-500 cursor-pointer"
-                  >
-                    新規登録はこちら
-                  </span>
-                </p>
-              ) : (
-                <p>
-                  すでにアカウントをお持ちですか？{' '}
-                  <span
-                    onClick={() => setIsLoginMode(true)}
-                    className="text-blue-500 cursor-pointer"
-                  >
-                    ログインはこちら
-                  </span>
-                </p>
-              )}
-            </div>
-
-            {/* モーダルを閉じるボタン */}
-            <button
-              type="button"
-              onClick={() => setIsSignUpModalOpen(false)}
-              className={styles.modalButtonclose}
-            >
-              閉じる
-            </button>
-          </div>
-        </div>
-      )}
+      <LogoutModal
+          nickname={Mynickname} // 親から渡した nickname を表示
+          setIsLogoutModalOpen={setIsLogoutModalOpen}
+          isLogoutModalOpen={isLogoutModalOpen}
+          handleLogout={handleLogout}
+       />
+      {/* ログイン・サインアップモーダル */}
+      <AuthModal
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+        isLoginMode={isLoginMode}
+        setIsLoginMode={setIsLoginMode}
+        handleAuthSubmit={handleAuthSubmit}
+        handleLogout={handleLogout}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+      
 
     </div>
   );

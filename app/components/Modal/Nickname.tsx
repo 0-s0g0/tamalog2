@@ -3,30 +3,57 @@
 ///////////////////////////////////////////
 
 //共通インポート
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../../style.module.css'; 
-import { EntryAC } from '../type'; // EntryAC 型をインポート
-import { db, auth } from '../../../firebase/firebase'; 
-import { setDoc, doc } from 'firebase/firestore';
+import { Entry,EntryAC } from '../type';
+import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
+import { db, auth } from '../../../firebase/firebase'
 
 // EntryAC を Firestore に保存する関数
 const saveEntryACToFirestore = async (entryAC: EntryAC) => {
-  try {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+         const userDocRef = doc(db, 'userProfiles', user.uid);
+         await setDoc(userDocRef, { 
+            entryAC: arrayUnion(entryAC) 
+          }, { merge: true });
+        console.log('EntryAC data successfully written to Firestore');
+      } else {
+        alert('ユーザーがログインしていません。');
+      }
+    } catch (error) {
+      console.error('Error writing EntryAC to Firestore:', error);
+      alert('データ保存中にエラーが発生しました。');
+    }
+  };
+
+// Firestoreから最新のEntryACを取得する関数
+const fetchLatestEntryAC = async (setEntryAC: React.Dispatch<React.SetStateAction<EntryAC[]>>) => {
     const user = auth.currentUser;
     if (user) {
-      const userDocRef = doc(db, 'userProfiles', user.uid);
-      await setDoc(userDocRef, {
-        entryAC: entryAC
-      }, { merge: true });
-      console.log('EntryAC data successfully written to Firestore');
+      try {
+        const userDocRef = doc(db, 'userProfiles', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        
+        if (userDocSnap.exists()) {
+          const data = userDocSnap.data();
+          if (data?.entryAC && data.entryAC.length > 0) {
+            // 最新のエントリーを取得（IDが大きいものが最新）
+            const latestEntry = data.entryAC.sort((a: EntryAC, b: EntryAC) => parseInt(b.id) - parseInt(a.id))[0];
+            setEntryAC([latestEntry]); // 最新データをセット
+          }
+        } else {
+          console.log('No entryAC found');
+        }
+      } catch (error) {
+        console.error('Error fetching data from Firestore:', error);
+      }
     } else {
       alert('ユーザーがログインしていません。');
     }
-  } catch (error) {
-    console.error('Error writing EntryAC to Firestore:', error);
-    alert('データ保存中にエラーが発生しました。');
-  }
-};
+  };
 
 interface Props {
     isNicknameModalOpen: boolean;
@@ -35,6 +62,7 @@ interface Props {
     setEntryAC: React.Dispatch<React.SetStateAction<EntryAC[]>>;
     editingId: string | null;
     setEditingId: React.Dispatch<React.SetStateAction<string | null>>;
+    handleSetNickname: (nickname: string) => void;
   }
   
   
@@ -45,7 +73,8 @@ const NicknameModal: React.FC<Props> = ({
   setEntryAC,
   entryAC,
   editingId,
-  setEditingId
+  setEditingId,
+  handleSetNickname,
 }) => {
   const [goalWeight, setGoalWeight] =  useState('');
   const [goalFat, setGoalFat] =  useState('');
@@ -76,6 +105,8 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     };
   
     try {
+        // 親にニックネームを渡す
+        handleSetNickname(nickname);
         if (editingId) {
             // 編集モードのロジックが必要であればここに記述
           } else {
