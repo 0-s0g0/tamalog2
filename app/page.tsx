@@ -9,18 +9,16 @@ import Image from 'next/image';
 import axios from 'axios';
 
 //copmponents
-import CardGoal from './components/CardGoal';
-import CardNow from './components/CardNow';
-import ChartsUI from './components/charts_UI';  
-import Datatable_UI from './components/Datatable_UI'; 
+import CardGoal from './components/Card/CardGoal';
+import CardNow from './components/Card/CardNow';
+import Charts_Line from './components/Charts/charts_Line';  
+import Charts_Dounut from './components/Charts/charts_Dounut';  
+import Datatable_UI from './components/Datatable/Datatable_UI'; 
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import AuthModal from './components/Modal/AuthModal';
 import NicknameModal from './components/Modal/Nickname'
 import LogoutModal from './components/Modal/LogoutModal';
-import { fetchEntriesFromFirestore } from './components/Modal/TextInput_UI' ; 
-
-
 
 // Firebase
 import { auth, db} from '../firebase/firebase';
@@ -32,6 +30,10 @@ import { getEntriesFromFirestore, getEntryACFromFirestore } from "../firebase/sa
 
 //style
 import styles from './style.module.css';
+import local from './styles/local.module.css'
+import stylesSidever from './styles/sidever.module.css';
+
+//type
 import { Entry } from './components/type'; 
 import { EntryAC } from './components/type'; 
 
@@ -46,8 +48,6 @@ import icon02 from './public/icon2.png';
 import icon03 from './public/icon3.png';
 import icon04 from './public/icon4.png';
 import { text } from 'node:stream/consumers';
-
-
 
 ///////////////////////////////////////////
 // メインコンポーネント
@@ -333,57 +333,78 @@ const handleLogout = async () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div style={{ backgroundColor: '#EFF4FB', display: 'flex' }} className="flex">
+    <div style={{ backgroundColor: '#5f9ea0', display: 'flex' }} className="flex">
       {/* サイドバー */}
-      <aside className={styles.sidebar}>
-          {/* ログイン状態に応じてボタンを切り替え */}
-            {isLoggedIn ? (
-              <button onClick={() => setIsLogoutModalOpen(true)} className={styles.sidebarButton}>
-                <Image
-                  src={icon01}
-                  alt="Open Modal"
-                  width={50} // 画像の幅を設定
-                  height={50} // 画像の高さを設定
-                />
-              </button>
-            ) : (
-              <button onClick={() => setIsSignUpModalOpen(true)} className={styles.sidebarButton}>
-                <Image
-                  src={sideBarImage00}
-                  alt="Open Modal"
-                  width={50} // 画像の幅を設定
-                  height={50} // 画像の高さを設定
-                />
-              </button>
-            )}
-        <button onClick={() => setIsTextInputModalOpen(true)} className={styles.sidebarButton}>
-          <Image
-            src={sideBarImage01}
-            alt="Open Modal"
-            width={50} // 画像の幅を設定
-            height={50} // 画像の高さを設定
-          />
+      <aside className={stylesSidever.sidebar}>
+        {/* ログイン状態に応じてボタンを切り替え */}
+        {isLoggedIn ? (
+          <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
+            <div className={stylesSidever.buttonContent}>
+              <Image
+                src={icon01}
+                alt="Open Modal"
+                width={50} // 画像の幅を設定
+                height={50} // 画像の高さを設定
+              />
+              <span className={stylesSidever.buttonText}>ログアウト</span> {/* 文字を追加 */}
+            </div>
+          </button>
+        ) : (
+          <button onClick={() => setIsSignUpModalOpen(true)} className={stylesSidever.sidebarButton}>
+            <div className={stylesSidever.buttonContent}>
+              <Image
+                src={sideBarImage00}
+                alt="Open Modal"
+                width={50} // 画像の幅を設定
+                height={50} // 画像の高さを設定
+              />
+              <span className={stylesSidever.buttonText}>サインアップ</span> {/* 文字を追加 */}
+            </div>
+          </button>
+        )}
+
+        <button onClick={() => setIsTextInputModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <Image
+              src={sideBarImage01}
+              alt="Open Modal"
+              width={50}
+              height={50}
+            />
+            <span className={stylesSidever.buttonText}>テキスト入力</span> {/* 文字を追加 */}
+          </div>
         </button>
-        <button onClick={() => setIsImageInputModalOpen(true)} className={styles.sidebarButton}>
-          <Image
-            src={sideBarImage02}
-            alt="Open Modal"
-            width={50} // 画像の幅を設定
-            height={50} // 画像の高さを設定
-          />
+
+        <button onClick={() => setIsImageInputModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <Image
+              src={sideBarImage02}
+              alt="Open Modal"
+              width={50}
+              height={50}
+            />
+            <span className={stylesSidever.buttonText}>画像入力</span> {/* 文字を追加 */}
+          </div>
         </button>
-        <button onClick={() => setIsNicknameModalOpen(true)} className={styles.sidebarButton}>
-          <Image
-            src={sideBarImage03}
-            alt="Open Modal"
-            width={50} // 画像の幅を設定
-            height={50} // 画像の高さを設定
-          />
+
+        <button onClick={() => setIsNicknameModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <Image
+              src={sideBarImage03}
+              alt="Open Modal"
+              width={50}
+              height={50}
+            />
+            <span className={stylesSidever.buttonText}>ニックネーム</span> {/* 文字を追加 */}
+          </div>
         </button>
       </aside>
 
+
+
+
       {/* メインコンテンツ */}
-      <div className="flex-1 p-24">
+      <div className={local.mainContent}>
         <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
         <Link href='/create-post'>Move Create Post Page</Link>
         <Image
@@ -397,23 +418,29 @@ const handleLogout = async () => {
         <CardGoal
         latestEntryAC={latestEntryAC}
         latestEntry={latestEntrytoGOAL}
-        />
+        />  
+        <div className={local.grid}>
+          {/* グラフ表示*/}
+          <Charts_Dounut
+              entries={entries}
+              latestEntry={latestEntry}
+              bodyFatPercentage={bodyFatPercentage}
+            />
 
-        <CardNow
-        latestEntry={latestEntry}
-        previousEntry={previousEntry}
-        />
+          <CardNow
+          latestEntry={latestEntry}
+          previousEntry={previousEntry}
+          />
 
+
+        </div>
         
 
-
-        {/* グラフ表示*/}
-        {/*{entries.length > 0 && latestEntry && ()}の中にいれると初期画面に表示させない*/}
-        <ChartsUI
-            entries={entries}
-            latestEntry={latestEntry}
-            bodyFatPercentage={bodyFatPercentage}
-          />
+        <Charts_Line
+          entries={entries}
+          latestEntry={latestEntry}
+          bodyFatPercentage={bodyFatPercentage}
+        />
 
         {/* データテーブル表示 */}
         <Datatable_UI 

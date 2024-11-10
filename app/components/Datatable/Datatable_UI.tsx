@@ -4,8 +4,8 @@
 
 //共通インポート
 import React from 'react';
-import styles from '../style.module.css'; 
-import { Entry } from './type'; 
+import styles from './Datatables.module.css'; 
+import { Entry } from '../type'; 
 
 //親コンポーネントから受け取るプロパティの型の指定
 interface DatatableProps {

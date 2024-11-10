@@ -1,0 +1,74 @@
+/* グラフカード全般のスタイル */
+.graphCard {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 相対位置を指定 */
+    height: 100%;  /* 高さを 100% に設定 */
+  
+  }
+    
+    /* 折れ線グラフのスタイル */
+    .lineChart {
+      grid-column: span 2;
+      position: relative; /* 相対位置を指定 */
+      height: 300px; /* 高さを指定 */
+      width: 100%; /* 横幅を100%に設定 */
+      align-items: center; /* 縦方向に中央揃え */
+      justify-content: center; /* 横方向に中央揃え */
+    }
+    
+    /* 折れ線グラフのキャンバスサイズ */
+    .lineChart canvas {
+      max-width: 90%; /* 幅を90%に設定 */
+      max-height: 90%; /* 高さを90%に設定 */
+      width: 100%; /* 横幅を100%に設定 */
+      height: 100%; /* 高さを100%に設定 */
+    }
+    
+    /* 円グラフのスタイル */
+    .donutChart {
+      height: 300px; /* 高さを指定 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-items: center; /* 縦方向に中央揃え */
+      justify-content: center; /* 横方向に中央揃え */
+    }
+    
+    /* 円グラフのサイズを小さくする */
+    .donutChart canvas {
+      max-width: 80%; /* 幅を90%に設定 */
+      max-height: 80%; /* 高さを90%に設定 */
+    }
+    
+    /* 円グラフの中央ラベル */
+    .donutCenterLabel {
+      position: absolute;
+      font-size: 30px; /* サイズを少し小さくする */
+      margin-top: 8%;
+      margin-right: 5%;
+      font-weight: bold;
+      color: #FF9E9E;
+      font-family: cursive;
+    }
+    .donutCenterLabel2 {
+      position: absolute;
+      font-size: 20px; /* サイズを少し小さくする */
+      margin-top: 15%;
+      font-weight: bold;
+      color: #888;
+      font-family: cursive;
+    }
+    
+    /* グラフのタイトル */
+    .graphTitle {
+      font-size: 0.875rem;
+      color: #888;
+      font-family: cursive;
+      margin-bottom: 16px; /* グラフとのスペース */
+      text-align: left; /* タイトルを左寄せにする */
+    }

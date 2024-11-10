@@ -1,14 +1,16 @@
 ///////////////////////////////////////////
-// 10. グラフデータ
+//  円グラフデータ
 ///////////////////////////////////////////
 
 //共通インポート
 import React from 'react';
-import styles from '../style.module.css'; 
-import { Entry } from './type'; 
+import styles from './charts_Dounut.module.css'; 
+import local from '../local.module.css'
+import { Entry } from '../type';
+
 
 //関数をインポート
-import { getLineChartData, getDonutChartData, donutChartOptions } from './charts'; 
+import { getDonutChartData, donutChartOptions } from './charts'; 
 
 // Chart.js関連のインポート
 import { Line, Doughnut } from 'react-chartjs-2';
@@ -42,38 +44,32 @@ interface ChartsUIProps {
   bodyFatPercentage: number; // 体脂肪率
 }
 
-const ChartsUI: React.FC<ChartsUIProps> = ({
+const Charts_Dounut: React.FC<ChartsUIProps> = ({
   entries,
   latestEntry,
   bodyFatPercentage,
 }) => {
 
-
-  // 折れ線グラフのデータ
-  const lineChartData = getLineChartData(entries);
   // ドーナツチャートのデータ
   const donutChartData = getDonutChartData(latestEntry);
 
   // UIコンポーネント
   return (
-    <div className="grid grid-cols-3 gap-4 mb-8">
-      {/* 体重履歴 */}
-      <div className={`${styles.graphCard} ${styles.lineChart}`}>
-        <div className={styles.graphTitle}>Weight History</div>
-        <Line data={lineChartData} />
-      </div>
-
+      <div className="grid-cols-2 gap-4 mb-8">
       {/* 体組成分析 */}
-      <div className={`${styles.graphCard} ${styles.donutChart}`}>
-        <div className={styles.graphTitle}>Body Composition Analysis</div>
-        <Doughnut data={donutChartData} options={donutChartOptions} />
-        <div className={styles.donutCenterLabel}>
-          {bodyFatPercentage.toFixed(2)}
-          <span className={styles.donutCenterLabel2}>%</span>
+
+        {/* 左側の円グラフ */}
+        <div className={`${styles.graphCard} ${styles.donutChart}`}>
+          <div className={styles.graphTitle}>Body Composition Analysis</div>
+          <Doughnut data={donutChartData} options={donutChartOptions} />
+          <div className={styles.donutCenterLabel}>
+            {bodyFatPercentage.toFixed(2)}
+            <span className={styles.donutCenterLabel2}>%</span>
+          </div>
         </div>
       </div>
-    </div>
+
   );
 };
 
-export default ChartsUI;
+export default Charts_Dounut;

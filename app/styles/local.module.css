@@ -1,0 +1,18 @@
+/* local.modules.css */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* 2列に設定 */
+  gap: 16px;  /* カードとグラフの間にスペースを追加 */
+  margin-bottom: 32px; /* 下の余白 */
+  align-items: center; /*縦方向の中央揃え */
+}
+
+.mainContent {
+  margin-left: 15vw;  /* サイドバーの横幅と同じ値 */
+  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
+  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
+  padding: 30px;   
+  width: calc(99% - 15vw); /* サイドバー分だけ余白を確保 */
+  background-color: rgba(252, 252, 252, 0.8);
+  border-radius: 40px 40px 40px 40px;
+}

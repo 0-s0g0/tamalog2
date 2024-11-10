@@ -1,0 +1,67 @@
+  /* アイコンとテキストを横並びにするために、.metricCard に display: flex を追加 */
+  .metricCard {
+    display: flex;
+    align-items: center; /* アイコンとテキストを縦方向で中央揃え */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+  }
+
+  /* アイコンを包むボックス */
+  .iconWrapper {
+    width: 60px; /* 正方形のサイズ */
+    height: 60px; /* 高さを60pxに調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #da6f6f; /* アイコンの背景色 */
+    border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+    margin-right: 16px; /* アイコンとテキストの間にスペース */
+  }
+
+  /* アイコンとテキストが横並びに整列するように、.metricContent を調整 */
+  .metricContent {
+    display: flex;
+    flex-direction: column; /* テキストを縦に並べる */
+    justify-content: center;
+  }
+
+  /* ラベルのスタイル */
+  .metricLabel {
+    font-size: 0.875rem;
+    color: #888;
+    margin-bottom: 4px;
+    font-family: cursive;
+  }
+
+  /* メトリック値のスタイル */
+  .metricValue {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: cursive;
+  }
+
+  /* 変更指示のスタイル */
+  .changeIndicator {
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+    color: #888;
+    font-family: cursive;
+  }
+
+  .changeINIndicator {
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+    color: #d66d6d;
+    font-family: cursive;
+  }
+
+  .changeOUTIndicator {
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+    color: #6db3d6;
+    font-family: cursive;
+  }
