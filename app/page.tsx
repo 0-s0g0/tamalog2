@@ -15,7 +15,7 @@ import CardNow from './components/Card/CardNow';
 import Charts_Line from './components/Charts/charts_Line';  
 import Charts_Dounut from './components/Charts/charts_Dounut';  
 import Datatable_UI from './components/Datatable/Datatable_UI'; 
-import Sidever from './components/Sidever/RightSidever';  //
+import RightSidebar from './components/Sidebar/RightSidebar';  //
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import AuthModal from './components/Modal/AuthModal';
@@ -428,7 +428,6 @@ const handleLogout = async () => {
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
           <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
-          <CalendarWithIcons sportsEntries={sportsEntries} />
           <Link href='/create-post'>Move Create Post Page</Link>
           <Image
             src={sample_img}
@@ -471,7 +470,7 @@ const handleLogout = async () => {
         </div>
         {/* 右側のサイドバー（カレンダー） */}
         <div className={local.sidebarRight}>
-            <Sidever sportsEntries={sportsEntries} />
+        <RightSidebar sportsEntries={sportsEntries} />
         </div>
       </div>
 

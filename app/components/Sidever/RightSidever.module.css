@@ -1,6 +1,0 @@
-.contener{
-  display: flex;
-  flex-direction: column; /* アイテムを縦に並べる */
-  /* align-items: flex-start; アイテムを上に揃える */
-  justify-content: center;
-}

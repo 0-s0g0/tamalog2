@@ -1,19 +1,19 @@
 .calendarGrid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7列で曜日を表示 */
-  gap: 10px;
-}
-
-.dayCell {
-  position: relative;
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: center;
-  cursor: pointer;
-}
-
-.iconImage {
-  width: 20px;
-  height: 20px;
-  margin-top: 5px;
-}
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7列で曜日を表示 */
+    gap: 10px;
+  }
+  
+  .dayCell {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .iconImage {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+  }

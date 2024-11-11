@@ -15,5 +15,5 @@ body {
   border: none; /* 枠線を削除 */
   border-radius: 20px; /* カレンダー内の角を丸くする */
   background-color: transparent; /* 背景を透明にして、影を際立たせる */
-  background-color: rgba(0, 0, 0, 0.1)!important; 
+  background-color: rgba(255, 255, 255, 0.1)!important; 
 }

@@ -1,0 +1,14 @@
+/* components/RightSidebar.module.css */
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calendar-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
