@@ -1,7 +1,10 @@
 import { db, auth } from './firebase'; // Firebaseの設定をインポート
 import { doc, setDoc, getDoc, arrayUnion,collection,getDocs } from 'firebase/firestore';
-import { Entry, EntryAC } from '../app/components/type';
+import { Entry, EntryAC, EntrySports } from '../app/components/type';
 
+///////////////////////////////////////////
+//user情報
+///////////////////////////////////////////
 // Firebaseにユーザー情報を保存する関数
 export const saveUserInfoToFirestore = async (userInfo: {
   nickname: string;
@@ -55,6 +58,9 @@ export const fetchUserInfoFromFirestore = async () => {
   }
 };
 
+///////////////////////////////////////////
+//Entry情報
+///////////////////////////////////////////
 // Firestoreにエントリー情報を保存する関数
 export const saveEntryToFirestore = async (entry: Entry) => {
   const user = auth.currentUser;
@@ -81,45 +87,49 @@ export const saveEntryToFirestore = async (entry: Entry) => {
   }
 };
 
+// Firestoreからユーザーのエントリーを取得する関数
+export const getEntriesFromFirestore = async (setEntries: React.Dispatch<React.SetStateAction<Entry[]>>) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userEntries', user.uid);
+      const docSnap = await getDoc(userDocRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setEntries(data.entries || []);
+        console.log('User data fetched successfully:', data);
+      } else {
+        console.log('No user data found');
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching data from Firestore:', error);
+    alert('データの取得中にエラーが発生しました。');
+  }
+};
+///////////////////////////////////////////
+//EntryAC情報
+///////////////////////////////////////////
 // EntryACデータをFirestoreに保存する関数
-export const saveEntryACToFirestore = async (entryAC: EntryAC) => {
+export  const saveEntryACToFirestore = async (entryAC: EntryAC) => {
     try {
       const user = auth.currentUser;
       if (user) {
-        const userDocRef = doc(db, "userEntries", user.uid);
-        const entryACCollectionRef = collection(userDocRef, "entryAC");
-        const newEntryACDocRef = doc(entryACCollectionRef, entryAC.id);
-        await setDoc(newEntryACDocRef, entryAC);
-        console.log("EntryAC data successfully written to Firestore");
+         const userDocRef = doc(db, 'userProfiles', user.uid);
+         await setDoc(userDocRef, { 
+            entryAC: arrayUnion(entryAC) 
+          }, { merge: true });
+        console.log('EntryAC data successfully written to Firestore');
       } else {
-        alert("ユーザーがログインしていません。");
+        alert('ユーザーがログインしていません。');
       }
     } catch (error) {
-      console.error("Error writing entryAC to Firestore:", error);
-      alert("データ保存中にエラーが発生しました。");
+      console.error('Error writing EntryAC to Firestore:', error);
+      alert('データ保存中にエラーが発生しました。');
     }
   };
 
-// Firestoreからユーザーのエントリーを取得する関数
-export const getEntriesFromFirestore = async (setEntries: React.Dispatch<React.SetStateAction<Entry[]>>) => {
-    try {
-      const user = auth.currentUser;
-      if (user) {
-        const userDocRef = doc(db, 'userEntries', user.uid);
-        const docSnap = await getDoc(userDocRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setEntries(data.entries || []);
-          console.log('User data fetched successfully:', data);
-        } else {
-          console.log('No user data found');
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching data from Firestore:', error);
-      alert('データの取得中にエラーが発生しました。');
-    }
-  };
+
 
 // EntryACデータを取得する関数
 export const getEntryACFromFirestore = async (setEntryAC: React.Dispatch<React.SetStateAction<EntryAC[]>>) => {
@@ -141,3 +151,71 @@ export const getEntryACFromFirestore = async (setEntryAC: React.Dispatch<React.S
           alert('データの取得中にエラーが発生しました。');
         }
       };
+
+///////////////////////////////////////////
+//Entrysports情報
+///////////////////////////////////////////
+
+// EntrySportsデータをFirestoreに保存する関数
+export const saveEntrySportsToFirestore = async (entrySports: EntrySports) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+       const userDocRef = doc(db, 'userSports', user.uid);
+       await setDoc(userDocRef, { 
+          entrySports: arrayUnion(entrySports) 
+        }, { merge: true });
+      console.log('EntrySports data successfully written to Firestore');
+    } else {
+      alert('ユーザーがログインしていません。');
+    }
+  } catch (error) {
+    console.error('Error writing EntrySports to Firestore:', error);
+    alert('データ保存中にエラーが発生しました。');
+  }
+};
+
+/*
+// EntrySportsデータを取得する関数
+export const getEntrySportsFromFirestore = async (setEntrySports: React.Dispatch<React.SetStateAction<EntrySports[]>>) => {
+   try {
+      const user = auth.currentUser;
+      if (user) {
+        const userDocRef = doc(db, 'userSports', user.uid);
+        const docSnap = await getDoc(userDocRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setEntrySports(data.entrySports || []);
+          console.log('User data fetched successfully:', data);
+        } else {
+          console.log('No user data found');
+        }
+      }
+    } catch (error) {
+        console.error('Error fetching data from Firestore:', error);
+        alert('データの取得中にエラーが発生しました。');
+      }
+    };
+
+*/
+    export const getEntrySportsFromFirestore = async (setEntrySports: React.Dispatch<React.SetStateAction<EntrySports[]>>) => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userDocRef = doc(db, 'userSports', user.uid);
+          const docSnap = await getDoc(userDocRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            const entrySports = data.entrySports || [];
+            console.log("Firestoreから取得したスポーツデータ: ", entrySports);  // データが取得できているか確認
+            setEntrySports(entrySports);
+          } else {
+            console.log("ユーザーデータが存在しません");
+          }
+        }
+      } catch (error) {
+        console.error("Firestoreからのデータ取得エラー: ", error);
+        alert("データの取得中にエラーが発生しました");
+      }
+    };
+    

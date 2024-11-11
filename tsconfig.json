@@ -7,7 +7,9 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": true, // strict モードを無効にする
+    //"noImplicitAny": false, // any 型の警告を無効にする
+    //"strictNullChecks": false, // null チェックの厳格さを緩和
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

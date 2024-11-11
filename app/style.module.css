@@ -58,6 +58,52 @@
     cursor: pointer;
   }
 
+  /* 例: 時間入力欄のスタイル */
+.timeInput {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeInput label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.timeInputField {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+
+
+/* アイコンの基本スタイル */
+/* アイコン選択ボタン */
+.iconSelection button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5; /* デフォルトで半透明 */
+  transition: opacity 0.3s ease;
+}
+
+/* アイコンが選択されている場合は opacity を解除 */
+.iconSelection button.selected {
+  opacity: 1; /* 選択されたアイコンは完全に表示 */
+}
+
+/* アイコンのサイズ */
+.iconImage {
+  width: 60px;
+  height: 60px;
+}
+
+
+
 
 
 

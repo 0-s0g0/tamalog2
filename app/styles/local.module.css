@@ -7,12 +7,51 @@
   align-items: center; /*縦方向の中央揃え */
 }
 
-.mainContent {
+/* 全体のコンテナ */
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* メインコンテンツの背景 */
+.mainbackContent {
   margin-left: 15vw;  /* サイドバーの横幅と同じ値 */
-  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
-  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
-  padding: 30px;   
-  width: calc(99% - 15vw); /* サイドバー分だけ余白を確保 */
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  padding: 30px;
+  width: calc(99% - 15vw);  /* サイドバー分だけ余白を確保 */
   background-color: rgba(252, 252, 252, 0.8);
+  border-radius: 40px 40px 40px 40px;
+  flex-grow: 1;
+}
+
+/* メインコンテンツ */
+.mainContent {
+  margin-left: 1vw;  /* サイドバーの横幅と同じ値 */
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  padding: 30px;
+  width: calc(99% - 20vw); /* サイドバー分だけ余白を確保 */
+  background-color: rgba(252, 252, 252, 0);
+  border-radius: 40px 40px 40px 40px;
+  flex-grow: 1;
+}
+
+/* 右側のサイドバー */
+.sidebarRight {
+  width: 30vw;         /* サイドバーの横幅 */
+  height: 100vh;       /* 画面の高さに合わせる */
+  position: absolute;  /* スクロールしないようにする */
+  top: 0;
+  right: 0;
+  background-color: #a3d5c2;
+  border-left: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 10;
   border-radius: 40px 40px 40px 40px;
 }

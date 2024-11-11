@@ -1,13 +1,15 @@
-/* サイドバーのスタイル */
+/* 左のサイドバー */
 .sidebar {
   width: 15vw;
   height: 100vh;
-  /*background-color: #5f9ea0;*/
+  /* background-color: #5f9ea0; */
   position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 2rem;
+  top: 0;
+  left: 0;
 }
 
 .buttonContent {

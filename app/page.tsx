@@ -9,16 +9,19 @@ import Image from 'next/image';
 import axios from 'axios';
 
 //copmponents
+import CalendarWithIcons from './components/Calender/Calender';  // Calendarコンポーネントをインポート
 import CardGoal from './components/Card/CardGoal';
 import CardNow from './components/Card/CardNow';
 import Charts_Line from './components/Charts/charts_Line';  
 import Charts_Dounut from './components/Charts/charts_Dounut';  
 import Datatable_UI from './components/Datatable/Datatable_UI'; 
+import Sidever from './components/Sidever/RightSidever';  //
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import AuthModal from './components/Modal/AuthModal';
 import NicknameModal from './components/Modal/Nickname'
 import LogoutModal from './components/Modal/LogoutModal';
+import CalendarModal from './components/Modal/CalenderModal'
 
 // Firebase
 import { auth, db} from '../firebase/firebase';
@@ -26,16 +29,17 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fire
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getEntriesFromFirestore, getEntryACFromFirestore } from "../firebase/saveDataFunctions";
+import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore} from "../firebase/saveDataFunctions";
 
 //style
 import styles from './style.module.css';
 import local from './styles/local.module.css'
 import stylesSidever from './styles/sidever.module.css';
 
+
 //type
-import { Entry } from './components/type'; 
-import { EntryAC } from './components/type'; 
+import { Entry,EntryAC, EntrySports } from './components/type'; 
+
 
 //Image
 import sample_img from './public/image01.png';
@@ -59,6 +63,7 @@ export default function Home() {
   // データ関連
   const [entries, setEntries] = useState<Entry[]>([]);
   const [entryAC, setEntryAC] = useState<EntryAC[]>([]);
+  const [sportsEntries, setSportsEntries] = useState<EntrySports[]>([]); 
   const [date, setDate] = useState('');
   const [bodyWater, setBodyWater] = useState('');
   const [protein, setProtein] = useState('');
@@ -72,6 +77,7 @@ export default function Home() {
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
 
   // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -87,6 +93,10 @@ export default function Home() {
   const [nickname, setNickname] = useState<string>(''); 
   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  //右サイドバー
+  
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());  // 選択された日付の状態
  
 
   // アイコンの選択
@@ -117,6 +127,7 @@ export default function Home() {
       if (auth.currentUser) {
         await getEntriesFromFirestore(setEntries);
         await getEntryACFromFirestore(setEntryAC);
+        await getEntrySportsFromFirestore(setSportsEntries);
       }
     };
     fetchData();
@@ -398,57 +409,70 @@ const handleLogout = async () => {
             <span className={stylesSidever.buttonText}>ニックネーム</span> {/* 文字を追加 */}
           </div>
         </button>
-      </aside>
 
-
-
-
-      {/* メインコンテンツ */}
-      <div className={local.mainContent}>
-        <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
-        <Link href='/create-post'>Move Create Post Page</Link>
-        <Image
-          src={sample_img}
-          alt="Sample image"
-          width={200}
-          height={300}
-        />
-
-        {/* メトリクスカード */}
-        <CardGoal
-        latestEntryAC={latestEntryAC}
-        latestEntry={latestEntrytoGOAL}
-        />  
-        <div className={local.grid}>
-          {/* グラフ表示*/}
-          <Charts_Dounut
-              entries={entries}
-              latestEntry={latestEntry}
-              bodyFatPercentage={bodyFatPercentage}
+        <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <Image
+              src={sideBarImage03}
+              alt="Open Modal"
+              width={50}
+              height={50}
             />
-
-          <CardNow
-          latestEntry={latestEntry}
-          previousEntry={previousEntry}
-          />
-
-
-        </div>
+            <span className={stylesSidever.buttonText}>ニックネーム</span> {/* 文字を追加 */}
+          </div>
+        </button>
+      </aside>
         
 
-        <Charts_Line
-          entries={entries}
-          latestEntry={latestEntry}
-          bodyFatPercentage={bodyFatPercentage}
-        />
-
-        {/* データテーブル表示 */}
-        <Datatable_UI 
-            entries={entries} 
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
+      {/* メインコンテンツ */}
+      <div className={local.mainbackContent}>
+        <div className={local.mainContent}>
+          <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
+          <CalendarWithIcons sportsEntries={sportsEntries} />
+          <Link href='/create-post'>Move Create Post Page</Link>
+          <Image
+            src={sample_img}
+            alt="Sample image"
+            width={200}
+            height={300}
           />
+
+          {/* メトリクスカード */}
+          <CardGoal
+          latestEntryAC={latestEntryAC}
+          latestEntry={latestEntrytoGOAL}
+          />  
+          <div className={local.grid}>
+            {/* グラフ表示*/}
+            <Charts_Dounut
+                entries={entries}
+                latestEntry={latestEntry}
+                bodyFatPercentage={bodyFatPercentage}
+              />
+              <CardNow
+              latestEntry={latestEntry}
+              previousEntry={previousEntry}
+              />
+          </div>
           
+          <Charts_Line
+            entries={entries}
+            latestEntry={latestEntry}
+            bodyFatPercentage={bodyFatPercentage}
+          />
+
+          {/* データテーブル表示 */}
+          <Datatable_UI 
+              entries={entries} 
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+            
+        </div>
+        {/* 右側のサイドバー（カレンダー） */}
+        <div className={local.sidebarRight}>
+            <Sidever sportsEntries={sportsEntries} />
+        </div>
       </div>
 
       {/* テキスト入力用モーダルフォーム*/}
@@ -531,8 +555,15 @@ const handleLogout = async () => {
         password={password}
         setPassword={setPassword}
       />
+        {/* モーダル */}
+        <CalendarModal
+        isModalOpen={isCalendarModalOpen}  // モーダルが開いているか
+        setIsModalOpen={setIsCalendarModalOpen}  // モーダルを閉じる関数
+        setSportsEntries={setSportsEntries}  // 親のエントリ更新関数
+      />
       
 
     </div>
+    
   );
 }
