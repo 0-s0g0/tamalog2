@@ -107,6 +107,29 @@ export const getEntriesFromFirestore = async (setEntries: React.Dispatch<React.S
     alert('データの取得中にエラーが発生しました。');
   }
 };
+
+//count
+export const getCountEntriesFromFirestore = async (setEntries: React.Dispatch<React.SetStateAction<Entry[]>>) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userEntries', user.uid); // userEntriesコレクションのユーザードキュメント参照
+      const docSnap = await getDoc(userDocRef); // ドキュメントを取得
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const entries: Entry[] = data.entries || []; // entriesフィールドを取得（配列）
+        setEntries(entries); // entriesを状態にセット
+        console.log('User data fetched successfully:', data);
+      } else {
+        console.log('No user data found');
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching data from Firestore:', error);
+    alert('データの取得中にエラーが発生しました。');
+  }
+};
 ///////////////////////////////////////////
 //EntryAC情報
 ///////////////////////////////////////////

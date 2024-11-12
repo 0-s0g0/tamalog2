@@ -9,6 +9,7 @@ import Image from 'next/image';
 import axios from 'axios';
 
 //copmponents
+import CountDisplay from './components/Countdisplay';
 import CalendarWithIcons from './components/Calender/Calender';  // Calendarコンポーネントをインポート
 import CardGoal from './components/Card/CardGoal';
 import CardNow from './components/Card/CardNow';
@@ -23,13 +24,16 @@ import NicknameModal from './components/Modal/Nickname'
 import LogoutModal from './components/Modal/LogoutModal';
 import CalendarModal from './components/Modal/CalenderModal'
 
+
+import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
+
 // Firebase
 import { auth, db} from '../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore} from "../firebase/saveDataFunctions";
+import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../firebase/saveDataFunctions";
 
 //style
 import styles from './style.module.css';
@@ -58,7 +62,8 @@ import Title01 from './public/Title01.png';
 import Title02 from './public/Title02.png';
 import Title03 from './public/Title03.png';
 import Title04 from './public/Title04.png';
-
+import piyo03 from './public/piyo03.png'
+import kaunt from './public/kaunt1.png'
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -76,6 +81,9 @@ export default function Home() {
   const [minerals, setMinerals] = useState('');
   const [bodyFat, setBodyFat] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [count, setCount] = useState<number>(0); // カウント用の状態
+  const [tip, setTip] = useState(getRandomTip())
+  const [error, setError] = useState<string>(''); // エラーメッセージの状態
 
   // モーダル開閉制御
   const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
@@ -134,10 +142,15 @@ export default function Home() {
         await getEntriesFromFirestore(setEntries);
         await getEntryACFromFirestore(setEntryAC);
         await getEntrySportsFromFirestore(setSportsEntries);
+        await getCountEntriesFromFirestore(setEntries);
       }
     };
     fetchData();
   }, [auth.currentUser]);
+
+  useEffect(() => {
+    setCount(entries.length); // entriesの長さをcountとして設定
+  }, [entries]); // entriesが変わるたびに実行
 
     // ログイン状態の監視
     useEffect(() => {
@@ -295,6 +308,9 @@ const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   }
 };
 
+const handleNewTip = () => {
+  setTip(getRandomTip());
+};
 
 
 // ログアウト処理
@@ -427,6 +443,11 @@ const handleLogout = async () => {
             />
           </div>
         </button>
+
+        <div className={stylesSidever.imageContainer}>
+          {/* 画像の上にCountDisplayを配置 */}
+          <CountDisplay entries={entries} />
+        </div>
       </aside>
         
 
@@ -434,7 +455,17 @@ const handleLogout = async () => {
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
           <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
-          <h2>CONCEPT</h2>
+            <div className={styles.piyo}>          
+              <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
+                  <Image src={piyo03} alt="Sample image" width={250} />
+              </button>
+              <div className={styles.container}>
+                <div className={styles.piyoime}>
+                <Image src={kaunt} alt="Sample image" width={600} />
+                <div className={styles.tip}>{tip}</div>
+                </div>
+              </div>
+            </div>
           <Link href='/create-post'>Move Create Post Page</Link>
           <Image
             src={Title01}
