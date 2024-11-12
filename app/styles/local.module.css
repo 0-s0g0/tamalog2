@@ -7,15 +7,35 @@
   align-items: center; /*縦方向の中央揃え */
 }
 
+/* 親のカード要素 */
+.body {
+  background-color: #f8cc49;/*#5f9ea0*/
+  display: flex;
+  position: relative; /* 影を追加するために必要 */
+  z-index: 0; /* 他の要素よりも前面に表示 */
+}
+
+.fullbackContent {
+  margin-left: 2vw;  /* サイドバーの横幅と同じ値 */
+  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
+  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
+  width: calc(99% - 1vw); /* サイドバー分だけ余白を確保 */
+  background-color: rgb(245, 245, 245,0.9);
+  border-radius: 40px 40px 40px 40px;
+  position: relative; 
+  z-index: 1; /* 他の要素よりも前面に表示 */
+}
+
 .mainbackContent {
-  margin-left: 15vw;  /* サイドバーの横幅と同じ値 */
+  margin-left: 14vw;  /* サイドバーの横幅と同じ値 */
   margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
   margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
   padding: 30px;   
   width: calc(99% - 15vw); /* サイドバー分だけ余白を確保 */
-  background-color: rgba(252, 252, 252, 0.8);
+  background-color: rgb(245, 253, 226);
   border-radius: 40px 40px 40px 40px;
   position: relative; 
+  z-index: 1; /* 他の要素よりも前面に表示 */
 }
 
 
@@ -23,7 +43,7 @@
   margin-left: 0vw;  /* サイドバーの横幅と同じ値 */
   margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
   margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
-  padding: 30px;   
+  padding: 15px;   
   width: calc(99% - 22vw); /* サイドバー分だけ余白を確保 */
   background-color: rgba(252, 252, 252, 0);
   border-radius: 40px 40px 40px 40px;
@@ -31,7 +51,7 @@
 
 /*右側のサイドバー */
 .sidebarRight {
-  width: 22vw;  
+  width: 20vw;  
   height: 98%;  
   position: absolute;
   margin-top: 1vw; 
@@ -39,7 +59,7 @@
   margin-right: 1vw; 
   right: 0;  
   top: 0;
-  background-color: rgba(252, 252, 252, 0.7);  
+  background-color: rgb(225, 244, 239);  
   border-left: 1px solid #ddd;  
   display: flex;
   flex-direction: column; /* アイテムを縦に並べる */

@@ -25,21 +25,22 @@ export const getLineChartData = (entries: Entry[]) => {
 // ドーナツチャートのデータ
 export const getDonutChartData = (latestEntry: Entry) => {
   return {
-    labels: ['体水分', 'タンパク質', 'ミネラル', '体脂肪'],
+    labels: ['体水分', 'タンパク質', 'ミネラル', '体脂肪'],  // グラフのラベル
     datasets: [
       {
         data: [
-          parseFloat(latestEntry.bodyWater),
-          parseFloat(latestEntry.protein),
-          parseFloat(latestEntry.minerals),
-          parseFloat(latestEntry.bodyFat),
+          parseFloat(latestEntry.bodyWater),  // 体水分
+          parseFloat(latestEntry.protein),    // タンパク質
+          parseFloat(latestEntry.minerals),   // ミネラル
+          parseFloat(latestEntry.bodyFat),    // 体脂肪
         ],
-        backgroundColor: ['#99CCFF', '#9EFFCE', '#FFFF9E', '#FF9E9E'],
-        borderWidth: 1,
+        backgroundColor: ['#9fbcde', '#acdbb7', '#FFC374', '#FF9E9E'], // 円グラフの各セクションの色
+        borderWidth: 1, // 円グラフのセクションの枠線の太さ
       },
     ],
   };
 };
+
 
 // ドーナツチャートのオプション
 export const donutChartOptions = {

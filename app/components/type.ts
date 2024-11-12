@@ -33,3 +33,10 @@ export interface Entry {
     height:string; //from nicknameMOdal
     sex: string;//from nicknameMOdal
   }
+
+  export interface EntrySports {
+    id: string;  // ユーザーID
+    date: string;  // 選択した日付
+    icon: string;  // 選択したスポーツのアイコン
+    time: string;  // 記録された時間
+  }

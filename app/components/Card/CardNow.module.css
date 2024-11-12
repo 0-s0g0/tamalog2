@@ -11,13 +11,36 @@
   }
 
   /* アイコンを包むボックス */
-  .iconWrapper {
+  .iconWrapper1 {
     width: 60px; /* 正方形のサイズ */
     height: 60px; /* 高さを60pxに調整 */
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #da6f6f; /* アイコンの背景色 */
+    background-color: #9fbcde
+    ; /* アイコンの背景色 */
+    border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+    margin-right: 16px; /* アイコンとテキストの間にスペース */
+  }
+  /* アイコンを包むボックス */
+  .iconWrapper2 {
+    width: 60px; /* 正方形のサイズ */
+    height: 60px; /* 高さを60pxに調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #acdbb7; /* アイコンの背景色 */
+    border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+    margin-right: 16px; /* アイコンとテキストの間にスペース */
+  }
+  /* アイコンを包むボックス */
+  .iconWrapper3 {
+    width: 60px; /* 正方形のサイズ */
+    height: 60px; /* 高さを60pxに調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFC374; /* アイコンの背景色 */
     border-radius: 8px; /* アイコンボックスを丸くする（任意） */
     margin-right: 16px; /* アイコンとテキストの間にスペース */
   }

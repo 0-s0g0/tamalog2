@@ -54,7 +54,7 @@ const calculateChange = (latest: string, previous: string) => {
         {/* 右側のメトリックスカード */}
         <div className="flex flex-col gap-4">
           <div className={styles.metricCard}>
-            <div className={styles.iconWrapper}>
+            <div className={styles.iconWrapper1}>
               <Image 
                 src={NowWater_img}
                 alt='GoalWeight'
@@ -74,7 +74,7 @@ const calculateChange = (latest: string, previous: string) => {
           </div>
 
           <div className={styles.metricCard}>
-            <div className={styles.iconWrapper}>
+            <div className={styles.iconWrapper2}>
               <Image 
                 src={NowPritein_img}
                 alt='GoalWeight'
@@ -94,7 +94,7 @@ const calculateChange = (latest: string, previous: string) => {
           </div>
 
           <div className={styles.metricCard}>
-            <div className={styles.iconWrapper}>
+            <div className={styles.iconWrapper3}>
               <Image 
                 src={NowMineral_img}
                 alt='GoalWeight'

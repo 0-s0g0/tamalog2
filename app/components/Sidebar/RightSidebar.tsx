@@ -10,7 +10,7 @@ interface RightSidebarProps {
 
 const RightSidebar: React.FC<RightSidebarProps> = ({ sportsEntries }) => {
   return (
-    <div>
+    <div className={styles.sidebar}>
       <div className={styles['sidebar-header']}>
         <h3>Right Sidebar</h3>
       </div>

@@ -19,6 +19,7 @@
       width: 100%; /* 横幅を100%に設定 */
       align-items: center; /* 縦方向に中央揃え */
       justify-content: center; /* 横方向に中央揃え */
+      
     }
     
     /* 折れ線グラフのキャンバスサイズ */

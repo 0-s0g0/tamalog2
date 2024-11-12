@@ -43,15 +43,21 @@ import { Entry,EntryAC, EntrySports } from './components/type';
 
 //Image
 import sample_img from './public/image01.png';
-import sideBarImage00 from './public/Sidever_image00.png';
-import sideBarImage01 from './public/Sidever_image01.png';
-import sideBarImage02 from './public/Sidever_image02.png';
-import sideBarImage03 from './public/Sidever_image03.png';
+import logo from './public/logo.png';
+import sideBarImage00 from './public/Sidever_image000.png';
+import sideBarImage01 from './public/Sidever_image001a.png';
+import sideBarImage02 from './public/Sidever_image002.png';
+import sideBarImage03 from './public/Sidever_image003.png';
+import sideBarImage04 from './public/Sidever_image004.png';
 import icon01 from './public/icon1.png';
 import icon02 from './public/icon2.png';
 import icon03 from './public/icon3.png';
 import icon04 from './public/icon4.png';
 import { text } from 'node:stream/consumers';
+import Title01 from './public/Title01.png';
+import Title02 from './public/Title02.png';
+import Title03 from './public/Title03.png';
+import Title04 from './public/Title04.png';
 
 ///////////////////////////////////////////
 // メインコンポーネント
@@ -344,9 +350,15 @@ const handleLogout = async () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div style={{ backgroundColor: '#5f9ea0', display: 'flex' }} className="flex">
+    <div className={local.body}>
+      <div className={local.fullbackContent}>
       {/* サイドバー */}
       <aside className={stylesSidever.sidebar}>
+        <Image
+          src={logo}
+          alt="Open Modal"
+          width={200} // 画像の幅を設定
+        />
         {/* ログイン状態に応じてボタンを切り替え */}
         {isLoggedIn ? (
           <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
@@ -357,7 +369,6 @@ const handleLogout = async () => {
                 width={50} // 画像の幅を設定
                 height={50} // 画像の高さを設定
               />
-              <span className={stylesSidever.buttonText}>ログアウト</span> {/* 文字を追加 */}
             </div>
           </button>
         ) : (
@@ -366,10 +377,9 @@ const handleLogout = async () => {
               <Image
                 src={sideBarImage00}
                 alt="Open Modal"
-                width={50} // 画像の幅を設定
+                width={150} // 画像の幅を設定
                 height={50} // 画像の高さを設定
               />
-              <span className={stylesSidever.buttonText}>サインアップ</span> {/* 文字を追加 */}
             </div>
           </button>
         )}
@@ -379,10 +389,9 @@ const handleLogout = async () => {
             <Image
               src={sideBarImage01}
               alt="Open Modal"
-              width={50}
+              width={150}
               height={50}
             />
-            <span className={stylesSidever.buttonText}>テキスト入力</span> {/* 文字を追加 */}
           </div>
         </button>
 
@@ -391,10 +400,9 @@ const handleLogout = async () => {
             <Image
               src={sideBarImage02}
               alt="Open Modal"
-              width={50}
+              width={150}
               height={50}
             />
-            <span className={stylesSidever.buttonText}>画像入力</span> {/* 文字を追加 */}
           </div>
         </button>
 
@@ -403,22 +411,20 @@ const handleLogout = async () => {
             <Image
               src={sideBarImage03}
               alt="Open Modal"
-              width={50}
+              width={150}
               height={50}
             />
-            <span className={stylesSidever.buttonText}>ニックネーム</span> {/* 文字を追加 */}
           </div>
         </button>
 
         <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
             <Image
-              src={sideBarImage03}
+              src={sideBarImage04}
               alt="Open Modal"
-              width={50}
+              width={150}
               height={50}
             />
-            <span className={stylesSidever.buttonText}>ニックネーム</span> {/* 文字を追加 */}
           </div>
         </button>
       </aside>
@@ -428,12 +434,12 @@ const handleLogout = async () => {
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
           <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
+          <h2>CONCEPT</h2>
           <Link href='/create-post'>Move Create Post Page</Link>
           <Image
-            src={sample_img}
+            src={Title01}
             alt="Sample image"
-            width={200}
-            height={300}
+            width={300}
           />
 
           {/* メトリクスカード */}
@@ -441,7 +447,15 @@ const handleLogout = async () => {
           latestEntryAC={latestEntryAC}
           latestEntry={latestEntrytoGOAL}
           />  
+          <Image
+            src={Title02}
+            alt="Sample image"
+            width={300}
+          />
+
           <div className={local.grid}>
+
+          
             {/* グラフ表示*/}
             <Charts_Dounut
                 entries={entries}
@@ -453,13 +467,23 @@ const handleLogout = async () => {
               previousEntry={previousEntry}
               />
           </div>
-          
+          <Image
+            src={Title03}
+            alt="Sample image"
+            width={300}
+          />
+
           <Charts_Line
             entries={entries}
             latestEntry={latestEntry}
             bodyFatPercentage={bodyFatPercentage}
           />
-
+          <Image
+            src={Title04}
+            alt="Sample image"
+            width={300}
+          />
+          <div></div>
           {/* データテーブル表示 */}
           <Datatable_UI 
               entries={entries} 
@@ -561,7 +585,7 @@ const handleLogout = async () => {
         setSportsEntries={setSportsEntries}  // 親のエントリ更新関数
       />
       
-
+      </div>
     </div>
     
   );

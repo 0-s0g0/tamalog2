@@ -1,37 +1,28 @@
 /* アイコンとテキストを横並びにするために、.metricCard に display: flex を追加 */
-.metricCard01 {
+.metricCard00 {
   background-image: url('../../public/NowCard01.png');
   display: flex;
   align-items: center; /* アイコンとテキストを縦方向で中央揃え */
-  border: 1px solid #ddd;
+  border: 2px solid rgba(0, 0, 0, 0.658); /* 枠線を黒で太く */
   border-radius: 8px;
   padding: 16px;
   text-align: center;
   height: 16vh;
-  /*background-color: rgba(255, 255, 255, 0.6);*/
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+  position: relative; /* 影のために必要 */
+
 }
-.metricCard02 {
-  background-image: url('../../public/NowCard02.png');
-  display: flex;
-  align-items: center; /* アイコンとテキストを縦方向で中央揃え */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  /*background-color: rgba(255, 255, 255, 0.6);*/
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
-}
-.metricCard03 {
-  background-image: url('../../public/NowCard03.png');
-  display: flex;
-  align-items: center; /* アイコンとテキストを縦方向で中央揃え */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  /*background-color: rgba(255, 255, 255, 0.6);*/
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+
+.metricCard00::before {
+  content: '';
+  position: absolute;
+  border: 2px solid rgb(180, 185, 167);  /*枠線を黒で太く */
+  bottom: -15px;  /* カードの下に影を置く */
+  right: -15px;   /* カードの右に影を置く */
+  width: 100%;    /* カードと同じ幅 */
+  height: 100%;   /* カードと同じ高さ */
+  background-color: rgb(238, 244, 223); /* 黒い四角形 */
+  z-index: -1!important; /* カードの後ろに表示させる */
+  border-radius: 8px; /* カードの角と合わせる */
 }
 
 /* アイコンを包むボックス */
@@ -41,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #5f9ea0; /* アイコンの背景色 */
+  background-color: #dc9326d2; /* アイコンの背景色 */
   border-radius: 68px; /* アイコンボックスを丸くする（任意） */
   margin-right: 16px; /* アイコンとテキストの間にスペース */
 }
