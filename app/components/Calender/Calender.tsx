@@ -5,10 +5,10 @@ import 'react-calendar/dist/Calendar.css';
 import styles from './Calender.module.css';  // スタイルのインポート
 import Image from 'next/image';
 import { EntrySports } from '../type'; // EntrySports型
-import SportsBox from '../../public/SportsBox.png';
+import SportsBox from '../../public/SportsBoxing.png';
 import SportsRing from '../../public/SportsRing.png';
-import SportsSwim from '../../public/SportsSwim.png';
-import SportsWalk from '../../public/SportsWalk.png';
+import SportsSwim from '../../public/SportsSwimming.png';
+import SportsWalk from '../../public/SportsWalking.png';
 import { getEntrySportsFromFirestore } from '../../../firebase/saveDataFunctions'; // Firestoreからデータを取得する関数
 
 interface CalendarProps {

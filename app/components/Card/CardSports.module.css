@@ -1,0 +1,48 @@
+  /* アイコンとテキストを横並びにするために、.metricCard に display: flex を追加 */
+  .metricCard {
+    display: flex;
+    align-items: center; /* アイコンとテキストを縦方向で中央揃え */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    width: 300px;
+    height: 80px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+  }
+
+  /* アイコンを包むボックス */
+  .iconWrapper {
+    width: 80px; /* 正方形のサイズ */
+    height: 80px; /* 高さを60pxに調整 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #9fbcde00; /* アイコンの背景色 */
+    border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+    margin-right: 16px; /* アイコンとテキストの間にスペース */
+  }
+
+  /* アイコンとテキストが横並びに整列するように、.metricContent を調整 */
+  .metricContent {
+    display: flex;
+    flex-direction: column; /* テキストを縦に並べる */
+    justify-content: center;
+  }
+
+  /* ラベルのスタイル */
+  .metricLabel {
+    font-size: 1.5rem;
+    color: #786e58;
+    margin-bottom: 4px;
+    font-family: cursive;
+  }
+
+  /* メトリック値のスタイル */
+  .metricValue {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: cursive;
+    color: #34584b;
+  }

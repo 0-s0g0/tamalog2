@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import axios from 'axios';
 
+
 //copmponents
 import CountDisplay from './components/Countdisplay';
 import CalendarWithIcons from './components/Calender/Calender';  // Calendarコンポーネントをインポート
@@ -16,13 +17,15 @@ import CardNow from './components/Card/CardNow';
 import Charts_Line from './components/Charts/charts_Line';  
 import Charts_Dounut from './components/Charts/charts_Dounut';  
 import Datatable_UI from './components/Datatable/Datatable_UI'; 
-import RightSidebar from './components/Sidebar/RightSidebar';  //
+import RightSidebar from './components/Sidebar/RightSidebar';
+import LeftSidebar from './components/Sidebar/LeftSidebar';
 import TextInputModal from './components/Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
 import AuthModal from './components/Modal/AuthModal';
 import NicknameModal from './components/Modal/Nickname'
 import LogoutModal from './components/Modal/LogoutModal';
 import CalendarModal from './components/Modal/CalenderModal'
+import CardSports from './components/Card/CardSports'
 
 
 import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
@@ -58,10 +61,10 @@ import icon02 from './public/icon2.png';
 import icon03 from './public/icon3.png';
 import icon04 from './public/icon4.png';
 import { text } from 'node:stream/consumers';
-import Title01 from './public/Title01.png';
-import Title02 from './public/Title02.png';
-import Title03 from './public/Title03.png';
-import Title04 from './public/Title04.png';
+import Title01 from './public/Title001.png';
+import Title02 from './public/Title002.png';
+import Title03 from './public/Title003.png';
+import Title04 from './public/Title004.png';
 import piyo03 from './public/piyo03.png'
 import kaunt from './public/kaunt1.png'
 ///////////////////////////////////////////
@@ -151,6 +154,13 @@ export default function Home() {
   useEffect(() => {
     setCount(entries.length); // entriesの長さをcountとして設定
   }, [entries]); // entriesが変わるたびに実行
+
+  useEffect(() => {
+    const fetchSportsData = async () => {
+      await getEntrySportsFromFirestore(setSportsEntries);
+    };
+    fetchSportsData();
+  }, []);
 
     // ログイン状態の監視
     useEffect(() => {
@@ -375,7 +385,6 @@ const handleLogout = async () => {
           alt="Open Modal"
           width={200} // 画像の幅を設定
         />
-        {/* ログイン状態に応じてボタンを切り替え */}
         {isLoggedIn ? (
           <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
@@ -445,11 +454,13 @@ const handleLogout = async () => {
         </button>
 
         <div className={stylesSidever.imageContainer}>
-          {/* 画像の上にCountDisplayを配置 */}
+         
           <CountDisplay entries={entries} />
         </div>
       </aside>
-        
+
+
+
 
       {/* メインコンテンツ */}
       <div className={local.mainbackContent}>

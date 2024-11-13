@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { EntrySports } from '../type';  // EntrySports型
 import styles from '../../style.module.css'; 
 import Image from 'next/image';
-import SportsBox from '../../public/SportsBox.png';
+import SportsBox from '../../public/SportsBoxing.png';
 import SportsRing from '../../public/SportsRing.png';
-import SportsSwim from '../../public/SportsSwim.png';
-import SportsWalk from '../../public/SportsWalk.png';
+import SportsSwim from '../../public/SportsSwimming.png';
+import SportsWalk from '../../public/SportsWalking.png';
 import { saveEntrySportsToFirestore } from '../../../firebase/saveDataFunctions';  // Firestoreに保存する関数をインポート
 
 interface CalendarModalProps {

@@ -22,9 +22,9 @@
 }
 
 .calendar-container {
-  flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start; /* アイテムを上に揃える */
+  flex-direction: column; /* 要素を縦に並べる */
+  justify-content: flex-start; /* 垂直方向の先頭に揃える */
+  align-items: center; /* 水平方向の中央揃え */
   overflow: auto;
 }
