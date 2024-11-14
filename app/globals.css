@@ -26,8 +26,7 @@ h2:before {
 
 
 body {
-    /*font-family: Arial, sans-serif;*/
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -55,4 +54,27 @@ body {
     text-align: center;  /* 水平方向は中央 */
     padding-top: 5px; /* 上部に少し余白を作る */
     
+  }
+
+  .animation{
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 1.5s;
+    width: 128px;
+  }
+  
+  .keyframe3{
+    animation-name: anim_s;
+    transform: rotate(30deg);
+    animation-duration: 5s;
+  }
+  
+  @keyframes anim_s {
+    50% {
+      transform: rotate(-30deg);
+    }
+    100% {
+      transform: rotate(30deg);
+    }
   }

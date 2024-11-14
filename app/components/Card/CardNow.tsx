@@ -55,64 +55,55 @@ const calculateChange = (latest: string, previous: string) => {
         <div className="flex flex-col gap-4">
           <div className={styles.metricCard}>
             <div className={styles.iconWrapper1}>
-              <Image 
-                src={NowWater_img}
-                alt='GoalWeight'
-                width={30}
-                height={30} 
-              />         
+              <Image src={NowWater_img} alt='NowWater' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
-            <div className={styles.metricLabel}>Water</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.bodyWater).toFixed(2)} kg
+              <div className={styles.metricLabel}>Body Water</div>
+                  <div className={styles.metricContent1}>
+                        <div className={styles.metricValue}>
+                          {parseFloat(latestEntry.bodyWater).toFixed(2)} kg
+                        </div>
+                      <span className={`${styles.changeIndicator} ${bodyWaterChange.color}`}>
+                        WoW{bodyWaterChange.sign}{bodyWaterChange.change} kg
+                      </span>
+                  </div>
             </div>
-            <span className={`${styles.changeIndicator} ${bodyWaterChange.color}`}>
-              {bodyWaterChange.sign}{bodyWaterChange.change} kg
-            </span>
-          </div>
           </div>
 
           <div className={styles.metricCard}>
             <div className={styles.iconWrapper2}>
-              <Image 
-                src={NowPritein_img}
-                alt='GoalWeight'
-                width={30}
-                height={30} 
-              />         
+              <Image src={NowPritein_img} alt='NowPritein' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
-            <div className={styles.metricLabel}>Protein</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.protein).toFixed(2)} kg
-            </div>
-            <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
-              {proteinChange.sign}{proteinChange.change} kg
-            </span>
-          </div>
+              <div className={styles.metricLabel}>Body Protein</div>
+                <div className={styles.metricContent1}>
+                    <div className={styles.metricValue}>
+                     {parseFloat(latestEntry.protein).toFixed(2)} kg
+                    </div>
+                    <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
+                      WoW{proteinChange.sign}{proteinChange.change} kg
+                    </span>
+                </div>
+              </div>
           </div>
 
           <div className={styles.metricCard}>
             <div className={styles.iconWrapper3}>
-              <Image 
-                src={NowMineral_img}
-                alt='GoalWeight'
-                width={30}
-                height={30} 
-              />         
+              <Image src={NowMineral_img} alt='NoeMinerals' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
-            <div className={styles.metricLabel}>Minerals</div>
-            <div className={styles.metricValue}>
-              {parseFloat(latestEntry.minerals).toFixed(2)} kg
+              <div className={styles.metricLabel}>Body Minerals</div>
+                <div className={styles.metricContent1}>
+                  <div className={styles.metricValue}>
+                    {parseFloat(latestEntry.minerals).toFixed(2)} kg
+                  </div>
+                  <span className={`${styles.changeIndicator} ${mineralsChange.color}`}>
+                    WoW{mineralsChange.sign}{mineralsChange.change} kg
+                  </span>
+                </div>
+              </div>
             </div>
-            <span className={`${styles.changeIndicator} ${mineralsChange.color}`}>
-              {mineralsChange.sign}{mineralsChange.change} kg
-            </span>
           </div>
-          </div>
-        </div>
       </div>
   );
 };

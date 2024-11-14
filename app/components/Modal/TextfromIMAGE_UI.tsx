@@ -47,6 +47,8 @@ const saveEntryToFirestore = async (entry: Entry) => {
 
   interface Props {
     isTextInputModalOpen: boolean;
+    setIsCheerModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isCheerModalOpen: boolean;
     setIsTextInputModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
     entries: Entry[];
@@ -58,6 +60,8 @@ const saveEntryToFirestore = async (entry: Entry) => {
   const TextfromIMAGEModal: React.FC<Props> = ({
     isTextInputModalOpen,
     setIsTextInputModalOpen,
+    isCheerModalOpen,
+    setIsCheerModalOpen,
     setEntries,
     entries,
     editingId,
@@ -75,7 +79,7 @@ const saveEntryToFirestore = async (entry: Entry) => {
         // imageProcessingResults が受け取られた後にフォームの値を更新
         setBodyWater(`${imageProcessingResults[0]}${imageProcessingResults[1]}.${imageProcessingResults[2]}`);
         setProtein(`${imageProcessingResults[3]}.${imageProcessingResults[4]}`);
-        setMinerals(`${imageProcessingResults[5]}${imageProcessingResults[6]}.${imageProcessingResults[7]}`);
+        setMinerals(`${imageProcessingResults[5]}.${imageProcessingResults[6]}${imageProcessingResults[7]}`);
         setBodyFat(`${imageProcessingResults[8]}${imageProcessingResults[9]}.${imageProcessingResults[1]}`);
       }
     }, [imageProcessingResults]);
@@ -118,6 +122,7 @@ const saveEntryToFirestore = async (entry: Entry) => {
         setBodyFat('');
         setEditingId(null);
         setIsTextInputModalOpen(false);
+        setIsCheerModalOpen(true);
       } catch (error) {
         console.error('Error processing form submission:', error);
         alert('データの処理中にエラーが発生しました。');

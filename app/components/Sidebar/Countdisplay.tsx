@@ -1,7 +1,7 @@
 // components/CountDisplay.tsx
 import React from 'react';
-import { Entry } from './type'; // Entry型をインポート
-import style from '../styles/sidever.module.css';
+import { Entry } from '../type'; // Entry型をインポート
+import style from './LeftSidebar.module.css';
 
 // entriesを引数で受け取るように変更
 interface CountDisplayProps {

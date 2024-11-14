@@ -15,7 +15,7 @@
 
 .imageContainer {
   position: relative; /* 画像の上にCountDisplayを重ねるための親要素 */
-  background-image: url('../public/Count.png'); /* 画像のパス */
+  background-image: url('../../public/Count.png'); /* 画像のパス */
   background-size: cover; /* 画像を要素の大きさに合わせてリサイズ */
   background-position: center; /* 画像の中央を表示 */
   height: 10vw; /* 画像の高さを調整 */
@@ -25,10 +25,12 @@
   align-items: center; /* CountDisplayを縦方向に中央揃え */
   color: #481D08; /* CountDisplay内のテキスト色（白などに設定） */
 }
+
 .countext{
   font-size: 3rem; /* カウントテキストを大きくする */
   font-weight: bold; /* 太字 */
 }
+
 .buttonContent {
   display: flex;
   align-items: center;

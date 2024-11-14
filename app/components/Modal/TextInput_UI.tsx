@@ -3,7 +3,7 @@
 ///////////////////////////////////////////
 
 //共通インポート
-import React from 'react';
+import React from 'react'; 
 import { useState, useEffect } from 'react';
 import styles from '../../style.module.css'; 
 import { Entry } from '../type';
@@ -145,7 +145,7 @@ const TextInputModal: React.FC<Props> = ({
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Body Water:</label>
+            <label className="block mb-1">Body Waterasasasa:</label>
             <input
               type="number"
               step="any"

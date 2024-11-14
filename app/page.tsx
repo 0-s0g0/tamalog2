@@ -10,7 +10,7 @@ import axios from 'axios';
 
 
 //copmponents
-import CountDisplay from './components/Countdisplay';
+import CountDisplay from './components/Sidebar/Countdisplay';
 import CalendarWithIcons from './components/Calender/Calender';  // Calendarコンポーネントをインポート
 import CardGoal from './components/Card/CardGoal';
 import CardNow from './components/Card/CardNow';
@@ -42,7 +42,7 @@ import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFir
 //style
 import styles from './style.module.css';
 import local from './styles/local.module.css'
-import stylesSidever from './styles/sidever.module.css';
+import stylesSidever from './components/Sidebar/LeftSidebar.module.css';
 
 
 //type
@@ -555,6 +555,8 @@ const handleLogout = async () => {
       <TextfromIMAGEModal 
         isTextInputModalOpen={isTextInputModalOpen}
         setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
         imageProcessingResults={imageProcessingResults}
         entries={[]}
         setEntries={() => {}}

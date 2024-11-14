@@ -7,20 +7,42 @@ import { Entry } from '../type';
 
 //関数のエクスポート
 //折れ線グラフのデータ
-export const getLineChartData = (entries: Entry[]) => {
+export const getLineChartData = (entries: Entry[], metric: 'totalWeight' | 'bodyFat' | 'totalMuscle') => {
+  let label;
+  let borderColor;
+  let backgroundColor;
+
+  switch (metric) {
+    case 'bodyFat':
+      label = '体脂肪';
+      borderColor = 'rgba(255, 99, 132, 1)';      // Red for body fat
+      backgroundColor = 'rgba(255, 99, 132, 0.2)';
+      break;
+    case 'totalMuscle':
+      label = '筋肉量';
+      borderColor = 'rgba(54, 162, 235, 1)';      // Blue for muscle mass
+      backgroundColor = 'rgba(54, 162, 235, 0.2)';
+      break;
+    default:
+      label = '体重';
+      borderColor = 'rgba(75, 192, 192, 1)';      // Green for weight
+      backgroundColor = 'rgba(75, 192, 192, 0.2)';
+  }
+
   return {
     labels: entries.map(entry => entry.date),
     datasets: [
       {
-        label: '体重',
-        data: entries.map(entry => entry.totalWeight),
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        label,
+        data: entries.map(entry => entry[metric]),
+        borderColor,
+        backgroundColor,
         fill: true,
       },
     ],
   };
 };
+
 
 // ドーナツチャートのデータ
 export const getDonutChartData = (latestEntry: Entry) => {

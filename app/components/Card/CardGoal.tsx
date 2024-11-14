@@ -31,9 +31,9 @@ const calculateChange = (goal: string, actual: string) => {
   const change = goalValue - actualValue;
 
   if (change > 0) {
-    return { change: change.toFixed(2), sign: <span className="text-green-500">▲+</span>, color: 'increase' };
+    return { change: change.toFixed(2), sign: <span className="text-green-500">+</span>, color: 'increase' };
   } else if (change < 0) {
-    return { change: (-change).toFixed(2), sign: <span className="text-red-500">▼-</span>, color: 'decrease' };
+    return { change: (-change).toFixed(2), sign: <span className="text-red-500">-</span>, color: 'decrease' };
   } else {
     return { change: '--', sign: '', color: 'noChange' };
   }
@@ -63,10 +63,10 @@ const goalMuscleChange = calculateChange(
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Weight</div>
           <div className={styles.metricValue}>
-            {parseFloat(latestEntryAC.goalWeight).toFixed(2)} kg
+            あと{goalWeightChange.sign}{goalWeightChange.change} kg
           </div>
           <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
-            {goalWeightChange.sign}{goalWeightChange.change} kg
+          {parseFloat(latestEntryAC.goalWeight).toFixed(2)} kg
           </span>
         </div>
       </div>
@@ -84,10 +84,10 @@ const goalMuscleChange = calculateChange(
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Fat</div>
           <div className={styles.metricValue}>
-            {parseFloat(latestEntryAC.goalFat).toFixed(2)} kg
+          あと{goalFatChange.sign}{goalFatChange.change} kg
           </div>
           <span className={`${styles.changeIndicator} ${goalFatChange.color}`}>
-            {goalFatChange.sign}{goalFatChange.change} kg
+            {parseFloat(latestEntryAC.goalFat).toFixed(2)} kg
           </span>
         </div>
       </div>
@@ -105,10 +105,10 @@ const goalMuscleChange = calculateChange(
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Muscle</div>
           <div className={styles.metricValue}>
-            {parseFloat(latestEntryAC.goalMuscle).toFixed(2)} kg
+            あと{goalMuscleChange.sign}{goalMuscleChange.change} kg
           </div>
           <span className={`${styles.changeIndicator} ${goalMuscleChange.color}`}>
-            {goalMuscleChange.sign}{goalMuscleChange.change} kg
+          {parseFloat(latestEntryAC.goalMuscle).toFixed(2)} kg
           </span>
         </div>
       </div>
