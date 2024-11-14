@@ -7,6 +7,15 @@
   align-items: center; /*縦方向の中央揃え */
 }
 
+.sidebarA{
+  margin-top: 32px;
+  padding: 32px;
+}
+
+.title{
+  margin-top: 35px;
+}
+
 /* 親のカード要素 */
 .body {
   background-color: #f8cc49;/*#5f9ea0*/

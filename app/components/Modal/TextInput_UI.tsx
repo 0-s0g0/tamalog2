@@ -57,6 +57,8 @@ export const fetchEntriesFromFirestore = async (setEntries: React.Dispatch<React
 interface Props {
   isTextInputModalOpen: boolean;
   setIsTextInputModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isCheerModalOpen: boolean;
+  setIsCheerModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setEntries: React.Dispatch<React.SetStateAction<Entry[]>>;
   entries: Entry[];
   editingId: string | null;
@@ -66,6 +68,8 @@ interface Props {
 const TextInputModal: React.FC<Props> = ({
   isTextInputModalOpen,
   setIsTextInputModalOpen,
+  isCheerModalOpen,
+  setIsCheerModalOpen,
   setEntries,
   entries,
   editingId,
@@ -116,6 +120,7 @@ const TextInputModal: React.FC<Props> = ({
       setBodyFat('');
       setEditingId(null);
       setIsTextInputModalOpen(false);
+      setIsCheerModalOpen(true);
     } catch (error) {
       console.error('Error processing form submission:', error);
       alert('データの処理中にエラーが発生しました。');
@@ -180,7 +185,7 @@ const TextInputModal: React.FC<Props> = ({
             />
           </div>
           <button type="submit" className={styles.modalButton}>Add</button>
-          <button type="button" onClick={() => setIsTextInputModalOpen(false)} className={styles.modalButtonclose}>Close</button>
+          <button type="button" onClick={() => {setIsTextInputModalOpen(false)}} className={styles.modalButtonclose}>Close</button>
         </form>
       </div>
     </div>

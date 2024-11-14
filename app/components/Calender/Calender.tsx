@@ -73,7 +73,6 @@ export const CalendarWithIcons: React.FC<CalendarProps> = ({ sportsEntries }) =>
 
   return (
     <div className={styles.calendar}>
-      <h3>Calendar</h3>
       <Calendar
         value={selectedDate} // 選択されている日付を表示
         tileContent={tileContent} // 日付にアイコンを表示

@@ -17,7 +17,7 @@ interface DatatableProps {
 // UIコンポーネント
 const Datatable_UI: React.FC<DatatableProps> = ({ entries, handleEdit, handleDelete }) => {
   return (
-    <div className="mt-8">
+    <div className="mt-1">
       {/* テーブルをラップするカードのスタイル */}
       <div className={styles.tableCard}>
         <table className={styles.table}>

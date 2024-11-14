@@ -15,7 +15,7 @@
 
 .imageContainer {
   position: relative; /* 画像の上にCountDisplayを重ねるための親要素 */
-  background-image: url('../public/kanban.png'); /* 画像のパス */
+  background-image: url('../public/Count.png'); /* 画像のパス */
   background-size: cover; /* 画像を要素の大きさに合わせてリサイズ */
   background-position: center; /* 画像の中央を表示 */
   height: 10vw; /* 画像の高さを調整 */

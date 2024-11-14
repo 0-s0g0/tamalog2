@@ -26,6 +26,7 @@ import NicknameModal from './components/Modal/Nickname'
 import LogoutModal from './components/Modal/LogoutModal';
 import CalendarModal from './components/Modal/CalenderModal'
 import CardSports from './components/Card/CardSports'
+import CheerModal from './components/Modal/CheerModal';
 
 
 import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
@@ -49,8 +50,8 @@ import { Entry,EntryAC, EntrySports } from './components/type';
 
 
 //Image
-import sample_img from './public/image01.png';
-import logo from './public/logo.png';
+import logo from './public/logo2.png';
+import sideBarImageOUT00 from './public/Sidever_imageOUT000.png';
 import sideBarImage00 from './public/Sidever_image000.png';
 import sideBarImage01 from './public/Sidever_image001a.png';
 import sideBarImage02 from './public/Sidever_image002.png';
@@ -60,11 +61,10 @@ import icon01 from './public/icon1.png';
 import icon02 from './public/icon2.png';
 import icon03 from './public/icon3.png';
 import icon04 from './public/icon4.png';
-import { text } from 'node:stream/consumers';
-import Title01 from './public/Title001.png';
-import Title02 from './public/Title002.png';
-import Title03 from './public/Title003.png';
-import Title04 from './public/Title004.png';
+import Title01 from './public/Title01.png';
+import Title02 from './public/Title02.png';
+import Title03 from './public/Title03.png';
+import Title04 from './public/Title04.png';
 import piyo03 from './public/piyo03.png'
 import kaunt from './public/kaunt1.png'
 ///////////////////////////////////////////
@@ -95,6 +95,7 @@ export default function Home() {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
 
   // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -378,83 +379,51 @@ const handleLogout = async () => {
   return (
     <div className={local.body}>
       <div className={local.fullbackContent}>
-      {/* サイドバー */}
+      {/* レフトサイドバー */}
       <aside className={stylesSidever.sidebar}>
-        <Image
-          src={logo}
-          alt="Open Modal"
-          width={200} // 画像の幅を設定
-        />
+      <Image src={logo} alt="Open Modal" width={200} />
+        <div className={local.sidebarA}>
+        
         {isLoggedIn ? (
           <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
-              <Image
-                src={icon01}
-                alt="Open Modal"
-                width={50} // 画像の幅を設定
-                height={50} // 画像の高さを設定
-              />
+              <Image src={sideBarImageOUT00} alt="Open Modal" width={150} />
             </div>
           </button>
         ) : (
           <button onClick={() => setIsSignUpModalOpen(true)} className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
-              <Image
-                src={sideBarImage00}
-                alt="Open Modal"
-                width={150} // 画像の幅を設定
-                height={50} // 画像の高さを設定
-              />
+              <Image src={sideBarImage00}  alt="Open Modal" width={150} />
             </div>
           </button>
         )}
 
         <button onClick={() => setIsTextInputModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image
-              src={sideBarImage01}
-              alt="Open Modal"
-              width={150}
-              height={50}
-            />
+            <Image src={sideBarImage01} alt="Open Modal" width={150} />
           </div>
         </button>
 
         <button onClick={() => setIsImageInputModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image
-              src={sideBarImage02}
-              alt="Open Modal"
-              width={150}
-              height={50}
-            />
+            <Image src={sideBarImage02} alt="Open Modal" width={150} />
           </div>
         </button>
 
         <button onClick={() => setIsNicknameModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image
-              src={sideBarImage03}
-              alt="Open Modal"
-              width={150}
-              height={50}
-            />
+            <Image src={sideBarImage03} alt="Open Modal" width={150} />
           </div>
         </button>
 
         <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image
-              src={sideBarImage04}
-              alt="Open Modal"
-              width={150}
-              height={50}
-            />
+            <Image src={sideBarImage04} alt="Open Modal" width={150} />
           </div>
         </button>
-
-        <div className={stylesSidever.imageContainer}>
-         
+        
+        </div>
+        <div className={stylesSidever.imageContainer}>         
           <CountDisplay entries={entries} />
         </div>
       </aside>
@@ -478,22 +447,22 @@ const handleLogout = async () => {
               </div>
             </div>
           <Link href='/create-post'>Move Create Post Page</Link>
-          <Image
-            src={Title01}
-            alt="Sample image"
-            width={300}
-          />
+
+          {/*Title01*/}
+          <div className={local.title}>
+            <Image src={Title01} alt="Title_goal" width={300}/>
+          </div>
 
           {/* メトリクスカード */}
           <CardGoal
           latestEntryAC={latestEntryAC}
           latestEntry={latestEntrytoGOAL}
-          />  
-          <Image
-            src={Title02}
-            alt="Sample image"
-            width={300}
-          />
+          /> 
+
+          {/*Title02*/}
+          <div className={local.title}>
+            <Image src={Title02} alt="Title_BodyComposition" width={300}/>
+          </div>
 
           <div className={local.grid}>
 
@@ -509,23 +478,24 @@ const handleLogout = async () => {
               previousEntry={previousEntry}
               />
           </div>
-          <Image
-            src={Title03}
-            alt="Sample image"
-            width={300}
-          />
+          
+          {/*Title03*/}
+          <div className={local.title}>
+            <Image src={Title03} alt="Title_Histry" width={300}/>
+          </div>
 
           <Charts_Line
             entries={entries}
             latestEntry={latestEntry}
             bodyFatPercentage={bodyFatPercentage}
           />
-          <Image
-            src={Title04}
-            alt="Sample image"
-            width={300}
-          />
-          <div></div>
+          
+          {/*Title04*/}
+          <div className={local.title}>
+            <Image src={Title04} alt="Title_List" width={300}/>
+          </div>
+
+
           {/* データテーブル表示 */}
           <Datatable_UI 
               entries={entries} 
@@ -536,7 +506,7 @@ const handleLogout = async () => {
         </div>
         {/* 右側のサイドバー（カレンダー） */}
         <div className={local.sidebarRight}>
-        <RightSidebar sportsEntries={sportsEntries} />
+          <RightSidebar sportsEntries={sportsEntries} />
         </div>
       </div>
 
@@ -544,6 +514,8 @@ const handleLogout = async () => {
       <TextInputModal
         isTextInputModalOpen={isTextInputModalOpen}
         setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
         setEntries={setEntries}
         entries={entries}
         editingId={null}
@@ -607,6 +579,12 @@ const handleLogout = async () => {
           isLogoutModalOpen={isLogoutModalOpen}
           handleLogout={handleLogout}
        />
+
+      <CheerModal
+          setIsCheerModalOpen={setIsCheerModalOpen}
+          isCheerModalOpen={isCheerModalOpen}
+       />
+
       {/* ログイン・サインアップモーダル */}
       <AuthModal
         isSignUpModalOpen={isSignUpModalOpen}
