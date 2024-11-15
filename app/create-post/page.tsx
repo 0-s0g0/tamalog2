@@ -11,22 +11,10 @@ import axios from 'axios';
 
 //copmponents
 import CountDisplay from '../components/Sidebar/Countdisplay';
-import TextInputModal from '../components/Modal/TextInput_UI' ; 
-import TextfromIMAGEModal from '../components/Modal/TextfromIMAGE_UI' ; 
-import AuthModal from '../components/Modal/AuthModal';
-import NicknameModal from '../components/Modal/Nickname'
-import LogoutModal from '../components/Modal/LogoutModal';
-import CalendarModal from '../components/Modal/CalenderModal'
-import CheerModal from '../components/Modal/CheerModal';
-import ProfileModal from '../components/Modal/ProfileModal';
 import { getRandomTip } from '../components/Tip/GetRandomTip'; // 関数をインポート
 
 // Firebase
 import { auth, db} from '../../firebase/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { saveEntryACToFirestore, getEntriesFromFirestore, getEntryACNFromFirestore,getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
@@ -42,17 +30,19 @@ import { Entry,EntryAC, EntrySports } from '../components/type';
 
 //Image
 import logo from '../public/logo2.png';
-import sideBarImageOUT00 from '../public/Sidever_imageOUT000.png';
-import sideBarImage00 from '../public/Sidever_image000.png';
-import sideBarImage01 from '../public/Sidever_image001a.png';
-import sideBarImage02 from '../public/Sidever_image002.png';
-import sideBarImage03 from '../public/Sidever_image003.png';
-import sideBarImage04 from '../public/Sidever_image004.png';
-import icon01 from '../public/icon1.png';
-import icon02 from '../public/icon2.png';
-import icon03 from '../public/icon3.png';
-import icon04 from '../public/icon4.png';
-import piyo03 from '../public/piyo03.png';
+import sideBarImageOUT00c from '../public/Sidever_imageOUT000c.png';
+import sideBarImage00c from '../public/Sidever_image000c.png';
+import sideBarImage01c from '../public/Sidever_image001c.png';
+import sideBarImage02c from '../public/Sidever_image002c.png';
+import sideBarImage03b from '../public/Sidever_image003b.png';
+import sideBarImage04c from '../public/Sidever_image004c.png';
+import sideBarImage05 from '../public/Sidever_image005.png';
+import piyo01 from '../public/piyo01.png'
+import piyo02 from '../public/piyo02.png'
+import piyo03 from '../public/piyo03.png'
+import piyo04 from '../public/piyo04.png'
+import piyo05 from '../public/piyo05.png'
+import piyo06 from '../public/piyo06.png'
 import kaunt from '../public/kaunt1.png';
 
 import Pro1 from '../public/Pro1.png';
@@ -78,53 +68,9 @@ export default function Home() {
   // データ関連
   const [entries, setEntries] = useState<Entry[]>([]);
   const [entryAC, setEntryAC] = useState<EntryAC | null>(null);
-  const [sportsEntries, setSportsEntries] = useState<EntrySports[]>([]); 
-  const [date, setDate] = useState('');
-  const [bodyWater, setBodyWater] = useState('');
-  const [protein, setProtein] = useState('');
-  const [minerals, setMinerals] = useState('');
-  const [bodyFat, setBodyFat] = useState('');
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [count, setCount] = useState<number>(0); // カウント用の状態
-  const [tip, setTip] = useState(getRandomTip())
-  const [error, setError] = useState<string>(''); // エラーメッセージの状態
-
-  // モーダル開閉制御
-  const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
-  const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
-  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-
-  // 画像関連
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
-  
-
 
   // 認証関連のstate
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [nickname, setNickname] = useState<string>(''); 
-  const [isSignupSuccess, setIsSignupSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  //右サイドバー
-  
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());  // 選択された日付の状態
- 
-
-  // アイコンの選択
-  const icons = [icon01, icon02, icon03, icon04];
-  const [selectedIcon, setSelectedIcon] = useState<number | null>(null); // 選択されたアイコンのインデックス
-  
-  //env
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [editingField, setEditingField] = useState<keyof EntryAC | null>(null);
   const [calculatedWeight, setCalculatedWeight] = useState<number | null>(null);
@@ -144,12 +90,6 @@ export default function Home() {
     };
     fetchData();
   }, [auth.currentUser]);
-  useEffect(() => {
-    const fetchSportsData = async () => {
-      await getEntrySportsFromFirestore(setSportsEntries);
-    };
-    fetchSportsData();
-  }, []);
 
     // ログイン状態の監視
     useEffect(() => {
@@ -159,16 +99,6 @@ export default function Home() {
   
       return () => unsubscribe();  // コンポーネントがアンマウントされた際に監視を解除
     }, []);
-
-  ///////////////////////////////////////////
-  //関数
-  ///////////////////////////////////////////
-
-  // 体脂肪率の計算
-  const calculateBodyFatPercentage = (bodyFat: number, totalWeight: number) => {
-    if (totalWeight === 0) return 0;
-    return (bodyFat / totalWeight) * 100;
-  };
 
   ///////////////////////////////////////////
   // イベントハンドラー
@@ -189,6 +119,19 @@ const handleChange = (field: keyof EntryAC, value: string) => {
 const handleEdit = (field: keyof EntryAC) => {
   setEditingField(field); // 編集モードに切り替え
 };
+
+//ランクに応じて画像変更
+  // カウント数に基づいて画像を切り替える関数
+  const getImageForCount = (count: number) => {
+    if (count >= 25) return piyo06; // 25以上はpiyo06固定
+    if (count >= 20) return piyo05;
+    if (count >= 15) return piyo04;
+    if (count >= 10) return piyo03;
+    if (count >= 5) return piyo02;
+    return piyo01;
+  };
+
+  const currentImage = getImageForCount(entries.length);
 
 // 計算処理
 const calculateTargets = () => {
@@ -223,50 +166,47 @@ const calculateTargets = () => {
       <aside className={stylesSidever.sidebar}>
       <Image src={logo} alt="Open Modal" width={200} />
         <div className={local.sidebarA}>
-        
         {isLoggedIn ? (
-          <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <button className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
-              <Image src={sideBarImageOUT00} alt="Open Modal" width={150} />
+              <Image src={sideBarImageOUT00c} alt="Open Modal" width={150} />
             </div>
           </button>
         ) : (
-          <button onClick={() => setIsSignUpModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <button  className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
-              <Image src={sideBarImage00}  alt="Open Modal" width={150} />
+              <Image src={sideBarImage00c}  alt="Open Modal" width={150} />
             </div>
           </button>
         )}
 
-        <button onClick={() => setIsTextInputModalOpen(true)} className={stylesSidever.sidebarButton}>
+        <button  className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage01} alt="Open Modal" width={150} />
+            <Image src={sideBarImage01c} alt="Open Modal" width={150} />
           </div>
         </button>
 
-        <button onClick={() => setIsImageInputModalOpen(true)} className={stylesSidever.sidebarButton}>
+        <button className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage02} alt="Open Modal" width={150} />
+            <Image src={sideBarImage02c} alt="Open Modal" width={150} />
           </div>
         </button>
 
-        <button onClick={() => setIsNicknameModalOpen(true)} className={stylesSidever.sidebarButton}>
+        
+        <button  className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage03} alt="Open Modal" width={150} />
+            <Image src={sideBarImage04c} alt="Open Modal" width={150} />
           </div>
         </button>
 
-        <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage04} alt="Open Modal" width={150} />
-          </div>
-        </button>
+        <Link href="/" passHref>
+          <button className={stylesSidever.sidebarButton}>
+            <div className={stylesSidever.buttonContent}>
+              <Image src={sideBarImage05} alt="Go to Host" width={150} />
+            </div>
+          </button>
+        </Link>
 
-        <button onClick={() => setIsProfileModalOpen(true)} className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage04} alt="Open Modal" width={150} />
-          </div>
-        </button>
         
         </div>
         <div className={stylesSidever.imageContainer}>         
@@ -289,7 +229,7 @@ const calculateTargets = () => {
                 <>
                   <div className={create.proueback}>
                     <div className={create.piyoback}>
-                      <Image src={piyo03} alt="Sample image" width={250} />
+                    <Image src={currentImage} alt="Piyo image" width={250}className={create.piyo03} />
                     </div>
                     <div className={create.protext}>
             
@@ -496,12 +436,7 @@ const calculateTargets = () => {
                     <p>No profile data available. Please set up your profile.</p>
                   
                )}
-                
-           
-            
-          <Link href='/'>Home</Link>
-
-          
+                         
         </div>
         
       </div>

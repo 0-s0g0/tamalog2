@@ -67,7 +67,12 @@ import Title01 from './public/Title01.png';
 import Title02 from './public/Title02.png';
 import Title03 from './public/Title03.png';
 import Title04 from './public/Title04.png';
+import piyo01 from './public/piyo01.png'
+import piyo02 from './public/piyo02.png'
 import piyo03 from './public/piyo03.png'
+import piyo04 from './public/piyo04.png'
+import piyo05 from './public/piyo05.png'
+import piyo06 from './public/piyo06.png'
 import kaunt from './public/kaunt1.png'
 ///////////////////////////////////////////
 // メインコンポーネント
@@ -341,6 +346,20 @@ const handleLogout = async () => {
     alert("ログアウト時にエラーが発生しました");
   }
 };
+
+//ランクに応じて画像変更
+  // カウント数に基づいて画像を切り替える関数
+  const getImageForCount = (count: number) => {
+    if (count >= 25) return piyo06; // 25以上はpiyo06固定
+    if (count >= 20) return piyo05;
+    if (count >= 15) return piyo04;
+    if (count >= 10) return piyo03;
+    if (count >= 5) return piyo02;
+    return piyo01;
+  };
+
+  const currentImage = getImageForCount(entries.length);
+
   ///////////////////////////////////////////
   // 各データ計算
   ///////////////////////////////////////////
@@ -412,23 +431,21 @@ const handleLogout = async () => {
           </div>
         </button>
 
-        <button onClick={() => setIsNicknameModalOpen(true)} className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage03} alt="Open Modal" width={150} />
-          </div>
-        </button>
-
+        
         <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
             <Image src={sideBarImage04} alt="Open Modal" width={150} />
           </div>
         </button>
 
-        <button onClick={() => setIsProfileModalOpen(true)} className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage04} alt="Open Modal" width={150} />
-          </div>
-        </button>
+        <Link href="/create-post" passHref>
+          <button className={stylesSidever.sidebarButton}>
+            <div className={stylesSidever.buttonContent}>
+              <Image src={sideBarImage03} alt="Go to Create Post" width={150} />
+            </div>
+          </button>
+        </Link>
+
         
         </div>
         <div className={stylesSidever.imageContainer}>         
@@ -442,10 +459,9 @@ const handleLogout = async () => {
       {/* メインコンテンツ */}
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
-          <h1 className="text-2xl font-bold mb-4">Home Page!</h1>
             <div className={styles.piyo}>          
               <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
-                  <Image src={piyo03} alt="Sample image" width={250} />
+                <Image src={currentImage} alt="Piyo image" width={250} />
               </button>
               <div className={styles.container}>
                 <div className={styles.piyoime}>
@@ -454,7 +470,6 @@ const handleLogout = async () => {
                 </div>
               </div>
             </div>
-          <Link href='/create-post'>Move Create Post Page</Link>
 
           {/*Title01*/}
           <div className={local.title}>
