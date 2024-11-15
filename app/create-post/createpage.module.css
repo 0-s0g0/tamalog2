@@ -1,0 +1,80 @@
+.title{
+    display: flex;
+    justify-content: center; /* 左右中央 */
+}
+.proueback{
+    background-color: aqua;
+    width: calc(100%); 
+    height: 40vw;
+    justify-content: center; /* 左右中央 */
+    align-items: center;       /* 上下中央揃え */
+    /* 背景画像のサイズと位置を調整 */
+    background-size: contain; /* 画像が要素内に収まるようにする */
+    background-position: center; /* 画像を中央に配置 */
+    background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+
+    display: flex; /* 子要素を横並びにする */
+    gap: 1vw; /* 子要素の間に余白を追加 */
+
+}
+
+.piyoback{
+    background-color: rgb(49, 235, 111);
+    background-image: url('../public/Pro3.png');
+    margin-left: 2vw;
+    width: 20vw;
+    height: 20vw;
+    /* 背景画像のサイズと位置を調整 */
+    background-size: contain; /* 画像が要素内に収まるようにする */
+    background-position: center; /* 画像を中央に配置 */
+    background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.protext{
+    margin-right: 1vw;
+    background-color: rgb(149, 189, 162);
+    width: 50vw;
+    height: 35vw;
+}
+
+.nicknameback{
+    margin-right: 1vw;
+    background-color: rgb(233, 184, 212);
+    background-image: url('../public/Pro4.png');
+    width: 50vw;
+    height: 5vw;
+    display: flex; /* 子要素を横並びにする */
+    /* 背景画像のサイズと位置を調整 */
+    background-size: contain; /* 画像が要素内に収まるようにする */
+    background-position: left; /* 画像を中央に配置 */
+    background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.nicknameText {
+    margin-left: 8vw;
+    padding-top: 2vw;
+    width: 16vw;
+    font-size: 2rem; /* 文字の大きさ */
+    font-weight: bold; /* 太字 */
+    background-color: rgba(240, 255, 255, 0.372);
+  }
+  
+  .nicknameInput {
+    margin-left: 8vw;
+    padding-top: 2vw;
+    width: 16vw;
+    font-size: 2rem; /* 文字の大きさ */
+    background-color: rgb(191, 228, 228)
+  }
+  
+  .saveButton {
+    /* ボタンのスタイル */
+    font-size: 1rem;
+    padding-top: 2vw;
+    background-color: rgb(177, 198, 198);
+  }
+  .editButton{
+    /* ボタンのスタイル */
+    font-size: 1rem;
+    padding-top: 2vw;
+    background-color: rgb(177, 198, 198);
+  }
+  

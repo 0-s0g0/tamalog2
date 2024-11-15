@@ -27,6 +27,8 @@ import LogoutModal from './components/Modal/LogoutModal';
 import CalendarModal from './components/Modal/CalenderModal'
 import CardSports from './components/Card/CardSports'
 import CheerModal from './components/Modal/CheerModal';
+import ProfileModal from './components/Modal/ProfileModal';
+
 
 
 import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
@@ -96,6 +98,7 @@ export default function Home() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -383,7 +386,6 @@ const handleLogout = async () => {
       <aside className={stylesSidever.sidebar}>
       <Image src={logo} alt="Open Modal" width={200} />
         <div className={local.sidebarA}>
-        
         {isLoggedIn ? (
           <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
@@ -417,6 +419,12 @@ const handleLogout = async () => {
         </button>
 
         <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <Image src={sideBarImage04} alt="Open Modal" width={150} />
+          </div>
+        </button>
+
+        <button onClick={() => setIsProfileModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
             <Image src={sideBarImage04} alt="Open Modal" width={150} />
           </div>
@@ -605,6 +613,11 @@ const handleLogout = async () => {
         isModalOpen={isCalendarModalOpen}  // モーダルが開いているか
         setIsModalOpen={setIsCalendarModalOpen}  // モーダルを閉じる関数
         setSportsEntries={setSportsEntries}  // 親のエントリ更新関数
+      />
+
+      <ProfileModal 
+        isProfileModalOpen={isProfileModalOpen}
+        setIsProfileModalOpen={setIsProfileModalOpen}
       />
       
       </div>

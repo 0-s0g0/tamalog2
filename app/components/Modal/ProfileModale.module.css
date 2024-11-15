@@ -1,0 +1,156 @@
+.backgroundstyle {
+    background-color:#5f9ea0;
+    background-image:
+    radial-gradient(at 85% 33%, hsla(156,27%,65%,0.92) 0px, transparent 50%),
+    radial-gradient(at 7% 87%, hsla(211,46%,75%,1) 0px, transparent 50%);
+
+  }
+  /* styles.piyo */
+  .piyo {
+    display: flex;
+    align-items: center; /* 縦方向に中央揃え */
+  }
+  /* styles.container */
+  .container {
+    position: relative; /* 画像とtipを重ねるために相対的に配置 */
+    display: inline-block; /* コンテンツのサイズに合わせる */
+  }
+
+  .tip {
+    position: absolute; /* 画像の上に絶対位置で配置 */
+    top: 50%; /* 画像の縦方向中央 */
+    left: 50%; /* 画像の横方向中央 */
+    transform: translate(-50%, -50%); /* 文字の中央を正確に配置 */
+    color: rgb(70, 20, 20); /* テキストの色（画像の背景に合わせて調整） */
+    font-size: 18px; /* フォントサイズ（適宜調整） */
+    font-weight: bold; /* 必要に応じて文字を太くする */
+    /*text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  見やすくするための文字の影 */
+  }
+
+
+  
+  /* モーダル背景 */
+  .modalBackground {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  
+  /* モーダル本体 */
+  .modalContent {
+    background-image: url('../../public/ProIMG.png');
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    max-width: 80rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    /* モーダルの最大高さとスクロール設定 */
+    max-height: 80vh;  /* モーダルの最大高さをビューポートの80%に制限 */
+    overflow-y: auto;  /* コンテンツが溢れたらスクロールバーが表示される */
+  }
+  
+  .modal {
+    position: fixed; /* モーダルを画面に固定 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 80rem;
+    max-height: 90vh;  /* モーダル全体の高さをビューポートの90%に制限 */
+    overflow: auto;  /* モーダル全体にスクロールバーが表示される */
+    z-index: 1000;
+    padding: 2rem;
+  }
+  
+  
+  /* モーダルのボタン */
+  .modalButton {
+    background-color: #3182ce;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .modalButtonclose {
+    background-color: gray;
+    margin-left: 0.5rem;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  .modalButtonlogout {
+    background-color: rgb(108, 179, 123);
+    margin-left: 0.5rem;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  /* 例: 時間入力欄のスタイル */
+.timeInput {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeInput label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.timeInputField {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+
+
+/* アイコンの基本スタイル */
+/* アイコン選択ボタン */
+.iconSelection button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5; /* デフォルトで半透明 */
+  transition: opacity 0.3s ease;
+}
+
+/* アイコンが選択されている場合は opacity を解除 */
+.iconSelection button.selected {
+  opacity: 1; /* 選択されたアイコンは完全に表示 */
+}
+
+/* アイコンのサイズ */
+.iconImage {
+  width: 60px;
+  height: 60px;
+}
+
+
+
+
+
+
+
+

@@ -48,6 +48,18 @@
   z-index: 1; /* 他の要素よりも前面に表示 */
 }
 
+.mainbackContent2 {
+  margin-left: 14vw;  /* サイドバーの横幅と同じ値 */
+  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
+  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
+  padding: 30px;   
+  width: calc(99% - 15vw); /* サイドバー分だけ余白を確保 */
+  background-color: rgb(249, 226, 187);
+  border-radius: 40px 40px 40px 40px;
+  position: relative; 
+  z-index: 1; /* 他の要素よりも前面に表示 */
+}
+
 
 .mainContent {
   margin-left: 0vw;  /* サイドバーの横幅と同じ値 */
@@ -56,6 +68,17 @@
   padding: 15px;   
   width: calc(99% - 22vw); /* サイドバー分だけ余白を確保 */
   background-color: rgba(252, 252, 252, 0);
+  border-radius: 40px 40px 40px 40px;
+}
+
+.mainContent2 {
+  margin-left: 0vw;  /* サイドバーの横幅と同じ値 */
+  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
+  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
+  padding: 1px;   
+  width: calc(100%); /* サイドバー分だけ余白を確保 */
+  background-color: rgba(252, 252, 252, 0.8);
+  justify-content: center; /* 左右中央 */
   border-radius: 40px 40px 40px 40px;
 }
 

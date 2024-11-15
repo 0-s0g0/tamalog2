@@ -24,7 +24,7 @@ export const saveUserInfoToFirestore = async (userInfo: {
   try {
     const userDocRef = doc(db, 'userProfiles', user.uid);
 
-    // ユーザー情報をFirestoreに保存
+
     await setDoc(userDocRef, userInfo, { merge: true });
     console.log('User information successfully saved to Firestore');
   } catch (error) {
@@ -72,7 +72,7 @@ export const saveEntryToFirestore = async (entry: Entry) => {
   try {
     const userDocRef = doc(db, 'userEntries', user.uid);
 
-    // エントリー情報をFirestoreに保存
+
     await setDoc(
       userDocRef,
       {
@@ -113,12 +113,12 @@ export const getCountEntriesFromFirestore = async (setEntries: React.Dispatch<Re
   try {
     const user = auth.currentUser;
     if (user) {
-      const userDocRef = doc(db, 'userEntries', user.uid); // userEntriesコレクションのユーザードキュメント参照
-      const docSnap = await getDoc(userDocRef); // ドキュメントを取得
+      const userDocRef = doc(db, 'userEntries', user.uid); 
+      const docSnap = await getDoc(userDocRef); 
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        const entries: Entry[] = data.entries || []; // entriesフィールドを取得（配列）
+        const entries: Entry[] = data.entries || []; 
         setEntries(entries); // entriesを状態にセット
         console.log('User data fetched successfully:', data);
       } else {
@@ -174,6 +174,35 @@ export const getEntryACFromFirestore = async (setEntryAC: React.Dispatch<React.S
           alert('データの取得中にエラーが発生しました。');
         }
       };
+
+
+  // Firestoreから最新のEntryACを取得する関数
+export const getEntryACNFromFirestore = async (
+  setEntryAC: React.Dispatch<React.SetStateAction<EntryAC | null>>
+) => {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(db, 'userProfiles', user.uid);
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        // 最新のエントリがある場合のみ設定
+        const latestEntry = data.entryAC ? data.entryAC[data.entryAC.length - 1] : null;
+        setEntryAC(latestEntry);
+        console.log('User data fetched successfully:', data);
+      } else {
+        console.log('No user data found');
+        setEntryAC(null);
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching data from Firestore:', error);
+    alert('データの取得中にエラーが発生しました。');
+  }
+};
+
 
 ///////////////////////////////////////////
 //Entrysports情報
