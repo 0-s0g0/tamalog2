@@ -2,10 +2,39 @@
     display: flex;
     justify-content: center; /* 左右中央 */
 }
+
+.title1{
+    display: flex;
+    /*height: 5vw;*/
+    justify-content: center; /* 左右中央 */
+    /*background-color: blueviolet;*/
+    /*background-image: url('../public/Pro8.png');*/
+    background-size: contain; /* 画像が要素内に収まるようにする */
+    background-position: center; /* 画像を中央に配置 */
+    background-repeat: repeat-x; /* 画像が繰り返されないようにする */
+}
+.title2{
+    display: flex;
+    margin-top: 2vw;
+    /*height: 5vw;*/
+    justify-content: center; /* 左右中央 */
+    /*background-color: rgba(137, 43, 226, 0.116)*/
+}
+.title3{
+    display: flex;
+    margin-top: 2vw;
+    /*height: 5vw;*/
+    justify-content: center; /* 左右中央 */
+    /*background-color: rgba(137, 43, 226, 0.116)*/
+}
+
+
+
+
 .proueback{
-    background-color: aqua;
+    /*background-color: aqua;*/
     width: calc(100%); 
-    height: 40vw;
+    height: 30vw;
     justify-content: center; /* 左右中央 */
     align-items: center;       /* 上下中央揃え */
     /* 背景画像のサイズと位置を調整 */
@@ -19,7 +48,7 @@
 }
 
 .piyoback{
-    background-color: rgb(49, 235, 111);
+    /*background-color: rgb(49, 235, 111);*/
     background-image: url('../public/Pro3.png');
     margin-left: 2vw;
     width: 20vw;
@@ -30,17 +59,26 @@
     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
 }
 .protext{
+    margin-left: 5vw;
     margin-right: 1vw;
-    background-color: rgb(149, 189, 162);
-    width: 50vw;
-    height: 35vw;
+    /*background-color: rgb(149, 189, 162);*/
+    width: 40vw;
+    height: 25vw;
 }
-
+.pro_title{
+    margin-right: 1vw;
+   /* background-color: rgba(223, 233, 184, 0.347);*/
+    width: 40vw;
+    height: 2.5vw;
+    display: flex; /* 子要素を横並びにする */
+}
+/*nickname*/
 .nicknameback{
     margin-right: 1vw;
-    background-color: rgb(233, 184, 212);
-    background-image: url('../public/Pro4.png');
-    width: 50vw;
+    margin-left: 2vw;
+   /* background-color: rgb(233, 184, 212);*/
+    background-image: url('../public/proback1.png');
+    width: 36vw;
     height: 5vw;
     display: flex; /* 子要素を横並びにする */
     /* 背景画像のサイズと位置を調整 */
@@ -52,29 +90,227 @@
     margin-left: 8vw;
     padding-top: 2vw;
     width: 16vw;
-    font-size: 2rem; /* 文字の大きさ */
+    font-size: 1.8vw; /* 文字の大きさ */
     font-weight: bold; /* 太字 */
-    background-color: rgba(240, 255, 255, 0.372);
+   /* background-color: rgba(240, 255, 255, 0.372);*/
   }
   
   .nicknameInput {
     margin-left: 8vw;
     padding-top: 2vw;
     width: 16vw;
-    font-size: 2rem; /* 文字の大きさ */
-    background-color: rgb(191, 228, 228)
+    font-size: 1.8vw; /* 文字の大きさ */
+    background-color:rgba(191, 228, 228, 0.5)
   }
-  
+  /*ボタン*/
   .saveButton {
     /* ボタンのスタイル */
     font-size: 1rem;
     padding-top: 2vw;
-    background-color: rgb(177, 198, 198);
+    /*background-color: rgb(177, 198, 198);*/
   }
   .editButton{
     /* ボタンのスタイル */
     font-size: 1rem;
     padding-top: 2vw;
-    background-color: rgb(177, 198, 198);
+    /*background-color: rgb(177, 198, 198);*/
+  }
+
+  /*goal*/
+.Goalback{
+    margin-right: 1vw;
+    /*background-color: rgba(233, 184, 212, 0.361);*/
+    width: 40vw;
+    height: 5vw;
+    display: flex; /* 子要素を横並びにする */
+   
+}
+.goalWeightback{
+    margin-left: 1vw;
+    margin-right: 1vw;
+   /* background-color: rgba(151, 163, 203, 0.799);*/
+    background-image: url('../public/proback2.png');
+    width: 12vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.goalFatback{
+    margin-right: 1vw;
+    /*background-color: rgba(63, 188, 72, 0.842);*/
+    background-image: url('../public/proback3.png');
+    width: 12vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.goalMuscleback{
+    margin-right: 1vw;
+    /*background-color: rgba(63, 161, 188, 0.842);*/
+    background-image: url('../public/proback4.png');
+    width: 12vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.goalText{
+    margin-left: 2.5vw;
+    padding-top: 2vw;
+    width: 8vw;
+    font-size: 1.8vw; /* 文字の大きさ */
+    font-weight: bold; /* 太字 */
+    /*background-color: rgba(240, 255, 255, 0.372);*/
+    text-align: center;
   }
   
+  .goalInput {
+    margin-left: 3.5vw;
+    padding-top: 1.8vw;
+    width: 6vw;
+    font-size: 1.8rem; /* 文字の大きさ */
+    background-color: rgba(191, 228, 228, 0.5)
+  }
+
+  /*Hight&sex*/
+  .pro_titleTall{
+    margin-left: 0vw;
+    /*background-color: aquamarine;*/
+  }
+  .pro_titlesex{
+    margin-left: 6vw;
+    /*background-color:beige;*/
+  }
+
+ .HSback{
+    margin-right: 1vw;
+    /*background-color: rgba(233, 184, 212, 0.361);*/
+    width: 40vw;
+    height: 5vw;
+    display: flex; /* 子要素を横並びにする */
+   
+}
+.Heightback{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    /*background-color: rgba(151, 163, 203, 0.799);*/
+    background-image: url('../public/proback5.png');
+    width: 18vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+.Sexback{
+    margin-right: 1vw;
+    /*background-color: rgba(63, 188, 72, 0.842);*/
+    background-image: url('../public/proback5.png');
+    width: 18vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+
+.HSText{
+    margin-left: 5vw;
+    padding-top: 2vw;
+    width: 10vw;
+    font-size: 1.8vw; /* 文字の大きさ */
+    font-weight: bold; /* 太字 */
+    /*background-color: rgba(240, 255, 255, 0.372);*/
+  }
+  
+  .HSInput {
+    margin-left: 5vw;
+    padding-top: 2vw;
+    width: 10vw;
+    font-size: 1.8vw; /* 文字の大きさ */
+    /*background-color: rgba(191, 228, 228, 0.5)*/
+  }
+
+  
+  
+  /*Cal*/
+  .prsitaback{
+    margin-left: 8vw;
+    /*background-color: rgba(0, 255, 255, 0.215);*/
+    width: calc(80%); 
+    height: 37vw;
+    justify-content: center; /* 左右中央 */
+    align-items: center;       /* 上下中央揃え */
+    gap: 1vw; /* 子要素の間に余白を追加 */
+
+  }
+
+  .CAlbutton{
+    margin-left: 25vw;
+    /*background-color: rgba(0, 0, 255, 0.164);*/
+  }
+  
+  .CLback{
+    /*background-color: rgba(233, 184, 212, 0.361);*/
+    width: 61vw;
+    height: 10vw;
+    display: flex; /* 子要素を横並びにする */
+    justify-content: center; /* 左右中央 */
+    gap: 2vw;
+  }
+  .CLText{
+    padding-top: 2vw;
+    width: 10vw;
+    font-size: 1.8vw; /* 文字の大きさ */
+    font-weight: bold; /* 太字 */
+    text-align: center;
+    /*background-color: rgba(240, 255, 255, 0.372);*/
+  }
+
+  .CWeightback{
+    margin-right: 1vw;
+    /*background-color: rgba(188, 63, 178, 0.402);*/
+    background-image: url('../public/proback6.png');
+    width: 12vw;
+    justify-content: center; /* 左右中央 */
+    align-items: center;       /* 上下中央揃え */
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+
+.CFatback{
+    margin-right: 1vw;
+    /*background-color: rgba(63, 175, 188, 0.402);*/
+    background-image: url('../public/proback7.png');
+    justify-content: center; /* 左右中央 */
+    align-items: center;       /* 上下中央揃え */
+    width: 12vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+
+.CRemtback{
+    margin-right: 1vw;
+    /*background-color: rgba(63, 188, 111, 0.402);*/
+    background-image: url('../public/proback8.png');
+    justify-content: center; /* 左右中央 */
+    align-items: center;       /* 上下中央揃え */
+    width: 12vw;
+    display: flex; /* 子要素を横並びにする */
+     /* 背景画像のサイズと位置を調整 */
+     background-size: contain; /* 画像が要素内に収まるようにする */
+     background-position: center; /* 画像を中央に配置 */
+     background-repeat: no-repeat; /* 画像が繰り返されないようにする */
+}
+

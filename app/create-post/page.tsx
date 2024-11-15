@@ -57,7 +57,15 @@ import kaunt from '../public/kaunt1.png';
 
 import Pro1 from '../public/Pro1.png';
 import Pro2 from '../public/Pro2.png';
+import Pro8 from '../public/Pro8.png';
+import Pro9 from '../public/Pro9.png';
 
+import ProTitle1 from '../public/proTitle1.png'
+import ProTitle2 from '../public/proTitle2.png'
+import ProTitle3 from '../public/proTitle3.png'
+import ProTitle4 from '../public/proTitle4.png'
+import ProTitle5 from '../public/proTitle5.png'
+import ProCAL from '../public/proCAl.png'
 import save from '../public/save.png';
 import edit from '../public/edit.png';
 ///////////////////////////////////////////
@@ -280,14 +288,17 @@ const calculateTargets = () => {
               {entryAC ? (   
                 <>
                   <div className={create.proueback}>
-
                     <div className={create.piyoback}>
                       <Image src={piyo03} alt="Sample image" width={250} />
                     </div>
-
                     <div className={create.protext}>
+            
                       {/* Nickname */}
-                      <div className={create.nicknameback}>
+                      <div className={create.pro_title}>
+                          <Image src={ProTitle1} alt="Sample image" width={250} />
+                      </div>
+
+                      <div className={create.nicknameback}>  
                         {editingField === 'nickname' ? (
                           <>
                             <input type="text" value={entryAC.nickname} 
@@ -308,129 +319,178 @@ const calculateTargets = () => {
                         )}
                       </div>
 
-                      {/* Goal Weight */}
-                      <div className="mb-4">
-                        <strong>Goal Weight:</strong>
-                        {editingField === 'goalWeight' ? (
-                          <>
-                            <input 
-                              type="number" 
-                              value={entryAC.goalWeight} 
-                              onChange={(e) => handleChange('goalWeight', e.target.value)} 
-                            />
-                            <button onClick={handleSave} className={styles.modalButton}>Save</button>
-                          </>
-                        ) : (
-                          <>
-                            <span>{entryAC.goalWeight} kg</span>
-                            <button onClick={() => handleEdit('goalWeight')} className={styles.modalButton}>Edit</button>
-                          </>
-                        )}
+                      {/* Goal */}
+                      <div className={create.pro_title}>
+                          <Image src={ProTitle2} alt="Sample image" width={250} />
                       </div>
+                      <div className={create.Goalback}>
+                        {/* Goal Weight */}
+                        <div className={create.goalWeightback}>  
+                          {editingField === 'goalWeight' ? (
+                            <>
+                              <input 
+                                type="number" 
+                                value={entryAC.goalWeight} 
+                                onChange={(e) => handleChange('goalWeight', e.target.value)} 
+                                className={create.goalInput}
+                              />
+                              <button onClick={handleSave} className={create.saveButton}>
+                                <Image src={save} alt='save' height={30}></Image>
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <span className={create.goalText}>{entryAC.goalWeight} kg</span>
+                              <button onClick={() => handleEdit('goalWeight')} className={create.editButton}>
+                              <Image src={edit} alt='save' height={30}></Image>
+                            </button>
+                            </>
+                          )}
+                        </div>
+                      
 
                       {/* Goal Fat */}
-                      <div className="mb-4">
-                        <strong>Goal Fat:</strong>
+                      <div className={create.goalFatback}> 
                         {editingField === 'goalFat' ? (
                           <>
                             <input 
                               type="number" 
                               value={entryAC.goalFat} 
                               onChange={(e) => handleChange('goalFat', e.target.value)} 
+                              className={create.goalInput}
                             />
-                            <button onClick={handleSave} className={styles.modalButton}>Save</button>
+                            <button onClick={handleSave} className={create.saveButton}>
+                                <Image src={save} alt='save' height={30}></Image>
+                              </button>
                           </>
                         ) : (
                           <>
-                            <span>{entryAC.goalFat}%</span>
-                            <button onClick={() => handleEdit('goalFat')} className={styles.modalButton}>Edit</button>
+                            <span className={create.goalText}>{entryAC.goalFat} kg</span>
+                            <button onClick={() => handleEdit('goalFat')} className={create.editButton}>
+                              <Image src={edit} alt='save' height={30}></Image>
+                            </button>
                           </>
                         )}
                       </div>
+                      
 
                       {/* Goal Muscle */}
-                      <div className="mb-4">
-                        <strong>Goal Muscle:</strong>
+                      <div className={create.goalMuscleback}> 
                         {editingField === 'goalMuscle' ? (
                           <>
                             <input 
                               type="number" 
                               value={entryAC.goalMuscle} 
                               onChange={(e) => handleChange('goalMuscle', e.target.value)} 
+                              className={create.goalInput}
                             />
-                            <button onClick={handleSave} className={styles.modalButton}>Save</button>
+                            <button onClick={handleSave} className={create.saveButton}>
+                                <Image src={save} alt='save' height={30}></Image>
+                              </button>
                           </>
                         ) : (
                           <>
-                            <span>{entryAC.goalMuscle} kg</span>
-                            <button onClick={() => handleEdit('goalMuscle')} className={styles.modalButton}>Edit</button>
+                            <span className={create.goalText}>{entryAC.goalMuscle} kg</span>
+                            <button onClick={() => handleEdit('goalMuscle')} className={create.editButton}>
+                              <Image src={edit} alt='save' height={30}></Image>
+                            </button>
                           </>
                         )}
                       </div>
-
+                      </div>
+                      {/*Height&Sex*/}
+                      <div className={create.pro_title}>
+                          <Image src={ProTitle3} alt="Sample image" width={250} className={create.pro_titleTall}/>
+                          <Image src={ProTitle4} alt="Sample image" width={250} className={create.pro_titlesex}/>
+                      </div>
+                      <div className={create.HSback}>
                       {/* Height */}
-                      <div className="mb-4">
-                        <strong>Height:</strong>
+                      <div className={create.Heightback}>
                         {editingField === 'height' ? (
                           <>
                             <input 
                               type="number" 
                               value={entryAC.height} 
                               onChange={(e) => handleChange('height', e.target.value)} 
+                              className={create.HSInput}
                             />
-                            <button onClick={handleSave} className={styles.modalButton}>Save</button>
+                            <button onClick={handleSave} className={create.saveButton}>
+                                <Image src={save} alt='save' height={30}></Image>
+                              </button>
                           </>
                         ) : (
                           <>
-                            <span>{entryAC.height} cm</span>
-                            <button onClick={() => handleEdit('height')} className={styles.modalButton}>Edit</button>
+                            <span className={create.HSText}>{entryAC.height} cm</span>
+                            <button onClick={() => handleEdit('height')} className={create.editButton}>
+                              <Image src={edit} alt='save' height={30}></Image>
+                            </button>
                           </>
                         )}
                       </div>
 
                       {/* Sex */}
-                      <div className="mb-4">
-                        <strong>Sex:</strong>
+                      <div className={create.Sexback}>
                         {editingField === 'sex' ? (
                           <>
                             <select 
                               value={entryAC.sex} 
-                              onChange={(e) => handleChange('sex', e.target.value)} 
+                              onChange={(e) => handleChange('sex', e.target.value)}
+                              className={create.HSInput} 
                             >
                               <option value="male">Male</option>
                               <option value="female">Female</option>
                               <option value="other">Other</option>
                             </select>
-                            <button onClick={handleSave} className={styles.modalButton}>Save</button>
+                            <button onClick={handleSave} className={create.saveButton}>
+                              <Image src={save} alt='save' height={30}></Image>
+                            </button>
                           </>
                         ) : (
                           <>
-                            <span>{entryAC.sex}</span>
-                            <button onClick={() => handleEdit('sex')} className={styles.modalButton}>Edit</button>
+                            <span className={create.HSText}>{entryAC.sex}</span>
+                            <button onClick={() => handleEdit('sex')} className={create.editButton}>
+                              <Image src={edit} alt='save' height={30}></Image>
+                            </button>
                           </>
                         )}
+                        </div>
                       </div>
+                    </div>
+                  </div>
 
+                {/*title*/}
+              <div className={create.title1}>
+                <Image src={Pro8} alt='TitleImage' width={400}></Image>
+              </div>
+              <div className={create.title2}>
+                <Image src={ProTitle5} alt='TitleImage' width={600}></Image>
+              </div>
+              
+              <div className={create.prsitaback}>
                       {/* 目標体重の目安 */}
-                      <div className="mb-4">
-                        <h3>あなたの目標体重の目安</h3>
                         <button 
                           onClick={calculateTargets} 
-                          className={styles.modalButton} 
+                          className={create.CAlbutton}
                           disabled={!entryAC.height || !entryAC.sex}
                         >
-                          計算する
+                          <Image src={ProCAL} alt='calcylate' width={200}></Image>
                         </button>
                         {calculatedWeight && calculatedFat && calculatedLean && (
-                          <div>
-                            <p><strong>標準体重：</strong>{calculatedWeight.toFixed(2)} kg</p>
-                            <p><strong>標準体脂肪量：</strong>{calculatedFat.toFixed(2)} kg</p>
-                            <p><strong>標準除脂肪量：</strong>{calculatedLean.toFixed(2)} kg</p>
+                          <div className={create.CLback}>
+                            <div className={create.CWeightback}>
+                              <p className={create.CLText}>{calculatedWeight.toFixed(2)} kg</p></div>
+                            <div className={create.CFatback}>
+                              <p className={create.CLText}>{calculatedFat.toFixed(2)} kg</p></div>
+                            <div className={create.CRemtback}>
+                            <p className={create.CLText}>{calculatedLean.toFixed(2)} kg</p></div>
                           </div>
                         )}
-                      </div>
-                      </div>
-                      </div>
+                  <div className={create.title3}>
+                    <Image src={Pro9} alt='TitleImage' width={600}></Image>
+                  </div>
+              </div>
+                      
+                      
                     </>
                   ) : (
                     <p>No profile data available. Please set up your profile.</p>
