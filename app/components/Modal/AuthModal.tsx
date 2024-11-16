@@ -36,7 +36,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
         {/* ログインモードの内容 */}
         {isLoginMode ? (
           <>
-            <h2 className="text-xl font-bold mb-4">ログイン</h2>
+            <h2 className="text-xl font-bold mb-4">Log IN</h2>
             <form onSubmit={handleAuthSubmit}>
               <div className="mb-4">
                 <label className="block mb-1">Email:</label>
@@ -59,17 +59,14 @@ const AuthModal: React.FC<AuthModalProps> = ({
                 />
               </div>
               <button type="submit" className={styles.modalButton}>
-                ログイン
-              </button>
-              <button type="button" onClick={handleLogout} className={styles.modalButtonclose}>
-                ログアウト
+                Log IN
               </button>
             </form>
           </>
         ) : (
           // サインアップモードの内容
           <>
-            <h2 className="text-xl font-bold mb-4">サインアップ</h2>
+            <h2 className="text-xl font-bold mb-4">Sign UP</h2>
             <form onSubmit={handleAuthSubmit}>
               <div className="mb-4">
                 <label className="block mb-1">Email:</label>
@@ -92,7 +89,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
                 />
               </div>
               <button type="submit" className={styles.modalButton}>
-                サインアップ
+                Sign UP
               </button>
             </form>
           </>

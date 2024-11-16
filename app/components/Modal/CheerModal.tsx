@@ -6,6 +6,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import styles from '../../style.module.css'; 
+import Link from 'next/link';
 import { Entry } from '../type';
 import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebase'
@@ -33,9 +34,11 @@ export const CheerModal: React.FC<CheerModalProps> = ({
         <div className={styles.modalContent}>
             <Image src={Cheer} alt="CHEER" width={300}/>
           <div className="flex justify-around">
+          <Link href="/" passHref>
             <button
               onClick={() => setIsCheerModalOpen(false)}
               className={styles.modalButtonclose}>Close</button>
+          </Link>
           </div>
         </div>
       </div>

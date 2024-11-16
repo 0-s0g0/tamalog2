@@ -29,15 +29,30 @@ export const CalendarWithIcons: React.FC<CalendarProps> = ({ sportsEntries }) =>
     fetchData();
   }, []); // コンポーネントの初回レンダリング時にデータを取得
 
-  // カレンダーの日付にアイコンを表示する関数
   const tileContent = ({ date }: any) => {
-    const formattedDate = date.toISOString().split('T')[0]; // "2024-11-23" のようにフォーマット
-
-    const matchingEntries = sportsEntries.filter((entry) => {
-      const entryDate = entry.date; // Firestoreから取得した日付
-      return entryDate === formattedDate; // 日付が一致するものをフィルタリング
+    // カレンダーからの選択された日付を string 型（yyyy-mm-dd）で取得
+    const formattedDate = date.toISOString().split('T')[0]; // 例: "2024-11-23"
+  
+    // Firestoreから取得したスポーツエントリの日付（string 型）を1日減らす
+    const adjustedEntries = sportsEntries.map((entry) => {
+      const entryDate = entry.date; // "2024-11-11" など
+      const [year, month, day] = entryDate.split('-').map(Number); // 年、月、日を取得
+  
+      // 日付部分を1日減らす
+      const adjustedDay = day;
+      
+      // 調整した日付を再構成
+      const adjustedDate = new Date(year, month - 1, adjustedDay); // monthは0から始まるので-1する
+      const adjustedDateString = adjustedDate.toISOString().split('T')[0]; // 再度yyyy-mm-ddに戻す
+  
+      return { ...entry, adjustedDate: adjustedDateString }; // adjustedDateを持たせる
     });
-
+  
+    // 調整された日付と選択された日付を比較
+    const matchingEntries = adjustedEntries.filter((entry) => {
+      return entry.adjustedDate === formattedDate; // 調整後の日付が一致するかチェック
+    });
+  
     if (matchingEntries.length === 0) return null;
 
     return (
