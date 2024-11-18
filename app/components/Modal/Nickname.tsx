@@ -88,10 +88,10 @@ const NicknameModal: React.FC<Props> = ({
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    if (!goalWeight || !goalFat || !goalMuscle || !nickname || !icon || !height || !sex) {
+    /*if (!goalWeight || !goalFat || !goalMuscle || !nickname || !icon || !height || !sex) {
       alert('全てのフィールドに入力してください');
       return;
-    }
+    }*/
   
     const newEntryAC: EntryAC = {
         id: editingId || Date.now().toString(),
