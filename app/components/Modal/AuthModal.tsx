@@ -1,7 +1,7 @@
 // components/Modal/AuthModal.tsx
 
 import React, { useState } from 'react';
-import styles from '../../style.module.css';
+import styles from './01Modal.module.css';
 
 interface AuthModalProps {
   isSignUpModalOpen: boolean;

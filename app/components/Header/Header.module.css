@@ -1,0 +1,81 @@
+/* ヘッダー全体 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+  }
+  
+  /* ロゴ部分 */
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+ /* ハンバーガーボタン */
+.menuButton {
+    width: 30px;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 3本の線の間隔を確保 */
+    cursor: pointer;
+    position: relative;
+  }
+  
+  /* ハンバーガーメニューの通常の線 */
+  .menuButton span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #580a0a;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  /* 閉じるボタンの線のスタイル */
+  .closeButton span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg); /* 上の線を中央へ移動し回転 */
+  }
+  
+  .closeButton span:nth-child(2) {
+    opacity: 0; /* 中央の線を非表示 */
+  }
+  
+  .closeButton span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg); /* 下の線を中央へ移動し回転 */
+  }
+  
+  
+  /* モバイルメニュー */
+  .menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background-color: #fcf9dcb4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+  
+  .menu button {
+    margin: 8px 0;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  .menu button:hover {
+    text-decoration: underline;
+  }
+  

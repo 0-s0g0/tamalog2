@@ -10,72 +10,71 @@ import axios from 'axios';
 
 
 //copmponents
-import CountDisplay from './components/Sidebar/Countdisplay';
-import CalendarWithIcons from './components/Calender/Calender';  // Calendarコンポーネントをインポート
-import CardGoal from './components/Card/CardGoal';
-import CardNow from './components/Card/CardNow';
-import Charts_Line from './components/Charts/charts_Line';  
-import Charts_Dounut from './components/Charts/charts_Dounut';  
-import Datatable_UI from './components/Datatable/Datatable_UI'; 
-import RightSidebar from './components/Sidebar/RightSidebar';
-import LeftSidebar from './components/Sidebar/LeftSidebar';
-import TextInputModal from './components/Modal/TextInput_UI' ; 
-import TextfromIMAGEModal from './components/Modal/TextfromIMAGE_UI' ; 
-import AuthModal from './components/Modal/AuthModal';
-import NicknameModal from './components/Modal/Nickname'
-import LogoutModal from './components/Modal/LogoutModal';
-import CalendarModal from './components/Modal/CalenderModal'
-import CardSports from './components/Card/CardSports'
-import CheerModal from './components/Modal/CheerModal';
-import ProfileModal from './components/Modal/ProfileModal';
-import ImageInputModal from "./components/Modal/ImageInputModal";
+import CountDisplay from '../components/Sidebar/Countdisplay';
+import CalendarWithIcons from '../components/Calender/Calender';  // Calendarコンポーネントをインポート
+import CardGoal from '../components/Card/CardGoal';
+import CardNow from '../components/Card/CardNow';
+import Charts_Line from '../components/Charts/charts_Line';  
+import Charts_Dounut from '../components/Charts/charts_Dounut';  
+import Datatable_UI from '../components/Datatable/Datatable_UI'; 
+import RightSidebar from '../components/Sidebar/RightSidebar';
+import LeftSidebar from '../components/Sidebar/LeftSidebar';
+import TextInputModal from '../components/Modal/TextInput_UI' ; 
+import TextfromIMAGEModal from '../components/Modal/TextfromIMAGE_UI' ; 
+import AuthModal from '../components/Modal/AuthModal';
+import NicknameModal from '../components/Modal/Nickname'
+import LogoutModal from '../components/Modal/LogoutModal';
+import CalendarModal from '../components/Modal/CalenderModal'
+import CardSports from '../components/Card/CardSports'
+import CheerModal from '../components/Modal/CheerModal';
+import ProfileModal from '../components/Modal/ProfileModal';
+import Header from '../components/Header/Header';
 
 
 
-
-import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
+import { getRandomTip } from '../components/Tip/GetRandomTip'; // 関数をインポート
 
 // Firebase
-import { auth, db} from '../firebase/firebase';
+import { auth, db} from '../../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../firebase/saveDataFunctions";
+import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
-import styles from './styles/main.module.css';
-import local from './styles/local.module.css'
-import stylesSidever from './components/Sidebar/LeftSidebar.module.css';
+import styles from '../styles/main.module.css';
+import local from '../styles/local.module.css'
+import stylesSidever from '../components/Sidebar/LeftSidebar.module.css';
 
 
 //type
-import { Entry,EntryAC, EntrySports } from './components/type'; 
+import { Entry,EntryAC, EntrySports } from '../components/type'; 
 
 
 //Image
-import logo from './public/logo2.png';
-import sideBarImageOUT00 from './public/Sidever_imageOUT000.png';
-import sideBarImage00 from './public/Sidever_image000.png';
-import sideBarImage01 from './public/Sidever_image001a.png';
-import sideBarImage02 from './public/Sidever_image002.png';
-import sideBarImage03 from './public/Sidever_image003.png';
-import sideBarImage04 from './public/Sidever_image004.png';
-import icon01 from './public/icon1.png';
-import icon02 from './public/icon2.png';
-import icon03 from './public/icon3.png';
-import icon04 from './public/icon4.png';
-import Title01 from './public/Title01.png';
-import Title02 from './public/Title02.png';
-import Title03 from './public/Title03.png';
-import Title04 from './public/Title04.png';
-import piyo01 from './public/piyo01.png'
-import piyo02 from './public/piyo02.png'
-import piyo03 from './public/piyo03.png'
-import piyo04 from './public/piyo04.png'
-import piyo05 from './public/piyo05.png'
-import piyo06 from './public/piyo06.png'
-import kaunt from './public/kaunt1.png'
+import logo from '../public/logo2.png';
+import sideBarImageOUT00 from '../public/Sidever_imageOUT000.png';
+import sideBarImage00 from '../public/Sidever_image000.png';
+import sideBarImage01 from '../public/Sidever_image001a.png';
+import sideBarImage02 from '../public/Sidever_image002.png';
+import sideBarImage03 from '../public/Sidever_image003.png';
+import sideBarImage04 from '../public/Sidever_image004.png';
+import icon01 from '../public/icon1.png';
+import icon02 from '../public/icon2.png';
+import icon03 from '../public/icon3.png';
+import icon04 from '../public/icon4.png';
+import Title01 from '../public/Title01.png';
+import Title02 from '../public/Title02.png';
+import Title03 from '../public/Title03.png';
+import Title04 from '../public/Title04.png';
+import piyo01 from '../public/piyo01.png'
+import piyo02 from '../public/piyo02.png'
+import piyo03 from '../public/piyo03.png'
+import piyo04 from '../public/piyo04.png'
+import piyo05 from '../public/piyo05.png'
+import piyo06 from '../public/piyo06.png'
+import kaunt from '../public/kaunt1.png'
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -95,6 +94,7 @@ export default function Home() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [count, setCount] = useState<number>(0); // カウント用の状態
   const [tip, setTip] = useState(getRandomTip())
+  const [error, setError] = useState<string>(''); // エラーメッセージの状態
 
   // モーダル開閉制御
   const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
@@ -107,7 +107,9 @@ export default function Home() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
   // 画像関連
-  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);//画像処理の結果を次のモーダルへ渡す
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
   
 
 
@@ -117,7 +119,16 @@ export default function Home() {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [nickname, setNickname] = useState<string>(''); 
   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  //右サイドバー
+  
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());  // 選択された日付の状態
+ 
+
+  // アイコンの選択
+  const icons = [icon01, icon02, icon03, icon04];
+  const [selectedIcon, setSelectedIcon] = useState<number | null>(null); // 選択されたアイコンのインデックス
   
   //env
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -202,6 +213,70 @@ const handleEdit = (id: string) => {
   }
 };
 
+// 画像アップロード処理
+const saveImageUrlToFirestore = async (url: string) => {
+  // Firestoreへの参照を取得
+  const db = getFirestore();
+  const entryId = Date.now().toString(); // 画像アップロード時のユニークなIDを生成
+  try {
+    // Firestoreの 'entries' コレクションに、画像URLを保存
+    await setDoc(doc(db, 'entries', entryId), { imageUrl: url });
+    console.log('Image URL saved to Firestore:', url);
+  } catch (error) {
+    // エラーハンドリング
+    console.error('Error saving image URL to Firestore:', error);
+  }
+};
+
+// 画像アップロードイベント
+const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files) {
+    const file = e.target.files[0];
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+  }
+};
+
+// フォーム送信処理（エントリー追加・更新）
+const handleImageSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (imageFile) {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    try {
+      const response = await axios.post(`http://127.0.0.1:5000/backend/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      // 画像処理結果を取得
+      const result = response.data;
+      setImageProcessingResults(result);  // 結果を状態に保存
+      setIsTextInputModalOpen(true);  // モーダルを開く
+
+    } catch (error: any) {
+      if (axios.isAxiosError(error)) {
+        // Axios固有のエラーの場合
+        if (error.response) {
+          // サーバーがエラーを返した場合（4xx, 5xx）
+          const statusCode = error.response.status;
+          if (statusCode >= 400 && statusCode < 500) {
+            alert(`クライアントエラーが発生しました: ${statusCode} - ${error.response.data.error || '不明なエラー'}`);
+          } else if (statusCode >= 500) {
+            alert(`サーバーエラーが発生しました: ${statusCode} - サーバーが正常に処理できませんでした`);
+          }
+        } else if (error.request) {
+          // サーバーからのレスポンスがなかった場合（ネットワークエラーなど）
+          alert('ネットワークエラーが発生しました。サーバーに接続できませんでした。');
+        }
+      } else {
+        // その他のエラー（一般的なJavaScriptエラーなど）
+        console.error('エラー詳細:', error);
+        alert('画像アップロード中にエラーが発生しました');
+      }
+    }
+  }
+};
 
 
 // エントリー削除
@@ -328,17 +403,14 @@ const handleLogout = async () => {
     <div className={local.body}>
       <div className={local.fullbackContent}>
       {/* レフトサイドバー */}
-      <aside className={stylesSidever.sidebar}>
-      <Image src={logo} alt="Open Modal" width={200} />
-        <div className={local.sidebarA}>
-          <LeftSidebar/>
-        </div>
+      <Header />
+
+        
 
         <div className={stylesSidever.imageContainer}>         
           <CountDisplay entries={entries} />
         </div>
-        
-      </aside>
+
 
 
 
@@ -346,7 +418,8 @@ const handleLogout = async () => {
       {/* メインコンテンツ */}
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
-            <div className={styles.piyoback}>          
+            <div className={styles.piyoback}> 
+                <h2>mobilepage</h2>         
               <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
                 <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
               </button>
@@ -422,7 +495,107 @@ const handleLogout = async () => {
         </div>
       </div>
 
-      
+      {/* テキスト入力用モーダルフォーム*/}
+      <TextInputModal
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
+        setEntries={setEntries}
+        entries={entries}
+        editingId={null}
+        setEditingId={() => {}}
+      />
+
+       {/* 画像入力用モーダル */}
+       {isImageInputModalOpen && (
+        <div className={styles.modalBackground}>
+          <div className={styles.modalContent}>
+            <h2 className="text-xl font-bold mb-4">Upload Image</h2>
+            <form onSubmit={handleImageSubmit}>
+              <div className="mb-4">
+                <label className="block mb-1">Choose Image:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="border p-2 w-full"
+                />
+              </div>
+              {/* プレビュー用の画像表示 */}
+              {imagePreview && (
+                <div className="mb-4">
+                  <img src={imagePreview} alt="Preview" className="w-full h-auto mb-2" />
+                </div>
+              )}
+              <button type="submit" className={styles.modalButton}>Upload</button>
+              <button type="button" onClick={() => setIsImageInputModalOpen(false)} className={styles.modalButtonclose}>Close</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+
+      {/* TextfromIMAGEModal を組み込む */}
+      <TextfromIMAGEModal 
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
+        imageProcessingResults={imageProcessingResults}
+        entries={[]}
+        setEntries={() => {}}
+        editingId={null}
+        setEditingId={() => {}}
+      />
+
+      {/* ニックネーム設定モーダル */}
+      <NicknameModal
+        isNicknameModalOpen={isNicknameModalOpen}
+        setIsNicknameModalOpen={setIsNicknameModalOpen}
+        setEntryAC={setEntryAC}
+        entryAC={entryAC}
+        editingId={null}
+        setEditingId={() => {}}
+        handleSetNickname={handleSetNickname}
+      />
+
+      <LogoutModal
+          nickname={Mynickname} // 親から渡した nickname を表示
+          setIsLogoutModalOpen={setIsLogoutModalOpen}
+          isLogoutModalOpen={isLogoutModalOpen}
+          handleLogout={handleLogout}
+       />
+
+      <CheerModal
+          setIsCheerModalOpen={setIsCheerModalOpen}
+          isCheerModalOpen={isCheerModalOpen}
+       />
+
+      {/* ログイン・サインアップモーダル */}
+      <AuthModal
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+        isLoginMode={isLoginMode}
+        setIsLoginMode={setIsLoginMode}
+        handleAuthSubmit={handleAuthSubmit}
+        handleLogout={handleLogout}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+        {/* モーダル */}
+        <CalendarModal
+        isModalOpen={isCalendarModalOpen}  // モーダルが開いているか
+        setIsModalOpen={setIsCalendarModalOpen}  // モーダルを閉じる関数
+        setSportsEntries={setSportsEntries}  // 親のエントリ更新関数
+      />
+
+      <ProfileModal 
+        isProfileModalOpen={isProfileModalOpen}
+        setIsProfileModalOpen={setIsProfileModalOpen}
+      />
       
       </div>
     </div>

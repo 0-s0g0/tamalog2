@@ -2,26 +2,25 @@
   .metricCard {
     display: flex;
     align-items: center; /* アイコンとテキストを縦方向で中央揃え */
-    border: 1px solid #ddd;
+    border: 1px solid #0c4e2067;
     border-radius: 8px;
-    padding: 30px;
-    width: 300px;
-    height: 80px;
+    width: 22vw;
+    height: 10vh;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+    justify-content: center;
   }
 
   /* アイコンを包むボックス */
   .iconWrapper {
-    width: 80px; /* 正方形のサイズ */
-    height: 80px; /* 高さを60pxに調整 */
+    width: 5.5vw; 
+    height: 10vh; 
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #9fbcde00; /* アイコンの背景色 */
+    background-color: #9fbcde93; /* アイコンの背景色 */
     border-radius: 8px; /* アイコンボックスを丸くする（任意） */
-    margin-right: 16px; /* アイコンとテキストの間にスペース */
+    margin-right: 1vw; /* アイコンとテキストの間にスペース */
   }
 
   /* アイコンとテキストが横並びに整列するように、.metricContent を調整 */
@@ -29,11 +28,14 @@
     display: flex;
     flex-direction: column; /* テキストを縦に並べる */
     justify-content: center;
+    background-color: rgba(128, 255, 0, 0.226);
+    width: 12vw;
+    height: 10vh;
   }
 
   /* ラベルのスタイル */
   .metricLabel {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: #786e58;
     margin-bottom: 4px;
     font-family: cursive;
@@ -41,8 +43,7 @@
 
   /* メトリック値のスタイル */
   .metricValue {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.1rem;
     font-family: cursive;
     color: #34584b;
   }

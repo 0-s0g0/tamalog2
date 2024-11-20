@@ -1,13 +1,19 @@
-/* アイコンとテキストを横並びにするために、.metricCard に display: flex を追加 */
+.goalAll{
+  width: 100%;
+  height: 100%;
+  display: grid; /* グリッドレイアウトを適用 */
+  grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
+  gap: 1%; /* 各アイテムの間隔を0.75rem（12px）に設定 */
+}
 .metricCard00 {
+  width: 100%;
+  height: 80%;
   background-image: url('../../public/NowCard01.png');
   display: flex;
   align-items: center; /* アイコンとテキストを縦方向で中央揃え */
-  border: 2px solid rgba(0, 0, 0, 0.658); /* 枠線を黒で太く */
+  border: 2px solid rgba(0, 0, 0, 0.295); /* 枠線を黒で太く */
   border-radius: 8px;
-  padding: 16px;
   text-align: center;
-  height: 16vh;
   position: relative; /* 影のために必要 */
 
 }
@@ -16,8 +22,8 @@
   content: '';
   position: absolute;
   border: 2px solid rgb(180, 185, 167);  /*枠線を黒で太く */
-  bottom: -15px;  /* カードの下に影を置く */
-  right: -15px;   /* カードの右に影を置く */
+  bottom: -10%;  /* カードの下に影を置く */
+  right: -5%;   /* カードの右に影を置く */
   width: 100%;    /* カードと同じ幅 */
   height: 100%;   /* カードと同じ高さ */
   background-color: rgb(238, 244, 223); /* 黒い四角形 */
@@ -27,14 +33,14 @@
 
 /* アイコンを包むボックス */
 .iconWrapper {
-  width: 60px; /* 正方形のサイズ */
-  height: 60px; /* 高さを60pxに調整 */
+  width: 6vw; /* 正方形のサイズ */
+  height: 6vw; /* 高さを60pxに調整 */
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #dc9326d2; /* アイコンの背景色 */
   border-radius: 68px; /* アイコンボックスを丸くする（任意） */
-  margin-right: 16px; /* アイコンとテキストの間にスペース */
+  margin-right: 0.5vw; /* アイコンとテキストの間にスペース */
 }
 
 /* アイコンとテキストが横並びに整列するように、.metricContent を調整 */
@@ -42,11 +48,14 @@
   display: flex;
   flex-direction: column; /* テキストを縦に並べる */
   justify-content: center;
+  background-color: #d66d6d2c;
+  width: 100%;
+  height: 100%;
 }
 
 /* ラベルのスタイル */
 .metricLabel {
-  font-size: 0.875rem;
+  font-size: 1vw;
   color: #888;
   margin-bottom: 4px;
   font-family: cursive;
@@ -54,14 +63,15 @@
 
 /* メトリック値のスタイル */
 .metricValue {
-  font-size: 1.5rem;
+  font-size: 0.8rem;
   font-weight: bold;
   font-family: cursive;
+  color: #413e3e;
 }
 
 /* 変更指示のスタイル */
 .changeIndicator {
-  font-size: 0.875rem;
+  font-size: 1vw;
   margin-bottom: 4px;
   color: #888;
   font-family: cursive;

@@ -49,7 +49,7 @@ const goalMuscleChange = calculateChange(
 
 
   return (
-    <div className="grid grid-cols-3 gap-10 mb-8">
+    <div className={styles.goalAll}>
       {/* Goal Weight */}
       <div className={styles.metricCard00}>
           <div className={styles.iconWrapper}>

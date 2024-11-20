@@ -1,13 +1,12 @@
 /* グラフカード全般のスタイル */
 .graphCard {
+  height: 100%;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
   display: flex;
   flex-direction: column;
   position: relative; /* 相対位置を指定 */
-  height: 100%;  /* 高さを 100% に設定 */
   border: 2px solid rgba(122, 108, 24, 0.658); /* 枠線を黒で太く */
 
   /*追加*/
@@ -18,7 +17,7 @@
   
   /* 円グラフのスタイル */
   .donutChart {
-    height: 380px; /* 高さを指定 */
+    height: 46vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +34,7 @@
   /* 円グラフの中央ラベル */
   .donutCenterLabel {
     position: absolute;
-    font-size: 35px; /* サイズを少し小さくする */
+    font-size: 1rem; /* サイズを少し小さくする */
     margin-top: 8%;
     margin-right: 5%;
     font-weight: bold;

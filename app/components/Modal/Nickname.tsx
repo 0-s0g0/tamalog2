@@ -5,7 +5,7 @@
 //共通インポート
 import React from 'react';
 import { useState, useEffect } from 'react';
-import styles from '../../style.module.css'; 
+import styles from './01Modal.module.css'; 
 import { Entry,EntryAC } from '../type';
 import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebase'

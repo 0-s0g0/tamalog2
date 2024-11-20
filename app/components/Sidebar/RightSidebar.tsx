@@ -16,8 +16,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({ sportsEntries }) => {
   return (
     <div className={styles.sidebar}>
       <div className={styles['sidebar-header']}>
-      <div className={local.title}>
-            <Image src={Title05} alt="Title_goal" width={800}/>
+          <div className={styles.titleback}>
+            <Image src={Title05} alt="Title_List" className={styles.titleImage}/>
           </div>
       </div>
       <div className={styles['calendar-container']}>

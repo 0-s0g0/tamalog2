@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EntrySports } from '../type';  // EntrySports型
-import styles from '../../style.module.css'; 
+import styles from './01Modal.module.css'; 
 import Image from 'next/image';
 import SportsBox from '../../public/SportsBoxing.png';
 import SportsRing from '../../public/SportsRing.png';

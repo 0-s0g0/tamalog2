@@ -1,8 +1,9 @@
 /* 左のサイドバー */
 .sidebar {
-  width: 18vw;
-  height: 100vh;
-  /* background-color: #5f9ea0; */
+  margin-left: 1vw;
+  width: 15vw;
+  height: 100%;
+  background-color: #276b6d4d; 
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -18,12 +19,13 @@
   background-image: url('../../public/Count.png'); /* 画像のパス */
   background-size: cover; /* 画像を要素の大きさに合わせてリサイズ */
   background-position: center; /* 画像の中央を表示 */
-  height: 10vw; /* 画像の高さを調整 */
+  height: 10vh; /* 画像の高さを調整 */
   width: 9vw;
   display: flex;
   justify-content: center; /* CountDisplayを横方向に中央揃え */
   align-items: center; /* CountDisplayを縦方向に中央揃え */
   color: #481D08; /* CountDisplay内のテキスト色（白などに設定） */
+  background-color: rgba(160, 124, 95, 0.815);
 }
 
 .countext{
@@ -35,14 +37,16 @@
   display: flex;
   align-items: center;
   gap: 8px; /* アイコンと文字の間にスペースを追加 */
+  background-color: rgba(255, 228, 196, 0.295);
   
 }
 
 /* ボタン全体のスタイル */
 .sidebarButton {
   display: flex;
-  gap: 8px; /* アイコンと文字の間にスペース */
-  padding-bottom: 16px;
+  gap:1vw; /* アイコンと文字の間にスペース */
+  padding-bottom: 1vw;
+  background-color: rgba(193, 127, 255, 0.308);
 }
 
 /* 文字のスタイル */
@@ -51,5 +55,6 @@
   color: #ffffff;
   font-weight: bold;
 }
+
 
   

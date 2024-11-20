@@ -55,7 +55,7 @@ const Charts_Dounut: React.FC<ChartsUIProps> = ({
 
   // UIコンポーネント
   return (
-      <div className="grid-cols-2 gap-4 mb-8">
+      <div>
       {/* 体組成分析 */}
 
         {/* 左側の円グラフ */}

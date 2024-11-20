@@ -1,5 +1,4 @@
-// dotenvをインポートして環境変数をロード
-require('dotenv').config();
+
 
 // Firebaseインスタンスを初期化する部分
 import { initializeApp } from 'firebase/app';
