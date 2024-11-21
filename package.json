@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "@phosphor-icons/react": "^2.1.7",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.7.7",
     "crypto-browserify": "^3.12.1",

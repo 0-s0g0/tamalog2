@@ -1,42 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 @font-face {
-  font-family: 'KraftMincho';
-  src: url('/assets/fonts/KraftMincho-Regular.ttf') format('truetype');
+  font-family: 'KraftMincho'; 
+  src: url('./public/fonts/craftmincho.otf') format('opentype'); 
+  font-weight: normal; 
+  font-style: normal;
 }
 
-
-
-
 body {
-    background-color: #f8cc49;/*#5f9ea0*/
-    display: grid;
-    width: 100vw;
-    position: relative; /* 影を追加するために必要 */
-    z-index: 0; 
-  }
+  font-family:  'KraftMincho';
+  background-color: #f8cc49;/*#5f9ea0*/
+  display: grid;
+  width: 100vw;
+  position: relative; /* 影を追加するために必要 */
+  z-index: 0; 
+}
 
-  /* カレンダーの中身 */
-  .react-calendar {
-    border: rgba(254, 253, 253, 0.3)!important; /* 枠線を削除 */
-    border-radius: 20px; /* カレンダー内の角を丸くする */
-    background-color: rgba(206, 17, 17, 0.1)!important; 
-    width: 100%!important;
-  }
+/* カレンダーの中身 */
+.react-calendar {
+  border: rgba(254, 253, 253, 0.3)!important; /* 枠線を削除 */
+  border-radius: 20px; /* カレンダー内の角を丸くする */
+  background-color: rgba(206, 17, 17, 0.1)!important; 
+  width: 100%!important;
+}
 
-  /* 日付セル */
-  .react-calendar__tile {
-    padding: 10px!important; /* セル内のパディング */
-    height: 12vh;
-    text-align: top; /* テキストを中央に配置 */
-    border-radius: 10px; /* セルの角を丸くする */
-    transition: background-color 0.3s ease; /* ホバー時に色が滑らかに変化 */
-    display: flex;
-    position: relative;
-    flex-direction: column;  /* 垂直方向に配置 */
-    justify-content: flex-start;  /* 上部に配置 */
-    text-align: center;  /* 水平方向は中央 */
-    padding-top: 5px; /* 上部に少し余白を作る */
-    
-  }
+/* 日付セル */
+.react-calendar__tile {
+  padding: 10px!important; /* セル内のパディング */
+  height: 12vh;
+  text-align: top; /* テキストを中央に配置 */
+  border-radius: 10px; /* セルの角を丸くする */
+  transition: background-color 0.3s ease; /* ホバー時に色が滑らかに変化 */
+  display: flex;
+  position: relative;
+  flex-direction: column;  /* 垂直方向に配置 */
+  justify-content: flex-start;  /* 上部に配置 */
+  text-align: center;  /* 水平方向は中央 */
+  padding-top: 5px; /* 上部に少し余白を作る */
+  
+}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import stylesSidever from "./LeftSidebar.module.css"; // スタイルのインポート
 import local from "../../styles/local.module.css";
+import { UserCircle, Keyboard, TrayArrowUp, Footprints, ClipboardText, DeviceMobileCamera, CalendarCheck } from "@phosphor-icons/react";
 
 // 画像のインポート
 import sideBarImageOUT00 from '../../public/Sidever_imageOUT000.png';
@@ -30,7 +31,7 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
   setIsCalendarModalOpen,
 }) => {
   return (
-    <div className={local.sidebarA}>
+      <div className={local.sidebarA}>
       {isLoggedIn ? (
         <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
@@ -40,33 +41,38 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
       ) : (
         <button onClick={() => setIsSignUpModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage00} alt="Sign Up" width={150} />
+            <UserCircle size={50} color="#4f2f2f" weight="duotone" />
+            <div className={stylesSidever.buttonText}>ろぐいん</div>
           </div>
         </button>
       )}
 
       <button onClick={() => setIsTextInputModalOpen(true)} className={stylesSidever.sidebarButton}>
         <div className={stylesSidever.buttonContent}>
-          <Image src={sideBarImage01} alt="Text Input Modal" width={150} />
+          <Keyboard size={50} color="#4f2f2f" weight="duotone" />
+          <div className={stylesSidever.buttonText}>てきすと入力</div>
         </div>
       </button>
 
       <button onClick={() => setIsImageInputModalOpen(true)} className={stylesSidever.sidebarButton}>
         <div className={stylesSidever.buttonContent}>
-          <Image src={sideBarImage02} alt="Image Input Modal" width={150} />
+          <TrayArrowUp size={50} color="#4f2f2f" weight="duotone" />
+          <div className={stylesSidever.buttonText}>いめーじ入力</div>
         </div>
       </button>
 
       <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
         <div className={stylesSidever.buttonContent}>
-          <Image src={sideBarImage04} alt="Calendar Modal" width={150} />
+          <Footprints size={50} color="#4f2f2f" weight="duotone" />
+          <div className={stylesSidever.buttonText}>すぽーつ</div>
         </div>
       </button>
 
       <Link href="/create-post" passHref>
         <button className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage03} alt="Create Post" width={150} />
+            <ClipboardText size={50} color="#4f2f2f" weight="duotone" />
+            <div className={stylesSidever.buttonText}>あかうんと</div>
           </div>
         </button>
       </Link>
@@ -74,11 +80,22 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
       <Link href="/mobile-page" passHref>
         <button className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage03} alt="Mobile Page" width={150} />
+            <DeviceMobileCamera size={50} color="#4f2f2f" weight="duotone" />
+            <div className={stylesSidever.buttonText}>すまほ</div>
+          </div>
+        </button>
+      </Link>
+
+      <Link href="/mobile-page" passHref>
+        <button className={stylesSidever.sidebarButton}>
+          <div className={stylesSidever.buttonContent}>
+            <CalendarCheck size={50} color="#4f2f2f" weight="duotone" />
+            <div className={stylesSidever.buttonText}>かれんだー</div>
           </div>
         </button>
       </Link>
     </div>
+    
   );
 };
 

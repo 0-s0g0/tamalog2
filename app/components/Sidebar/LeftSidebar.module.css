@@ -33,26 +33,34 @@
   font-weight: bold; /* 太字 */
 }
 
-.buttonContent {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* アイコンと文字の間にスペースを追加 */
-  background-color: rgba(255, 228, 196, 0.295);
-  
-}
+
 
 /* ボタン全体のスタイル */
 .sidebarButton {
   display: flex;
-  gap:1vw; /* アイコンと文字の間にスペース */
+  gap:2vw; /* アイコンと文字の間にスペース */
   padding-bottom: 1vw;
-  background-color: rgba(193, 127, 255, 0.308);
+  background-color: rgba(114, 180, 34, 0.308);
 }
 
+/* ボタン単体のスタイル */
+.buttonContent {
+  display: flex;
+  align-items: center;
+  width: 11vw;
+  gap: 1%; /* アイコンと文字の間にスペースを追加 */
+  background-color: rgba(52, 140, 241, 0.295);
+  
+}
+
+
 /* 文字のスタイル */
-.buttonText {
-  font-size: 14px;
-  color: #ffffff;
+.buttonText{
+  text-align: center;
+  background-color: bisque;
+  font-family:  'KraftMincho';
+  font-size: 1.25rem;
+  color: #4f2f2f;
   font-weight: bold;
 }
 

@@ -1,7 +1,13 @@
-import { useState } from "react";
-import styles from "./Header.module.css"; // 必要なCSSを定義
-import Image from "next/image";
-import Link from "next/link";
+import React, { useState } from "react";
+import HeaderINDEX from "./Header_index";
+//type
+import { Entry,EntryAC, EntrySports } from '../type';
+ // Firebase
+import { auth, db} from '../../../firebase/firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signOut } from "firebase/auth";
+
+//
 //copmponents
 import TextInputModal from '../Modal/TextInput_UI' ; 
 import TextfromIMAGEModal from '../Modal/TextfromIMAGE_UI' ; 
@@ -9,94 +15,184 @@ import AuthModal from '../Modal/AuthModal';
 import NicknameModal from '../Modal/Nickname'
 import LogoutModal from '../Modal/LogoutModal';
 import CalendarModal from '../Modal/CalenderModal'
-import CardSports from '../Card/CardSports'
 import CheerModal from '../Modal/CheerModal';
 import ProfileModal from '../Modal/ProfileModal';
+import ImageInputModal from "../Modal/ImageInputModal";
+
+const Header: React.FC = () => {
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [entryAC, setEntryAC] = useState<EntryAC[]>([]);
+  const [sportsEntries, setSportsEntries] = useState<EntrySports[]>([]);
+   // 認証関連のstate
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const [isLoginMode, setIsLoginMode] = useState(true);
+   const [nickname, setNickname] = useState<string>(''); 
+   const [isSignupSuccess, setIsSignupSuccess] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);  
+  //画像処理
+  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);//画像処理の結果を次のモーダルへ渡す 
+
+  const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
+  const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
+  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+  const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
 
 
-import logo from '../../public/logo2.png';
-import sideBarImageOUT00 from '../../public/Sidever_imageOUT000.png';
-import sideBarImage00 from '../../public/Sidever_image000.png';
-import sideBarImage01 from '../../public/Sidever_image001a.png';
-import sideBarImage02 from '../../public/Sidever_image002.png';
-import sideBarImage03 from '../../public/Sidever_image003.png';
-import sideBarImage04 from '../../public/Sidever_image004.png';
+  //関数
+  const handleSetNickname = (newNickname: string) => {
+    setNickname(newNickname); // NicknameModal から受け取ったニックネームを設定
+  };
+  
+  // 認証関連ハンドラー（ログイン/サインアップ）
+  const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // フォーム送信時にページ遷移を防ぐ
+  
+    try {
+      if (isLoginMode) {
+        // ログイン処理
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('ログイン成功');
+      } else {
+        // サインアップ処理
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('アカウント作成成功');
+        setIsSignUpModalOpen(false);  // サインアップモーダルを閉じる
+        setIsNicknameModalOpen(true); // ニックネーム設定モーダルを開く
+      }
+    } catch (error: any) {
+      // エラーハンドリング
+      if (error.code === 'auth/email-already-in-use') {
+        alert('このメールアドレスはすでに使用されています。');
+      } else if (error.code === 'auth/invalid-email') {
+        alert('無効なメールアドレスです。');
+      } else if (error.code === 'auth/wrong-password') {
+        alert('間違ったパスワードです。');
+      } else {
+        alert('エラーが発生しました: ' + error.message);
+      }
+    }
+  };
 
-const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // ログアウト処理
+const handleLogout = async () => {
+  try {
+    await signOut(auth); // Firebase Auth でログアウト
+    console.log("ログアウトしました");
+    setIsSignupSuccess(false); // サインアップ成功フラグをリセット
+    setIsNicknameModalOpen(false); // ニックネームモーダルを閉じる
+    // ログイン・サインアップモーダルを開く、または必要に応じてリダイレクト
+    // history.push('/login'); // React Routerを使用している場合、ログインページへリダイレクト
+  } catch (error) {
+    console.error("ログアウト時にエラーが発生しました:", error);
+    alert("ログアウト時にエラーが発生しました");
+  }
+};
 
-   // モーダル開閉制御
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
-    const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
-    const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
-    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-    const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-    const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
-    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const Mynickname = entryAC[entryAC.length - 1]?.nickname || 'user';
 
   return (
-    <header className={styles.header}>
-      <div className={styles.logo}>
-        <Image src={logo} alt="Logo" width={100} height={50} />
-      </div>
-      <div
-        className={`${styles.menuButton} ${isMenuOpen ? styles.closeButton : ""}`}
-        onClick={toggleMenu}
-        aria-label="Menu"
-      >
-        <span />
-        <span />
-        <span />
-      </div>
-      {isMenuOpen && (
-        <div className={styles.menu}>
-          {isLoggedIn ? (
-          <button onClick={() => setIsLogoutModalOpen(true)}>
-            
-              <Image src={sideBarImageOUT00} alt="Open Modal" width={150} />
-
-          </button>
-        ) : (
-          <button onClick={() => setIsSignUpModalOpen(true)}>
-              <Image src={sideBarImage00}  alt="Open Modal" width={150} />
-          </button>
-        )}
-
-        <button onClick={() => setIsTextInputModalOpen(true)} >
-            <Image src={sideBarImage01} alt="Open Modal" width={150} />
-        </button>
-
-        <button onClick={() => setIsImageInputModalOpen(true)} >
-            <Image src={sideBarImage02} alt="Open Modal" width={150} />
-        </button>
-
-        
-        <button onClick={() => setIsCalendarModalOpen(true)} >
-            <Image src={sideBarImage04} alt="Open Modal" width={150} />
-        </button>
-
-        <Link href="/create-post" passHref>
-          <button>
-              <Image src={sideBarImage03} alt="Go to Create Post" width={150} />
-          </button>
-        </Link>
-
-        <Link href="/mobile-page" passHref>
-          <button >
-              <Image src={sideBarImage03} alt="Go to Create Post" width={150} />
-          </button>
-        </Link>   
-        </div>
-      )}
-    </header>
-
-
-
+    <div>
+      <HeaderINDEX
+        isLoggedIn={isLoggedIn}
+        setIsLogoutModalOpen={setIsLogoutModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        setIsImageInputModalOpen={setIsImageInputModalOpen}
+        setIsCalendarModalOpen={setIsCalendarModalOpen}
+      />
       
+      {/* モーダル群 */}
+      
+      {/* テキスト入力用モーダルフォーム*/}
+      <TextInputModal
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
+        setEntries={setEntries}
+        entries={entries}
+        editingId={null}
+        setEditingId={() => {}}
+      />
+
+       {/* モーダル呼び出し */}
+       <ImageInputModal
+        isImageInputModalOpen={isImageInputModalOpen} 
+        setIsImageInputModalOpen={setIsImageInputModalOpen}
+        setIsTextfromIMAGEModalOpen={setIsTextInputModalOpen}
+        isTextfromIMAGEModalOpen={isTextInputModalOpen}
+        imageProcessingResults={imageProcessingResults}
+        setImageProcessingResults={setImageProcessingResults}
+      />
+
+
+      {/* TextfromIMAGEModal を組み込む */}
+      <TextfromIMAGEModal 
+        isTextInputModalOpen={isTextInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+        isCheerModalOpen={isCheerModalOpen}
+        setIsCheerModalOpen={setIsCheerModalOpen}
+        imageProcessingResults={imageProcessingResults}
+        entries={[]}
+        setEntries={() => {}}
+        editingId={null}
+        setEditingId={() => {}}
+      />
+
+      {/* ニックネーム設定モーダル */}
+      <NicknameModal
+        isNicknameModalOpen={isNicknameModalOpen}
+        setIsNicknameModalOpen={setIsNicknameModalOpen}
+        setEntryAC={setEntryAC}
+        entryAC={entryAC}
+        editingId={null}
+        setEditingId={() => {}}
+        handleSetNickname={handleSetNickname}
+      />
+
+      <LogoutModal
+          nickname={Mynickname} // 親から渡した nickname を表示
+          setIsLogoutModalOpen={setIsLogoutModalOpen}
+          isLogoutModalOpen={isLogoutModalOpen}
+          handleLogout={handleLogout}
+       />
+
+      <CheerModal
+          setIsCheerModalOpen={setIsCheerModalOpen}
+          isCheerModalOpen={isCheerModalOpen}
+       />
+
+      {/* ログイン・サインアップモーダル */}
+      <AuthModal
+        isSignUpModalOpen={isSignUpModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+        isLoginMode={isLoginMode}
+        setIsLoginMode={setIsLoginMode}
+        handleAuthSubmit={handleAuthSubmit}
+        handleLogout={handleLogout}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
+        {/* モーダル */}
+        <CalendarModal
+        isModalOpen={isCalendarModalOpen}  
+        setIsModalOpen={setIsCalendarModalOpen} 
+        setSportsEntries={setSportsEntries} 
+      />
+
+      <ProfileModal 
+        isProfileModalOpen={isProfileModalOpen}
+        setIsProfileModalOpen={setIsProfileModalOpen}
+      />
+
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-/* styles.piyo */
   .piyoback {
     display: flex;
     align-items: center; /* 縦方向に中央揃え */
@@ -28,6 +27,7 @@
   }
 
   .tip {
+    font-family:  'KraftMincho';
     position: absolute; /* 画像の上に絶対位置で配置 */
     top: 50%; /* 画像の縦方向中央 */
     left: 50%; /* 画像の横方向中央 */

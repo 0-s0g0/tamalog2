@@ -402,7 +402,7 @@ const handleLogout = async () => {
   return (
     <div className={local.body}>
       <div className={local.fullbackContent}>
-      {/* レフトサイドバー */}
+      {/* ヘッダー*/}
       <Header />
 
         
