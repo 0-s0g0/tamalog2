@@ -10,43 +10,49 @@ import axios from 'axios';
 
 
 //copmponents
-import CountDisplay from './components/Sidebar/Countdisplay';
-import CardGoal from './components/Card/CardGoal';
-import CardNow from './components/Card/CardNow';
-import Charts_Line from './components/Charts/charts_Line';  
-import Charts_Dounut from './components/Charts/charts_Dounut';  
-import Datatable_UI from './components/Datatable/Datatable_UI'; 
-import RightSidebar from './components/Sidebar/RightSidebar';
-import LeftSidebar from './components/Sidebar/LeftSidebar';
-import Header from './components/Header/Header';
+import CountDisplay from '../../components/Sidebar/Countdisplay';
+import CardGoal from '../../components/Card/CardGoal';
+import CardNow from '../../components/Card/CardNow';
+import Charts_Line from '../../components/Charts/charts_Line';  
+import Charts_Dounut from '../../components/Charts/charts_Dounut';  
+import Datatable_UI from '../../components/Datatable/Datatable_UI'; 
+import RightSidebar from '../../components/Sidebar/RightSidebar';
+import LeftSidebar from '../../components/Sidebar/LeftSidebar';
 
 
 
 
-import { getRandomTip } from './components/Tip/GetRandomTip'; // 関数をインポート
+import { getRandomTip } from '../../components/Tip/GetRandomTip'; // 関数をインポート
 
 // Firebase
-import { auth, db} from '../firebase/firebase';
+import { auth, db} from '../../../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
-import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../firebase/saveDataFunctions";
+import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../../firebase/saveDataFunctions";
 
 //style
-import styles from './styles/start.module.css';
+import styles from './styles/main.module.css';
+import local from './styles/local.module.css'
+import stylesSidever from './components/Sidebar/LeftSidebar.module.css';
 
 
 //type
-import { Entry,EntryAC, EntrySports } from './components/type'; 
+import { Entry,EntryAC, EntrySports } from '../../components/type'; 
 
 
 //Image
-import piyo01 from './public/piyo01.png'
-import piyo02 from './public/piyo02.png'
-import piyo03 from './public/piyo03.png'
-import piyo04 from './public/piyo04.png'
-import piyo05 from './public/piyo05.png'
-import piyo06 from './public/piyo06.png'
-import kaunt from './public/kaunt1.png'
+import logo from '../../public/logo2.png';
+import Title01 from '../../public/Title01.png';
+import Title02 from '../../public/Title02.png';
+import Title03 from '../../public/Title03.png';
+import Title04 from '../../public/Title04.png';
+import piyo01 from '../../public/piyo01.png'
+import piyo02 from '../../public/piyo02.png'
+import piyo03 from '../../public/piyo03.png'
+import piyo04 from '../../public/piyo04.png'
+import piyo05 from '../../public/piyo05.png'
+import piyo06 from '../../public/piyo06.png'
+import kaunt from '../../public/kaunt1.png'
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -255,14 +261,147 @@ const handleLogout = async () => {
     return piyo01;
   };
 
+  const currentImage = getImageForCount(entries.length);
 
+  ///////////////////////////////////////////
+  // 各データ計算
+  ///////////////////////////////////////////
+  const Mynickname = entryAC[entryAC.length - 1]?.nickname || 'user';
+  
+  // 最新のgoal
+  const latestEntryAC = entryAC[entryAC.length - 1] || {
+    goalWeight: '0',
+    goalFat: '0',
+    goalMuscle: '0'
+  };
+  // goal値に対する最新のEntry
+  const latestEntrytoGOAL = entries[entries.length - 1] || {
+    totalWeight: 0,
+    bodyFat: '0',
+    totalMuscle: 0
+  };
+  // 最新(現在の)Entry
+  const latestEntry = entries[entries.length - 1] || {
+    bodyWater: '0',
+    protein: '0',
+    minerals: '0',
+    bodyFat: '0'
+  };
+  // 最新からひとつ前のEntry
+  const previousEntry = entries[entries.length - 2] || {
+    bodyWater: '0',
+    protein: '0',
+    minerals: '0',
+    bodyFat: '0'
+  };
+
+  // 各項目の変化量を計算  
+  const bodyFatPercentage = calculateBodyFatPercentage(parseFloat(latestEntry.bodyFat), latestEntry.totalWeight);
 
   ///////////////////////////////////////////
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div className={styles.startback}>
+    <div className={local.body}>
+      <div className={local.fullbackContent}>
+      {/* レフトサイドバー */}
+      <aside className={stylesSidever.sidebar}>
+      <Image src={logo} alt="Open Modal" width={200} />
+        <div className={local.sidebarA}>
+          <LeftSidebar/>
+        </div>
 
+        <div className={stylesSidever.imageContainer}>         
+          <CountDisplay entries={entries} />
+        </div>
+        
+      </aside>
+
+
+
+
+      {/* メインコンテンツ */}
+      <div className={local.mainbackContent}>
+        <div className={local.mainContent}>
+            <div className={styles.piyoback}>          
+              <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
+                <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
+              </button>
+              <div className={styles.container}>
+                <div className={styles.piyoime}>
+                <Image src={kaunt} alt="Sample image" width={600} />
+                <div className={styles.tip}>{tip}</div>
+                </div>
+              </div>
+            </div>
+
+          {/*Title01*/}
+          <div className={styles.titleback}>
+            <Image src={Title01} alt="Title_goal" className={styles.titleImage}/>
+          </div>
+
+          {/*目標カード*/}
+          <div className={styles.goalback}>
+            <CardGoal
+            latestEntryAC={latestEntryAC}
+            latestEntry={latestEntrytoGOAL}
+            /> 
+          </div>
+
+          {/*Title02*/}
+          <div className={styles.titleback}>
+            <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
+          </div>
+
+          <div className={local.grid}>
+
+          
+            {/* グラフ表示*/}
+            <Charts_Dounut
+                entries={entries}
+                latestEntry={latestEntry}
+                bodyFatPercentage={bodyFatPercentage}
+              />
+              <CardNow
+              latestEntry={latestEntry}
+              previousEntry={previousEntry}
+              />
+          </div>
+          
+          {/*Title03*/}
+          <div className={styles.titleback}>
+            <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
+          </div>
+
+          <Charts_Line
+            entries={entries}
+            latestEntry={latestEntry}
+            bodyFatPercentage={bodyFatPercentage}
+          />
+          
+          {/*Title04*/}
+          <div className={styles.titleback}>
+            <Image src={Title04} alt="Title_List" className={styles.titleImage}/>
+          </div>
+
+
+          {/* データテーブル表示 */}
+          <Datatable_UI 
+              entries={entries} 
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+            
+        </div>
+        {/* 右側のサイドバー（カレンダー） */}
+        <div className={local.sidebarRight}>
+          <RightSidebar sportsEntries={sportsEntries} />
+        </div>
+      </div>
+
+      
+      
+      </div>
     </div>
     
   );
