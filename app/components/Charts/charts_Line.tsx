@@ -42,7 +42,7 @@ interface ChartsUIProps {
   bodyFatPercentage: number; // 体脂肪率
 }
 
-const charts_Line: React.FC<ChartsUIProps> = ({
+const Charts_Line: React.FC<ChartsUIProps> = ({
   entries,
   latestEntry,
   bodyFatPercentage,
@@ -119,4 +119,4 @@ const charts_Line: React.FC<ChartsUIProps> = ({
   );
 };
 
-export default charts_Line;
+export default Charts_Line;
