@@ -29,6 +29,7 @@ import CardSports from '../components/Card/CardSports'
 import CheerModal from '../components/Modal/CheerModal';
 import ProfileModal from '../components/Modal/ProfileModal';
 import Header2 from '../components/Header/Header2';
+import Footer from '../components/Footer/Footer';
 
 
 
@@ -44,7 +45,7 @@ import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFir
 
 //style
 import styles from '../styles/main.module.css';
-import local from '../styles/local.module.css'
+import local from '../styles/localMOBILE.module.css'
 import stylesSidever from '../components/Sidebar/LeftSidebar.module.css';
 
 
@@ -53,13 +54,6 @@ import { Entry,EntryAC, EntrySports } from '../components/type';
 
 
 //Image
-import logo from '../public/logo2.png';
-import sideBarImageOUT00 from '../public/Sidever_imageOUT000.png';
-import sideBarImage00 from '../public/Sidever_image000.png';
-import sideBarImage01 from '../public/Sidever_image001a.png';
-import sideBarImage02 from '../public/Sidever_image002.png';
-import sideBarImage03 from '../public/Sidever_image003.png';
-import sideBarImage04 from '../public/Sidever_image004.png';
 import icon01 from '../public/icon1.png';
 import icon02 from '../public/icon2.png';
 import icon03 from '../public/icon3.png';
@@ -401,18 +395,18 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   return (
     <div className={local.body}>
+       <Header2/>
       <div className={local.fullbackContent}>
-      {/* ヘッダー*/}
-      <Header2/>
-        <div className={stylesSidever.imageContainer}>         
+      {/* カウンター<div className={stylesSidever.imageContainer}>         
           <CountDisplay entries={entries} />
-        </div>
+        </div>*/}
+     
+        
 
       {/* メインコンテンツ */}
       <div className={local.mainbackContent}>
         <div className={local.mainContent}>
-            <div className={styles.piyoback}> 
-                <h2>mobilepage</h2>         
+            <div className={styles.piyoback}>       
               <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
                 <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
               </button>
@@ -481,111 +475,13 @@ const handleLogout = async () => {
               handleDelete={handleDelete}
             />
             
+           <Footer/>
+            
         </div>
 
       </div>
 
-      {/* テキスト入力用モーダルフォーム*/}
-      <TextInputModal
-        isTextInputModalOpen={isTextInputModalOpen}
-        setIsTextInputModalOpen={setIsTextInputModalOpen}
-        isCheerModalOpen={isCheerModalOpen}
-        setIsCheerModalOpen={setIsCheerModalOpen}
-        setEntries={setEntries}
-        entries={entries}
-        editingId={null}
-        setEditingId={() => {}}
-      />
-
-       {/* 画像入力用モーダル */}
-       {isImageInputModalOpen && (
-        <div className={styles.modalBackground}>
-          <div className={styles.modalContent}>
-            <h2 className="text-xl font-bold mb-4">Upload Image</h2>
-            <form onSubmit={handleImageSubmit}>
-              <div className="mb-4">
-                <label className="block mb-1">Choose Image:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                  className="border p-2 w-full"
-                />
-              </div>
-              {/* プレビュー用の画像表示 */}
-              {imagePreview && (
-                <div className="mb-4">
-                  <img src={imagePreview} alt="Preview" className="w-full h-auto mb-2" />
-                </div>
-              )}
-              <button type="submit" className={styles.modalButton}>Upload</button>
-              <button type="button" onClick={() => setIsImageInputModalOpen(false)} className={styles.modalButtonclose}>Close</button>
-            </form>
-          </div>
-        </div>
-      )}
-
-
-      {/* TextfromIMAGEModal を組み込む */}
-      <TextfromIMAGEModal 
-        isTextInputModalOpen={isTextInputModalOpen}
-        setIsTextInputModalOpen={setIsTextInputModalOpen}
-        isCheerModalOpen={isCheerModalOpen}
-        setIsCheerModalOpen={setIsCheerModalOpen}
-        imageProcessingResults={imageProcessingResults}
-        entries={[]}
-        setEntries={() => {}}
-        editingId={null}
-        setEditingId={() => {}}
-      />
-
-      {/* ニックネーム設定モーダル */}
-      <NicknameModal
-        isNicknameModalOpen={isNicknameModalOpen}
-        setIsNicknameModalOpen={setIsNicknameModalOpen}
-        setEntryAC={setEntryAC}
-        entryAC={entryAC}
-        editingId={null}
-        setEditingId={() => {}}
-        handleSetNickname={handleSetNickname}
-      />
-
-      <LogoutModal
-          nickname={Mynickname} // 親から渡した nickname を表示
-          setIsLogoutModalOpen={setIsLogoutModalOpen}
-          isLogoutModalOpen={isLogoutModalOpen}
-          handleLogout={handleLogout}
-       />
-
-      <CheerModal
-          setIsCheerModalOpen={setIsCheerModalOpen}
-          isCheerModalOpen={isCheerModalOpen}
-       />
-
-      {/* ログイン・サインアップモーダル */}
-      <AuthModal
-        isSignUpModalOpen={isSignUpModalOpen}
-        setIsSignUpModalOpen={setIsSignUpModalOpen}
-        isLoginMode={isLoginMode}
-        setIsLoginMode={setIsLoginMode}
-        handleAuthSubmit={handleAuthSubmit}
-        handleLogout={handleLogout}
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-      />
-        {/* モーダル */}
-        <CalendarModal
-        isModalOpen={isCalendarModalOpen}  // モーダルが開いているか
-        setIsModalOpen={setIsCalendarModalOpen}  // モーダルを閉じる関数
-        setSportsEntries={setSportsEntries}  // 親のエントリ更新関数
-      />
-
-      <ProfileModal 
-        isProfileModalOpen={isProfileModalOpen}
-        setIsProfileModalOpen={setIsProfileModalOpen}
-      />
+     
       
       </div>
     </div>
