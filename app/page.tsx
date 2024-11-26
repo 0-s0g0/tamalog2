@@ -40,13 +40,8 @@ import { Entry,EntryAC, EntrySports } from './components/type';
 
 
 //Image
-import piyo01 from './public/piyo01.png'
-import piyo02 from './public/piyo02.png'
-import piyo03 from './public/piyo03.png'
-import piyo04 from './public/piyo04.png'
-import piyo05 from './public/piyo05.png'
-import piyo06 from './public/piyo06.png'
-import kaunt from './public/kaunt1.png'
+import logo from './public/logo2.png'
+
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -244,16 +239,7 @@ const handleLogout = async () => {
   }
 };
 
-//ランクに応じて画像変更
-  // カウント数に基づいて画像を切り替える関数
-  const getImageForCount = (count: number) => {
-    if (count >= 25) return piyo06; // 25以上はpiyo06固定
-    if (count >= 20) return piyo05;
-    if (count >= 15) return piyo04;
-    if (count >= 10) return piyo03;
-    if (count >= 5) return piyo02;
-    return piyo01;
-  };
+
 
 
 
@@ -262,6 +248,18 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   return (
     <div className={styles.startback}>
+      <div className={styles.title}>
+
+        <div className={styles.title_text}>がんばる九工大生を応援</div>
+        <Image src={logo} alt="Piyo image" className={styles.logo}></Image>
+        <Link href="/mobile-page" passHref>
+        <div className={styles.title_text}>モバイルページへ</div>
+        </Link>
+        <Link href="/PC" passHref>
+        <div className={styles.title_text}>PCページへ</div>
+        </Link>
+        
+      </div>
 
     </div>
     

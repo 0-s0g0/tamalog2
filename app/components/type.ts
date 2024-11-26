@@ -11,15 +11,6 @@ export interface Entry {
     totalWeight: number;
     totalMuscle: number;//bodywater+protein
     removeFat: number; //bodywater+protein+minerals
-    /*
-    goalWeight: string;//from nicknameMOdal
-    goalFat: string;//from nicknameMOdal
-    goalMuscle: string;//from nicknameMOdal
-    nickname: string;//from nicknameMOdal
-    icon: string;//from nicknameMOdal
-    height:Settings; //from nicknameMOdal
-    sex: string;//from nicknameMOdal
-    */
   }
   
 // EntryACインターフェースの定義

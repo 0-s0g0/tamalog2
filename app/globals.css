@@ -10,6 +10,14 @@
   font-style: normal;
 }
 
+:root{
+  --darkyellow:#f8cc49;
+  --lightyellow:#FFF1C6;
+  --brown:#874A2C;
+  --orange:#E38B19;
+  --white:#FFFAF4;
+}
+
 body {
   font-family:  'KraftMincho';
   background-color: #f8cc49;/*#5f9ea0*/

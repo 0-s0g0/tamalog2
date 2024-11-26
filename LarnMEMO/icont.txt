@@ -1,0 +1,7 @@
+icon
+npm i @phosphor-icons/react
+errorが出たのでsudo nano /etc/resolv.confで
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+を追加した．ここでctrl+Oで保存して次の画面でEnterでそのままctrl+Xを押す
+R80,G40,B40

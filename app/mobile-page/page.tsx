@@ -28,7 +28,7 @@ import CalendarModal from '../components/Modal/CalenderModal'
 import CardSports from '../components/Card/CardSports'
 import CheerModal from '../components/Modal/CheerModal';
 import ProfileModal from '../components/Modal/ProfileModal';
-import Header from '../components/Header/Header';
+import Header2 from '../components/Header/Header2';
 
 
 
@@ -403,17 +403,10 @@ const handleLogout = async () => {
     <div className={local.body}>
       <div className={local.fullbackContent}>
       {/* ヘッダー*/}
-      <Header />
-
-        
-
+      <Header2/>
         <div className={stylesSidever.imageContainer}>         
           <CountDisplay entries={entries} />
         </div>
-
-
-
-
 
       {/* メインコンテンツ */}
       <div className={local.mainbackContent}>
@@ -489,10 +482,7 @@ const handleLogout = async () => {
             />
             
         </div>
-        {/* 右側のサイドバー（カレンダー） */}
-        <div className={local.sidebarRight}>
-          <RightSidebar sportsEntries={sportsEntries} />
-        </div>
+
       </div>
 
       {/* テキスト入力用モーダルフォーム*/}
