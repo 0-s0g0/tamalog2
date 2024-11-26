@@ -255,7 +255,7 @@ const handleLogout = async () => {
         <Link href="/mobile-page" passHref>
         <div className={styles.title_text}>モバイルページへ</div>
         </Link>
-        <Link href="/PC" passHref>
+        <Link href="/components/PC" passHref>
         <div className={styles.title_text}>PCページへ</div>
         </Link>
         

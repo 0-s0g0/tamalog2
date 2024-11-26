@@ -31,9 +31,9 @@ import { signOut } from "firebase/auth";
 import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../../firebase/saveDataFunctions";
 
 //style
-import styles from './styles/main.module.css';
-import local from './styles/local.module.css'
-import stylesSidever from './components/Sidebar/LeftSidebar.module.css';
+import styles from '../../styles/main.module.css';
+import local from '../../styles/local.module.css'
+import stylesSidever from '../../components/Sidebar/LeftSidebar.module.css';
 
 
 //type
