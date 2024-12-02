@@ -2,13 +2,14 @@
 //共通インポート
 import React from 'react';
 import styles from './CardGoal.module.css'; 
-import { FaGithub } from 'react-icons/fa';
-
+import { GiFat, GiMuscleFat } from "react-icons/gi";
+import { FaWeightScale } from 'react-icons/fa6';
 //Image
 import Image from 'next/image';
 import GoalWeight_img from '../../public/GoalWeight.png';
 import GoalFat_img from '../../public/GoalFat.png';
 import GoalMuscle_img from '../../public/GoalMuscles.png';
+import { MdAirlineSeatIndividualSuite } from 'react-icons/md';
 
 // Props型定義
 interface Props {
@@ -53,58 +54,54 @@ const goalMuscleChange = calculateChange(
     <div className={styles.goalAll}>
       {/* Goal Weight */}
       <div className={styles.metricCard00}>
-          <div className={styles.iconWrapper}>
-            <FaGithub size={100} color={'#ccc'} />      
-          </div>
         <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Weight</div>
-          <div className={styles.metricValue}>
-            あと{goalWeightChange.sign}{goalWeightChange.change} kg
+          <div className={styles.mainTitle}>
+              <div className={styles.iconWrapper}>
+                <FaWeightScale size={100} color={'#9e8579'} />      
+              </div>
+              <div className={styles.metricLabel}>Goal Weight</div>
+          </div>
+          <div className={styles.suuchi}>
+              <div className={styles.metricValue}>{goalWeightChange.sign}{goalWeightChange.change}kg</div>
           </div>
           <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
-          {parseFloat(latestEntryAC.goalWeight).toFixed(2)} kg
+            {parseFloat(latestEntryAC.goalWeight).toFixed(2)}kg
           </span>
         </div>
       </div>
 
       {/* Goal Fat */}
       <div className={styles.metricCard00}>
-        <div className={styles.iconWrapper}>
-        <Image 
-            src={GoalFat_img}
-            alt='GoalFat'
-            width={30}
-            height={30} 
-          />
-        </div>
         <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Fat</div>
-          <div className={styles.metricValue}>
-          あと{goalFatChange.sign}{goalFatChange.change} kg
+          <div className={styles.mainTitle}>
+            <div className={styles.iconWrapper}>
+              <GiFat size={100} color={'#9e8579'} />   
+            </div>
+            <div className={styles.metricLabel}>Goal Fat</div>
           </div>
-          <span className={`${styles.changeIndicator} ${goalFatChange.color}`}>
-            {parseFloat(latestEntryAC.goalFat).toFixed(2)} kg
-          </span>
+            <div className={styles.metricValue}>
+              {goalFatChange.sign}{goalFatChange.change}kg
+            </div>
+            <span className={`${styles.changeIndicator} ${goalFatChange.color}`}>
+              {parseFloat(latestEntryAC.goalFat).toFixed(2)}kg
+            </span>
         </div>
       </div>
 
       {/* Goal Muscle */}
       <div className={styles.metricCard00}>
-        <div className={styles.iconWrapper}>
-        <Image 
-            src={GoalMuscle_img}
-            alt='GoalWeight'
-            width={30}
-            height={30} 
-          />
-        </div>
         <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Muscle</div>
+          <div className={styles.mainTitle}>
+            <div className={styles.iconWrapper}>
+              <GiMuscleFat size={100} color={'#9e8579'} />   
+            </div>
+            <div className={styles.metricLabel}>Goal Muscle</div>
+          </div>
           <div className={styles.metricValue}>
-            あと{goalMuscleChange.sign}{goalMuscleChange.change} kg
+            {goalMuscleChange.sign}{goalMuscleChange.change}kg
           </div>
           <span className={`${styles.changeIndicator} ${goalMuscleChange.color}`}>
-          {parseFloat(latestEntryAC.goalMuscle).toFixed(2)} kg
+          {parseFloat(latestEntryAC.goalMuscle).toFixed(2)}kg
           </span>
         </div>
       </div>
