@@ -1,14 +1,12 @@
   .piyoback {
     display: flex;
     align-items: center; /* 縦方向に中央揃え */
-    background-color: rgba(255, 140, 0, 0.158);
     width: 100%;
   }
 
   .piyo {
     display: flex;
     align-items: center; /* 縦方向に中央揃え */
-    background-color: rgba(0, 255, 170, 0.075);
     width: 100%;
   }
 
@@ -34,23 +32,19 @@
     width: 80%;
     transform: translate(-50%, -50%); /* 文字の中央を正確に配置 */
     color: rgb(70, 20, 20); /* テキストの色 */
-    font-size: 1.5vw; /* フォントサイズ*/
+    font-size: 2.5vw; /* フォントサイズ*/
     font-weight: bold; /* 必要に応じて文字を太くする */
-    background-color: rgba(0, 255, 255, 0.267);
   }
 
   .titleback{
     margin-top: 1vw;
-    background-color: rgba(127, 255, 212, 0.199);
     width: 100%; 
   }
   .titleImage{
-    width: 40%;   
-    background-color: rgba(137, 43, 226, 0.171);
+    width: 40%;
   }
 
   .goalback{
-    background-color: rgba(223, 32, 32, 0.342);
     height: 20vh;
     width: 100%; 
   }

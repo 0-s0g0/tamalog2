@@ -101,15 +101,9 @@ const handleLogout = async () => {
 
   return (
     <div>
-      <Header2index
-        isLoggedIn={isLoggedIn}
-        setIsLogoutModalOpen={setIsLogoutModalOpen}
-        setIsSignUpModalOpen={setIsSignUpModalOpen}
-        setIsImageInputModalOpen={setIsImageInputModalOpen}
-        setIsTextInputModalOpen={setIsTextInputModalOpen}
-      />
-      
-      {/* モーダル群 */}
+
+
+            {/* モーダル群 */}
       
       {/* テキスト入力用モーダルフォーム*/}
       <TextInputModal
@@ -123,7 +117,7 @@ const handleLogout = async () => {
         setEditingId={() => {}}
       />
 
-       {/* モーダル呼び出し */}
+       {/* 画像入力用モーダルフォーム */}
        <ImageInputModal
         isImageInputModalOpen={isImageInputModalOpen} 
         setIsImageInputModalOpen={setIsImageInputModalOpen}
@@ -133,8 +127,7 @@ const handleLogout = async () => {
         setImageProcessingResults={setImageProcessingResults}
       />
 
-
-      {/* TextfromIMAGEModal を組み込む */}
+      {/* 画像→テキスト入力用モーダルフォーム */}
       <TextfromIMAGEModal 
         isTextInputModalOpen={isTextInputModalOpen}
         setIsTextInputModalOpen={setIsTextInputModalOpen}
@@ -194,6 +187,16 @@ const handleLogout = async () => {
         isProfileModalOpen={isProfileModalOpen}
         setIsProfileModalOpen={setIsProfileModalOpen}
       />
+
+      {/* Header */}
+      <Header2index
+        isLoggedIn={isLoggedIn}
+        setIsLogoutModalOpen={setIsLogoutModalOpen}
+        setIsSignUpModalOpen={setIsSignUpModalOpen}
+        setIsImageInputModalOpen={setIsImageInputModalOpen}
+        setIsTextInputModalOpen={setIsTextInputModalOpen}
+      />
+      
 
     </div>
   );

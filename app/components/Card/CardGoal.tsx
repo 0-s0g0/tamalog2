@@ -2,6 +2,7 @@
 //共通インポート
 import React from 'react';
 import styles from './CardGoal.module.css'; 
+import { FaGithub } from 'react-icons/fa';
 
 //Image
 import Image from 'next/image';
@@ -53,12 +54,7 @@ const goalMuscleChange = calculateChange(
       {/* Goal Weight */}
       <div className={styles.metricCard00}>
           <div className={styles.iconWrapper}>
-            <Image 
-              src={GoalWeight_img}
-              alt='GoalWeight'
-              width={30}
-              height={30} 
-            />         
+            <FaGithub size={100} color={'#ccc'} />      
           </div>
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Weight</div>
