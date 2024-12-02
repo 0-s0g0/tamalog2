@@ -81,7 +81,7 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
     }}
     className={selectedMetric === 'weight' ? styles.activeButton : ''}
   >
-    体重
+    weight
   </button>
   
   <button
@@ -92,7 +92,7 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
     }}
     className={selectedMetric === 'bodyFat' ? styles.activeButton : ''}
   >
-    体脂肪
+    fat
   </button>
   
   <button
@@ -103,7 +103,7 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
     }}
     className={selectedMetric === 'totalMuscle' ? styles.activeButton : ''}
   >
-    筋肉量
+    muscle
   </button>
 </div>
 

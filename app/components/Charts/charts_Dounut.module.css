@@ -14,7 +14,9 @@
 	background-size: 30px 30px;
 
 }
-  
+
+
+
   /* 円グラフのスタイル */
   .donutChart {
     height: 46vh;
@@ -31,30 +33,25 @@
     max-height: 80%; /* 高さを90%に設定 */
   }
   
+    
   /* 円グラフの中央ラベル */
   .donutCenterLabel {
     position: absolute;
-    font-size: 1rem; /* サイズを少し小さくする */
-    margin-top: 8%;
+    font-size: 1.8rem; /* サイズを少し小さくする */
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
     margin-right: 5%;
     font-weight: bold;
     color: #FF9E9E;
-    font-family: cursive;
-  }
-  .donutCenterLabel2 {
-    position: absolute;
-    font-size: 20px; /* サイズを少し小さくする */
-    margin-top: 15%;
-    font-weight: bold;
-    color: #888;
-    font-family: cursive;
+    font-family: 'KraftMincho'; 
   }
   
   /* グラフのタイトル */
   .graphTitle {
-    font-size: 0.875rem;
+    font-size: 2rem;
     color: #888;
-    font-family: cursive;
+    font-family: 'KraftMincho'; 
     margin-bottom: 16px; /* グラフとのスペース */
     text-align: left; /* タイトルを左寄せにする */
   }

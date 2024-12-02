@@ -59,15 +59,15 @@ const Charts_Dounut: React.FC<ChartsUIProps> = ({
       {/* 体組成分析 */}
 
         {/* 左側の円グラフ */}
-        <div className={`${styles.graphCard} ${styles.donutChart}`}>
-          <div className={styles.graphTitle}>Body Composition Analysis</div>
-          <Doughnut data={donutChartData} options={donutChartOptions} />
-          <div className={styles.donutCenterLabel}>
-            {bodyFatPercentage.toFixed(2)}
-            <span className={styles.donutCenterLabel2}>%</span>
+        
+          <div className={`${styles.graphCard} ${styles.donutChart}`}>
+            <div className={styles.graphTitle}>PBF</div>
+            <Doughnut data={donutChartData} options={donutChartOptions} />
+              <div className={styles.donutCenterLabel}>
+                {bodyFatPercentage.toFixed(2)}%
+            </div>
           </div>
-        </div>
-      </div>
+          </div>
 
   );
 };

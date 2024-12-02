@@ -41,7 +41,7 @@
   margin-top: 1%;  
   margin-bottom: 1%;  
   margin-left: 0%;
-  padding: 1px;   
+  padding: 1px;  
   width: calc(100% - 24vw); /* サイドバー分だけ余白を確保 */
   background-color: rgba(184, 158, 8, 0.123);/*もとはぜろ*/
   border-radius: 40px 40px 40px 40px;

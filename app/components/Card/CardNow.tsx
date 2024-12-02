@@ -9,6 +9,7 @@ import local from './local.module.css'
 
 //Image
 import Image from 'next/image';
+import { IoWater } from "react-icons/io5";
 import NowWater_img from '../../public/NowWater.png';
 import NowMineral_img from '../../public/NowMinerals.png';
 import NowPritein_img from '../../public/NowPritein.png';
@@ -61,10 +62,10 @@ const calculateChange = (latest: string, previous: string) => {
               <div className={styles.metricLabel}>Body Water</div>
                   <div className={styles.metricContent1}>
                         <div className={styles.metricValue}>
-                          {parseFloat(latestEntry.bodyWater).toFixed(2)} kg
+                          {parseFloat(latestEntry.bodyWater).toFixed(2)}kg
                         </div>
                       <span className={`${styles.changeIndicator} ${bodyWaterChange.color}`}>
-                        WoW{bodyWaterChange.sign}{bodyWaterChange.change} kg
+                        {bodyWaterChange.sign}{bodyWaterChange.change}kg
                       </span>
                   </div>
             </div>
@@ -78,11 +79,11 @@ const calculateChange = (latest: string, previous: string) => {
               <div className={styles.metricLabel}>Body Protein</div>
                 <div className={styles.metricContent1}>
                     <div className={styles.metricValue}>
-                     {parseFloat(latestEntry.protein).toFixed(2)} kg
+                     {parseFloat(latestEntry.protein).toFixed(2)}kg
                     </div>
-                    <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
-                      WoW{proteinChange.sign}{proteinChange.change} kg
-                    </span>
+                      <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
+                        {proteinChange.sign}{proteinChange.change}kg
+                      </span>
                 </div>
               </div>
           </div>
@@ -95,10 +96,10 @@ const calculateChange = (latest: string, previous: string) => {
               <div className={styles.metricLabel}>Body Minerals</div>
                 <div className={styles.metricContent1}>
                   <div className={styles.metricValue}>
-                    {parseFloat(latestEntry.minerals).toFixed(2)} kg
+                    {parseFloat(latestEntry.minerals).toFixed(2)}kg
                   </div>
                   <span className={`${styles.changeIndicator} ${mineralsChange.color}`}>
-                    WoW{mineralsChange.sign}{mineralsChange.change} kg
+                    {mineralsChange.sign}{mineralsChange.change}kg
                   </span>
                 </div>
               </div>

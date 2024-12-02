@@ -2,6 +2,7 @@
     display: flex;
     align-items: center; /* 縦方向に中央揃え */
     width: 100%;
+    height: 200px;
   }
 
   .piyo {
@@ -32,7 +33,7 @@
     width: 80%;
     transform: translate(-50%, -50%); /* 文字の中央を正確に配置 */
     color: rgb(70, 20, 20); /* テキストの色 */
-    font-size: 2.5vw; /* フォントサイズ*/
+    font-size: 3.8vw; /* フォントサイズ*/
     font-weight: bold; /* 必要に応じて文字を太くする */
   }
 

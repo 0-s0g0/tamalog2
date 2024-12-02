@@ -412,7 +412,7 @@ const handleLogout = async () => {
               </button>
               <div className={styles.container}>
                 <div className={styles.piyoime}>
-                <Image src={kaunt} alt="Sample image" width={600} />
+                <Image src={kaunt} alt="Sample image" height={400} />
                 <div className={styles.tip}>{tip}</div>
                 </div>
               </div>
