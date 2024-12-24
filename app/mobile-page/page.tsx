@@ -10,24 +10,11 @@ import axios from 'axios';
 
 
 //copmponents
-import CountDisplay from '../components/Sidebar/Countdisplay';
-import CalendarWithIcons from '../components/Calender/Calender';  // Calendarコンポーネントをインポート
 import CardGoal from '../components/Card/CardGoal';
 import CardNow from '../components/Card/CardNow';
 import Charts_Line from '../components/Charts/charts_Line';  
 import Charts_Dounut from '../components/Charts/charts_Dounut';  
 import Datatable_UI from '../components/Datatable/Datatable_UI'; 
-import RightSidebar from '../components/Sidebar/RightSidebar';
-import LeftSidebar from '../components/Sidebar/LeftSidebar';
-import TextInputModal from '../components/Modal/TextInput_UI' ; 
-import TextfromIMAGEModal from '../components/Modal/TextfromIMAGE_UI' ; 
-import AuthModal from '../components/Modal/AuthModal';
-import NicknameModal from '../components/Modal/Nickname'
-import LogoutModal from '../components/Modal/LogoutModal';
-import CalendarModal from '../components/Modal/CalenderModal'
-import CardSports from '../components/Card/CardSports'
-import CheerModal from '../components/Modal/CheerModal';
-import ProfileModal from '../components/Modal/ProfileModal';
 import Header2 from '../components/Header/Header2';
 import Footer from '../components/Footer/Footer';
 
@@ -40,13 +27,12 @@ import { auth, db} from '../../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
 import styles from '../styles/main.module.css';
 import local from '../styles/localMOBILE.module.css'
-import stylesSidever from '../components/Sidebar/LeftSidebar.module.css';
+
 
 
 //type
@@ -395,95 +381,83 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   return (
     <div className={local.body}>
-       <Header2/>
-      <div className={local.fullbackContent}>
-      {/* カウンター<div className={stylesSidever.imageContainer}>         
-          <CountDisplay entries={entries} />
-        </div>*/}
-     
-        
-
+      <Header2/>
       {/* メインコンテンツ */}
-      <div className={local.mainbackContent}>
-        <div className={local.mainContent}>
-            <div className={styles.piyoback}>       
-              <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
-                <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
-              </button>
-              <div className={styles.container}>
-                <div className={styles.piyoime}>
-                <Image src={kaunt} alt="Sample image" height={400} />
-                <div className={styles.tip}>{tip}</div>
+        <div className={local.mainbackContent}>
+          <div className={local.mainContent}>
+              <div className={styles.piyoback}>       
+                <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
+                  <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
+                </button>
+                <div className={styles.container}>
+                  <div className={styles.piyoime}>
+                  <Image src={kaunt} alt="Sample image" height={400} />
+                  <div className={styles.tip}>{tip}</div>
+                  </div>
                 </div>
               </div>
+
+            {/*Title01*/}
+            <div className={styles.titleback}>
+              <Image src={Title01} alt="Title_goal" className={styles.titleImage}/>
             </div>
 
-          {/*Title01*/}
-          <div className={styles.titleback}>
-            <Image src={Title01} alt="Title_goal" className={styles.titleImage}/>
-          </div>
+            {/*目標カード*/}
+            <div className={styles.goalback}>
+              <CardGoal
+              latestEntryAC={latestEntryAC}
+              latestEntry={latestEntrytoGOAL}
+              /> 
+            </div>
 
-          {/*目標カード*/}
-          <div className={styles.goalback}>
-            <CardGoal
-            latestEntryAC={latestEntryAC}
-            latestEntry={latestEntrytoGOAL}
-            /> 
-          </div>
+            {/*Title02*/}
+            <div className={styles.titleback}>
+              <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
+            </div>
 
-          {/*Title02*/}
-          <div className={styles.titleback}>
-            <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
-          </div>
-
-          <div className={local.grid}>
-
-          
-            {/* グラフ表示*/}
-            <Charts_Dounut
-                entries={entries}
-                latestEntry={latestEntry}
-                bodyFatPercentage={bodyFatPercentage}
+            <div className={local.grid}>
+              {/* グラフ表示*/}
+              <Charts_Dounut
+                  entries={entries}
+                  latestEntry={latestEntry}
+                  bodyFatPercentage={bodyFatPercentage}
               />
               <CardNow
-              latestEntry={latestEntry}
-              previousEntry={previousEntry}
+                latestEntry={latestEntry}
+                previousEntry={previousEntry}
               />
-          </div>
-          
-          {/*Title03*/}
-          <div className={styles.titleback}>
-            <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
-          </div>
+            </div>
+            
+            {/*Title03*/}
+            <div className={styles.titleback}>
+              <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
+            </div>
 
-          <Charts_Line
-            entries={entries}
-            latestEntry={latestEntry}
-            bodyFatPercentage={bodyFatPercentage}
-          />
-          
-          {/*Title04*/}
-          <div className={styles.titleback}>
-            <Image src={Title04} alt="Title_List" className={styles.titleImage}/>
-          </div>
-
-
-          {/* データテーブル表示 */}
-          <Datatable_UI 
-              entries={entries} 
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
+            <Charts_Line
+              entries={entries}
+              latestEntry={latestEntry}
+              bodyFatPercentage={bodyFatPercentage}
             />
             
-           <Footer/>
+            {/*Title04*/}
+            <div className={styles.titleback}>
+              <Image src={Title04} alt="Title_List" className={styles.titleImage}/>
+            </div>
+
+
+            {/* データテーブル表示 */}
+            <Datatable_UI 
+                entries={entries} 
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+              
             
+              
+          </div>
+
         </div>
-
-      </div>
-
-     
-      
-      </div>
+      <Footer/>
     </div>
     
   );

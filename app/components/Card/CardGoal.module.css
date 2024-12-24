@@ -1,9 +1,11 @@
 .goalAll{
-  width: 100%;
-  height: 100%;
+  width: 90vw;
+  height: 80%;
   display: grid; /* グリッドレイアウトを適用 */
   grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
   gap: 1%; /* 各アイテムの間隔を0.75rem（12px）に設定 */
+  margin-left: 1vw;
+
 }
 .metricCard00 {
   width: 100%;
@@ -59,13 +61,13 @@
 }
 /* ラベルのスタイル */
 .metricLabel {
-  font-size: 3vw;
+  font-size: 2.5vw;
   color: #888;
 }
 
 /* メトリック値のスタイル */
   .metricValue {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #413e3e;
   }

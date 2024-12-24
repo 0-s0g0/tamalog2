@@ -70,7 +70,7 @@
 
   /* ラベルのスタイル */
   .metricLabel {
-    font-size: 1rem;
+    font-size: 0.6rem;
     color: #888;
     font-family: 'KraftMincho';  
   }
@@ -87,7 +87,7 @@
 
   /* 変更指示のスタイル */
   .changeIndicator {
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-bottom: 4px;
     margin-top: 0.6vw;
     margin-left: 1vw;

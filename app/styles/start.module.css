@@ -21,7 +21,8 @@
 .title_text{
     font-family: 'KraftMincho';
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    color: brown;
 }
 
 .logo{

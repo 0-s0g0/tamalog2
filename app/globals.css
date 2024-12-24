@@ -23,8 +23,6 @@ body {
   font-family:  'KraftMincho';
   background-color: #f8cc49;/*#5f9ea0*/
   display: grid;
-  width: 100vw;
-  position: relative; /* 影を追加するために必要 */
   z-index: 0; 
 }
 

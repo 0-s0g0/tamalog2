@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HeaderINDEX from "./Header_index";
+import HeaderINDEX from "./Header2_index";
 //type
 import { Entry,EntryAC, EntrySports } from '../type';
  // Firebase

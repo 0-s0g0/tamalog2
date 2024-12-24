@@ -9,6 +9,7 @@ import Input from "postcss/lib/input";
 // 画像のインポート
 import logo from '../../public/logo2.png';
 import InputModal from "../Modal/InputModal";
+import LogoutModal from "../Modal/LogoutModal";
 import TextInputModal from "../Modal/TextInput_UI";
 import ImageInputModal from "../Modal/ImageInputModal";
 import { setMaxListeners } from "events";
@@ -40,18 +41,18 @@ const Header2index: React.FC<Header2indexProps> = ({
         <div className={styles.Buttonleft}>
             {isLoggedIn ? (
                 <button onClick={() => setIsLogoutModalOpen(true)}  className={styles.HeadButton}>
-                    <UserCircle size={50} color="#4f2f2f" weight="duotone" />
+                    <UserCircle size={40} color="#4f2f2f" weight="duotone" />
                     <div className={styles.text}>ろぐあうと</div>
                 </button>
             ) : (
                 <button onClick={() => setIsSignUpModalOpen(true)}   className={styles.HeadButton}>
-                    <UserCircle size={50} color="#4f2f2f" weight="duotone"  className={styles.icons}/>
+                    <UserCircle size={40} color="#4f2f2f" weight="duotone"  className={styles.icons}/>
                     <div className={styles.text}>ろぐいん</div>
                 </button>
             )}
 
          <button onClick={() => setIsInputModalOpen(true)}  className={styles.HeadButton}>
-                <PencilSimple size={50} color="#4f2f2f" weight="fill" className={styles.icons}/>
+                <PencilSimple size={40} color="#4f2f2f" weight="fill" className={styles.icons}/>
                 <div className={styles.text}>にゅうりょく</div>
          </button>
       </div>
@@ -62,6 +63,7 @@ const Header2index: React.FC<Header2indexProps> = ({
         setIsTextInputModalOpen={setIsTextInputModalOpen}
         setIsImageInputModalOpen={setIsImageInputModalOpen}
         />
+
 
         
 

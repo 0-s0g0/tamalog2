@@ -61,11 +61,9 @@ const Charts_Dounut: React.FC<ChartsUIProps> = ({
         {/* 左側の円グラフ */}
         
           <div className={`${styles.graphCard} ${styles.donutChart}`}>
-            <div className={styles.graphTitle}>PBF</div>
+            <div className={styles.graphTitle1}>PBF</div>
+            <div className={styles.graphTitle2}>{bodyFatPercentage.toFixed(2)}%</div>
             <Doughnut data={donutChartData} options={donutChartOptions} />
-              <div className={styles.donutCenterLabel}>
-                {bodyFatPercentage.toFixed(2)}%
-            </div>
           </div>
           </div>
 

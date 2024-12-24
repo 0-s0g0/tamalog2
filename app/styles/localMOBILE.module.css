@@ -13,9 +13,9 @@
   
   .mainbackContent {
     margin-left: 2vw;  /* サイドバーの横幅と同じ値 */
-    margin-top: 80px;  /* サイドバーの横幅と同じ値 */
-    margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
-    width: calc(94%); /* サイドバー分だけ余白を確保 */
+    margin-top: 80px;
+    margin-bottom: 80px;  
+    width: calc(94vw); /* サイドバー分だけ余白を確保 */
     background-color: rgb(245, 253, 226);
     border-radius: 40px 40px 40px 40px;
     position: relative; 
@@ -50,7 +50,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;  /* 2列に設定 */
     gap: 16px;  /* カードとグラフの間にスペースを追加 */
-    height: 50vh;
+    height: 40vh;
     align-items: center; /*縦方向の中央揃え */
     background-color: rgba(255, 51, 0, 0.123);
   }
