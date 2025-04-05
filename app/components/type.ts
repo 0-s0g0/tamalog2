@@ -1,5 +1,3 @@
-import { Settings } from "http2";
-
 // Entryインターフェースの定義
 export interface Entry {
     id: string;

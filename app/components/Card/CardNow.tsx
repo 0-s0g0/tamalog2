@@ -59,15 +59,15 @@ const calculateChange = (latest: string, previous: string) => {
               <Image src={NowWater_img} alt='NowWater' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
+            <div className={styles.metricContent1}>
               <div className={styles.metricLabel}>Body Water</div>
-                  <div className={styles.metricContent1}>
-                        <div className={styles.metricValue}>
-                          {parseFloat(latestEntry.bodyWater).toFixed(2)}kg
-                        </div>
+                  <div className={styles.metricValue}>
+                  {parseFloat(latestEntry.bodyWater).toFixed(2)}kg
+                  </div>
+              </div>
                       <span className={`${styles.changeIndicator} ${bodyWaterChange.color}`}>
                         {bodyWaterChange.sign}{bodyWaterChange.change}kg
                       </span>
-                  </div>
             </div>
           </div>
 
@@ -76,15 +76,16 @@ const calculateChange = (latest: string, previous: string) => {
               <Image src={NowPritein_img} alt='NowPritein' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
+            <div className={styles.metricContent1}>
               <div className={styles.metricLabel}>Body Protein</div>
-                <div className={styles.metricContent1}>
                     <div className={styles.metricValue}>
                      {parseFloat(latestEntry.protein).toFixed(2)}kg
+                    </div>
                     </div>
                       <span className={`${styles.changeIndicator} ${proteinChange.color}`}>
                         {proteinChange.sign}{proteinChange.change}kg
                       </span>
-                </div>
+                
               </div>
           </div>
 
@@ -93,15 +94,17 @@ const calculateChange = (latest: string, previous: string) => {
               <Image src={NowMineral_img} alt='NoeMinerals' width={30} height={30} />         
             </div>
             <div className={styles.metricContent}>
+            <div className={styles.metricContent1}>
               <div className={styles.metricLabel}>Body Minerals</div>
-                <div className={styles.metricContent1}>
+                
                   <div className={styles.metricValue}>
                     {parseFloat(latestEntry.minerals).toFixed(2)}kg
+                  </div>
                   </div>
                   <span className={`${styles.changeIndicator} ${mineralsChange.color}`}>
                     {mineralsChange.sign}{mineralsChange.change}kg
                   </span>
-                </div>
+               
               </div>
             </div>
           </div>

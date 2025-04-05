@@ -6,7 +6,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import axios from 'axios';
 
 
 //copmponents
@@ -26,13 +25,10 @@ import { getRandomTip } from '../../components/Tip/GetRandomTip'; // 関数を�
 
 // Firebase
 import { auth, db} from '../../../firebase/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { signOut } from "firebase/auth";
 import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../../firebase/saveDataFunctions";
 
 //style
 import styles from '../../styles/main.module.css';
-import local from '../../styles/local.module.css'
 import stylesSidever from '../../components/Sidebar/LeftSidebar.module.css';
 
 
@@ -75,17 +71,8 @@ export default function Home() {
 
   // モーダル開閉制御
   const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
-  const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
   const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-
-  // 画像関連
-  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);//画像処理の結果を次のモーダルへ渡す
-  
 
 
   // 認証関連のstate
@@ -195,60 +182,12 @@ const handleDelete = async (id: string) => {
     setEntries(entries.filter(entry => entry.id !== id));
   }
 };
-//
-const handleSetNickname = (newNickname: string) => {
-  setNickname(newNickname); // NicknameModal から受け取ったニックネームを設定
-};
 
-// 認証関連ハンドラー（ログイン/サインアップ）
-const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault(); // フォーム送信時にページ遷移を防ぐ
-
-  try {
-    if (isLoginMode) {
-      // ログイン処理
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('ログイン成功');
-    } else {
-      // サインアップ処理
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert('アカウント作成成功');
-      setIsSignUpModalOpen(false);  // サインアップモーダルを閉じる
-      setIsNicknameModalOpen(true); // ニックネーム設定モーダルを開く
-    }
-  } catch (error: any) {
-    // エラーハンドリング
-    if (error.code === 'auth/email-already-in-use') {
-      alert('このメールアドレスはすでに使用されています。');
-    } else if (error.code === 'auth/invalid-email') {
-      alert('無効なメールアドレスです。');
-    } else if (error.code === 'auth/wrong-password') {
-      alert('間違ったパスワードです。');
-    } else {
-      alert('エラーが発生しました: ' + error.message);
-    }
-  }
-};
 
 const handleNewTip = () => {
   setTip(getRandomTip());
 };
 
-
-// ログアウト処理
-const handleLogout = async () => {
-  try {
-    await signOut(auth); // Firebase Auth でログアウト
-    console.log("ログアウトしました");
-    setIsSignupSuccess(false); // サインアップ成功フラグをリセット
-    setIsNicknameModalOpen(false); // ニックネームモーダルを閉じる
-    // ログイン・サインアップモーダルを開く、または必要に応じてリダイレクト
-    // history.push('/login'); // React Routerを使用している場合、ログインページへリダイレクト
-  } catch (error) {
-    console.error("ログアウト時にエラーが発生しました:", error);
-    alert("ログアウト時にエラーが発生しました");
-  }
-};
 
 //ランクに応じて画像変更
   // カウント数に基づいて画像を切り替える関数
@@ -266,7 +205,6 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   // 各データ計算
   ///////////////////////////////////////////
-  const Mynickname = entryAC[entryAC.length - 1]?.nickname || 'user';
   
   // 最新のgoal
   const latestEntryAC = entryAC[entryAC.length - 1] || {
@@ -302,102 +240,102 @@ const handleLogout = async () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div className={local.body}>
-      <div className={local.fullbackContent}>
-      {/* レフトサイドバー */}
-      <aside className={stylesSidever.sidebar}>
-      <Image src={logo} alt="Open Modal" width={200} />
-        <div className={local.sidebarA}>
-          <LeftSidebar/>
-        </div>
+    <div className={styles.body}>
+      <div className={styles.fullbackContent}>
 
-        <div className={stylesSidever.imageContainer}>         
-          <CountDisplay entries={entries} />
-        </div>
-        
-      </aside>
+        {/* レフトサイドバー */}
+        <aside className={stylesSidever.sidebar}>
+          <Image src={logo} alt="Open Modal" width={200} />
+          <div>
+            <LeftSidebar/>
+          </div>
+          <div className={stylesSidever.imageContainer}>         
+            <CountDisplay entries={entries} />
+          </div>
+        </aside>
 
-
-
-
-      {/* メインコンテンツ */}
-      <div className={local.mainbackContent}>
-        <div className={local.mainContent}>
-            <div className={styles.piyoback}>          
-              <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
-                <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
-              </button>
-              <div className={styles.container}>
-                <div className={styles.piyoime}>
-                <Image src={kaunt} alt="Sample image" width={600} />
-                <div className={styles.tip}>{tip}</div>
+        {/* メインコンテンツ */}
+        <div className={styles.mainbackContent}>
+          <div className={styles.mainContent}>
+              <div className={styles.piyoback}>          
+                <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
+                  <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
+                </button>
+                <div className={styles.container}>
+                  <div className={styles.piyoime}>
+                  <Image src={kaunt} alt="Sample image" width={600} />
+                  <div className={styles.tipback}><div className={styles.tip}>{tip}</div></div>
+                  </div>
                 </div>
               </div>
+
+            {/*Title01*/}
+            <div className={styles.titleback}>
+              <Image src={Title01} alt="Title_goal" className={styles.titleImage}/>
             </div>
 
-          {/*Title01*/}
-          <div className={styles.titleback}>
-            <Image src={Title01} alt="Title_goal" className={styles.titleImage}/>
-          </div>
+            {/*目標カード*/}
+            <div className={styles.goalback}>
+              <CardGoal
+              latestEntryAC={latestEntryAC}
+              latestEntry={latestEntrytoGOAL}
+              /> 
+            </div>
 
-          {/*目標カード*/}
-          <div className={styles.goalback}>
-            <CardGoal
-            latestEntryAC={latestEntryAC}
-            latestEntry={latestEntrytoGOAL}
-            /> 
-          </div>
-
-          {/*Title02*/}
-          <div className={styles.titleback}>
-            <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
-          </div>
-
-          <div className={local.grid}>
-
-          
-            {/* グラフ表示*/}
-            <Charts_Dounut
+            {/*Title02*/}
+            <div className={styles.titleback}>
+              <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
+            </div>
+              {/* グラフ表示*/}
+            <div className={styles.AnalysisBack}>
+              <div className={styles.ChartsBack}>
+                <Charts_Dounut
+                    entries={entries}
+                    latestEntry={latestEntry}
+                    bodyFatPercentage={bodyFatPercentage}
+                  />
+              </div>
+              <div className={styles.ChartsBack}>
+                <CardNow
+                latestEntry={latestEntry}
+                previousEntry={previousEntry}
+                />
+              </div>
+            </div>
+            
+            {/*Title03*/}
+            <div className={styles.titleback}>
+              <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
+            </div>
+            <div className={styles.ChartsLineBack}>
+              <Charts_Line
                 entries={entries}
                 latestEntry={latestEntry}
                 bodyFatPercentage={bodyFatPercentage}
               />
-              <CardNow
-              latestEntry={latestEntry}
-              previousEntry={previousEntry}
-              />
-          </div>
-          
-          {/*Title03*/}
-          <div className={styles.titleback}>
-            <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
-          </div>
-
-          <Charts_Line
-            entries={entries}
-            latestEntry={latestEntry}
-            bodyFatPercentage={bodyFatPercentage}
-          />
-          
-          {/*Title04*/}
-          <div className={styles.titleback}>
-            <Image src={Title04} alt="Title_List" className={styles.titleImage}/>
-          </div>
-
-
-          {/* データテーブル表示 */}
-          <Datatable_UI 
-              entries={entries} 
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
+            </div>
             
+            {/*Title04*/}
+            <div className={styles.titleback}>
+              <Image src={Title04} alt="Title_List" className={styles.titleImage}/>
+            </div>
+
+
+            {/* データテーブル表示 */}
+            <div className={styles.ChartsLineBack}>
+            <Datatable_UI 
+                entries={entries} 
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            </div>
+              
+          </div>
+          {/* 右側のサイドバー（カレンダー） */}
+          <div className={styles.sidebarRight}>
+            <RightSidebar sportsEntries={sportsEntries} />
+          </div>
         </div>
-        {/* 右側のサイドバー（カレンダー） */}
-        <div className={local.sidebarRight}>
-          <RightSidebar sportsEntries={sportsEntries} />
-        </div>
-      </div>
 
       
       

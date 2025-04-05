@@ -18,8 +18,7 @@ import { auth, db} from '../../firebase/firebase';
 import { saveEntryACToFirestore, getEntriesFromFirestore, getEntryACNFromFirestore,getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
-import styles from '../style.module.css';
-import local from '../styles/local.module.css'
+import styles from './../styles/main.module.css';
 import stylesSidever from '../components/Sidebar/LeftSidebar.module.css';
 import create from './createpage.module.css';
 
@@ -160,12 +159,12 @@ const calculateTargets = () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
-    <div className={local.body}>
-      <div className={local.fullbackContent}>
+    <div className={styles.body}>
+      <div className={styles.fullbackContent}>
       {/* レフトサイドバー */}
       <aside className={stylesSidever.sidebar}>
       <Image src={logo} alt="Open Modal" width={200} />
-        <div className={local.sidebarA}>
+        <div className={styles.sidebarA}>
         {isLoggedIn ? (
           <button className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
@@ -218,8 +217,8 @@ const calculateTargets = () => {
 
 
       {/* メインコンテンツ */}
-      <div className={local.mainbackContent2}>
-        <div className={local.mainContent2}>
+      <div className={styles.mainbackContent2}>
+        <div className={styles.mainContent2}>
           {/*title*/}
           <div className={create.title}>
             <Image src={Pro1} alt='TitleImage' width={400}></Image>

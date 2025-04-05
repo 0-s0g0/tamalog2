@@ -1,51 +1,91 @@
-  .piyoback {
-    display: flex;
-    align-items: center; /* 縦方向に中央揃え */
-    width: 100%;
-    height: 200px;
-  }
+.fullbackContent {
+  margin: 1rem;
+  width: 90vw;
+  background-color: rgba(255, 250, 250, 0.9);
+  border-radius: 40px 40px 40px 40px;
+  position: relative; 
+  z-index: 1; /* 他の要素よりも前面に表示 */
+}
 
-  .piyo {
-    display: flex;
-    align-items: center; /* 縦方向に中央揃え */
-    width: 100%;
-  }
+.mainbackContent {
+  margin: 1rem;
+  margin-left: 230px;
+  width: 90%; /* サイドバー分だけ余白を確保 */
+  background-color: rgb(245, 253, 226);
+  border-radius: 40px 40px 40px 40px;
+  position: relative; 
+  z-index: -10; /* 他の要素よりも前面に表示 */
+}
+.mainContent {
+  margin: 1rem;
+  width: 70%; /* サイドバー分だけ余白を確保 */
+  /*background-color: rgb(122, 201, 224);*/
+  border-radius: 40px 40px 40px 40px;
+  position: relative; 
+  z-index: -10; /* 他の要素よりも前面に表示 */
+}
+.piyoback{
+  display: flex;
+  /* background-color: rgba(127, 255, 212, 0.486);*/
+  align-items: center; 
+  font-size: 1.5rem;
+}
+.piyo{
+  width: 300px;
+  object-fit: cover;
+}
 
-  .image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+.piyoime {
+  position: relative; /* tipを重ねるために必要 */
+  display: inline-block; /* 必要なら画像サイズにフィットさせる */
+}
 
-  
-  /* styles.container */
-  .container {
-    position: relative; /* 画像とtipを重ねるために相対的に配置 */
-    display: inline-block; /* コンテンツのサイズに合わせる */
-  }
+.tip {
+  position: absolute;
+  top: 50%;         /* 中央に */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 完全中央揃え */
+  z-index: 1;
+  color:var(--brown);
+  font-family: 'KraftMincho'; 
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none; /* クリック透過 */
+  /*background-color: rgba(127, 255, 212, 0.397);*/
+  max-width: 500px;      /* ✅ 最大600px */
+  width: 100%;           /* ✅ 親の幅に応じて調整（600px以上にはならない） */
+  white-space: normal;   /* ✅ 自動改行ON */
+}
 
-  .tip {
-    font-family:  'KraftMincho';
-    position: absolute; /* 画像の上に絶対位置で配置 */
-    top: 50%; /* 画像の縦方向中央 */
-    left: 50%; /* 画像の横方向中央 */
-    width: 80%;
-    transform: translate(-50%, -50%); /* 文字の中央を正確に配置 */
-    color: rgb(70, 20, 20); /* テキストの色 */
-    font-size: 3.8vw; /* フォントサイズ*/
-    font-weight: bold; /* 必要に応じて文字を太くする */
-  }
 
-  .titleback{
-    margin-top: 1vw;
-    width: 100%; 
-  }
-  .titleImage{
-    width: 40%;
-  }
+/*各サイズ*/
+.goalback{
+  width: 95%;
+}
 
-  .goalback{
-    height: 20vh;
-    width: 100vw; 
-  }
+.AnalysisBack {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  /*background-color:antiquewhite;*/
+  margin-left:1rem;
+  margin-right: 1rem;
+}
+.ChartsBack{
+  width: 100%;
+  /*background-color:rgb(247, 188, 110);*/
+  margin: 1rem;
+}
+
+
+.titleImage{
+  width: 350px;
+  object-fit: cover;
+  margin-top: 50px;
+}
+
+.ChartsLineBack{
+  margin-left: 1rem;
+  margin-right: 2rem;
+}

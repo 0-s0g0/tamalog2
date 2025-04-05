@@ -1,15 +1,15 @@
 .goalAll{
-  width: 90vw;
-  height: 80%;
-  display: grid; /* グリッドレイアウトを適用 */
-  grid-template-columns: repeat(3, 1fr); /* 3列に設定 */
-  gap: 1%; /* 各アイテムの間隔を0.75rem（12px）に設定 */
-  margin-left: 1vw;
+  width: 100%;
+  height: 130px;
+  display: flex; /* グリッドレイアウトを適用 */
+  gap: 1rem; 
+  margin-left: 1rem;
+  margin-right: 1rem;
+  background-color: #d66d6d;
 
 }
 .metricCard00 {
   width: 100%;
-  height: 80%;
   background-image: url('../../public/NowCard01.png');
   display: flex;
   align-items: center; /* アイコンとテキストを縦方向で中央揃え */
@@ -20,34 +20,25 @@
 
 }
 
-.metricCard00::before {
-  content: '';
-  position: absolute;
-  border: 2px solid rgb(180, 185, 167);  /*枠線を黒で太く */
-  bottom: -10%;  /* カードの下に影を置く */
-  right: -5%;   /* カードの右に影を置く */
-  width: 100%;    /* カードと同じ幅 */
-  height: 100%;   /* カードと同じ高さ */
-  background-color: rgb(238, 244, 223); /* 黒い四角形 */
-  z-index: -1!important; /* カードの後ろに表示させる */
-  border-radius: 8px; /* カードの角と合わせる */
-}
 .mainTitle{
   display: flex;
   flex-direction: row; 
   justify-content: flex-start;
   align-items: center;
+  background-color:#d66d6d4d;
 }
+
 /* アイコンを包むボックス */
 .iconWrapper {
-  width: 7vw; /* 正方形のサイズ */
-  height: 7vw; /* 高さを60pxに調整 */
-  margin: 2vw;
+  width: 60px;
+  height: 60px;
   display: flex;
+  padding: 15px;
   justify-content: center;
   align-items: center;
   border-radius: 68px; /* アイコンボックスを丸くする（任意） */
-  margin-right: 0.5vw; /* アイコンとテキストの間にスペース */
+  margin-left: 1rem; /* アイコンとテキストの間にスペース */
+  background-color:var(--darkyellow);
 }
 
 /* アイコンとテキストが横並びに整列するように、.metricContent を調整 */
@@ -61,20 +52,21 @@
 }
 /* ラベルのスタイル */
 .metricLabel {
-  font-size: 2.5vw;
+  font-size: 1rem;
   color: #888;
 }
 
 /* メトリック値のスタイル */
   .metricValue {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #413e3e;
+    font-family:cursive;
   }
 
 /* 変更指示のスタイル */
 .changeIndicator {
-  font-size: 2vw;
+  font-size: 1rem;
   margin-bottom: 4px;
   color: #888;
   height: 20px;
