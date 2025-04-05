@@ -5,7 +5,6 @@
 //共通インポート
 import React from 'react';
 import styles from './charts_Dounut.module.css'; 
-import local from '../local.module.css'
 import { Entry } from '../type';
 
 
@@ -60,11 +59,15 @@ const Charts_Dounut: React.FC<ChartsUIProps> = ({
 
         {/* 左側の円グラフ */}
         
-          <div className={`${styles.graphCard} ${styles.donutChart}`}>
-            <div className={styles.graphTitle1}>PBF</div>
-            <div className={styles.graphTitle2}>{bodyFatPercentage.toFixed(2)}%</div>
+        <div className={`${styles.graphCard} ${styles.donutChart}`}>
+          <div className={styles.chartWrapper}>
+            <div className={styles.graphTitle2}>
+              {bodyFatPercentage.toFixed(2)}%
+            </div>
             <Doughnut data={donutChartData} options={donutChartOptions} />
           </div>
+        </div>
+
           </div>
 
   );

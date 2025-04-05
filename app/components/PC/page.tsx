@@ -29,7 +29,6 @@ import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFir
 
 //style
 import styles from '../../styles/main.module.css';
-import local from '../../styles/local.module.css'
 import stylesSidever from '../../components/Sidebar/LeftSidebar.module.css';
 
 
@@ -265,7 +264,7 @@ const handleNewTip = () => {
                 <div className={styles.container}>
                   <div className={styles.piyoime}>
                   <Image src={kaunt} alt="Sample image" width={600} />
-                  <div className={styles.tip}>{tip}</div>
+                  <div className={styles.tipback}><div className={styles.tip}>{tip}</div></div>
                   </div>
                 </div>
               </div>
@@ -287,32 +286,34 @@ const handleNewTip = () => {
             <div className={styles.titleback}>
               <Image src={Title02} alt="Title_BodyComposition" className={styles.titleImage}/>
             </div>
-
-            <div className={local.grid}>
-
-            
               {/* グラフ表示*/}
-              <Charts_Dounut
-                  entries={entries}
-                  latestEntry={latestEntry}
-                  bodyFatPercentage={bodyFatPercentage}
-                />
+            <div className={styles.AnalysisBack}>
+              <div className={styles.ChartsBack}>
+                <Charts_Dounut
+                    entries={entries}
+                    latestEntry={latestEntry}
+                    bodyFatPercentage={bodyFatPercentage}
+                  />
+              </div>
+              <div className={styles.ChartsBack}>
                 <CardNow
                 latestEntry={latestEntry}
                 previousEntry={previousEntry}
                 />
+              </div>
             </div>
             
             {/*Title03*/}
             <div className={styles.titleback}>
               <Image src={Title03} alt="Title_Histry" className={styles.titleImage}/>
             </div>
-
-            <Charts_Line
-              entries={entries}
-              latestEntry={latestEntry}
-              bodyFatPercentage={bodyFatPercentage}
-            />
+            <div className={styles.ChartsLineBack}>
+              <Charts_Line
+                entries={entries}
+                latestEntry={latestEntry}
+                bodyFatPercentage={bodyFatPercentage}
+              />
+            </div>
             
             {/*Title04*/}
             <div className={styles.titleback}>
@@ -321,15 +322,17 @@ const handleNewTip = () => {
 
 
             {/* データテーブル表示 */}
+            <div className={styles.ChartsLineBack}>
             <Datatable_UI 
                 entries={entries} 
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
               />
+            </div>
               
           </div>
           {/* 右側のサイドバー（カレンダー） */}
-          <div className={local.sidebarRight}>
+          <div className={styles.sidebarRight}>
             <RightSidebar sportsEntries={sportsEntries} />
           </div>
         </div>

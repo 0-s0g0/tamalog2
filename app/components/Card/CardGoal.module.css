@@ -37,7 +37,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 68px; /* アイコンボックスを丸くする（任意） */
-  margin-right: 0.5vw; /* アイコンとテキストの間にスペース */
+  margin-left: 1rem; /* アイコンとテキストの間にスペース */
   background-color:var(--darkyellow);
 }
 
@@ -58,14 +58,15 @@
 
 /* メトリック値のスタイル */
   .metricValue {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #413e3e;
+    font-family:cursive;
   }
 
 /* 変更指示のスタイル */
 .changeIndicator {
-  font-size: 2vw;
+  font-size: 1rem;
   margin-bottom: 4px;
   color: #888;
   height: 20px;

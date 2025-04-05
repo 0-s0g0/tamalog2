@@ -19,16 +19,73 @@
 .mainContent {
   margin: 1rem;
   width: 70%; /* サイドバー分だけ余白を確保 */
-  background-color: rgb(122, 201, 224);
+  /*background-color: rgb(122, 201, 224);*/
   border-radius: 40px 40px 40px 40px;
   position: relative; 
   z-index: -10; /* 他の要素よりも前面に表示 */
 }
 .piyoback{
   display: flex;
+  /* background-color: rgba(127, 255, 212, 0.486);*/
+  align-items: center; 
+  font-size: 1.5rem;
+}
+.piyo{
+  width: 300px;
+  object-fit: cover;
 }
 
-/**/
+.piyoime {
+  position: relative; /* tipを重ねるために必要 */
+  display: inline-block; /* 必要なら画像サイズにフィットさせる */
+}
+
+.tip {
+  position: absolute;
+  top: 50%;         /* 中央に */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 完全中央揃え */
+  z-index: 1;
+  color:var(--brown);
+  font-family: 'KraftMincho'; 
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none; /* クリック透過 */
+  /*background-color: rgba(127, 255, 212, 0.397);*/
+  max-width: 500px;      /* ✅ 最大600px */
+  width: 100%;           /* ✅ 親の幅に応じて調整（600px以上にはならない） */
+  white-space: normal;   /* ✅ 自動改行ON */
+}
+
+
+/*各サイズ*/
 .goalback{
-  width: 90%;
+  width: 95%;
+}
+
+.AnalysisBack {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  /*background-color:antiquewhite;*/
+  margin-left:1rem;
+  margin-right: 1rem;
+}
+.ChartsBack{
+  width: 100%;
+  /*background-color:rgb(247, 188, 110);*/
+  margin: 1rem;
+}
+
+
+.titleImage{
+  width: 350px;
+  object-fit: cover;
+  margin-top: 50px;
+}
+
+.ChartsLineBack{
+  margin-left: 1rem;
+  margin-right: 2rem;
 }
