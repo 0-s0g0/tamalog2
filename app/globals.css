@@ -22,7 +22,8 @@
 body {
   font-family:  'KraftMincho';
   background-color: #f8cc49;/*#5f9ea0*/
-  display: grid;
+  display: flex;
+  justify-content:center;
   z-index: 0; 
 }
 
