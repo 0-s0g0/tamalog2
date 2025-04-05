@@ -1,10 +1,7 @@
 /* 親のカード要素 */
 .fullbackContent {
-  margin-left: 1%;  /* サイドバーの横幅と同じ値 */
-  margin-right: 1vw;  /* サイドバーの横幅と同じ値 */
-  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
-  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
-  width: calc(99% - 1vw); /* サイドバー分だけ余白を確保 */
+  margin: 1rem;
+  width: 90%; /* サイドバー分だけ余白を確保 */
   background-color: rgba(255, 250, 250, 0.9);
   border-radius: 40px 40px 40px 40px;
   position: relative; 
@@ -12,11 +9,9 @@
 }
 
 .mainbackContent {
-  margin-left: 15vw;  /* サイドバーの横幅と同じ値 */
-  margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
-  margin-bottom: 1vw;  /* サイドバーの横幅と同じ値 */
-  padding: 1%;
-  width: calc(99% - 15vw); /* サイドバー分だけ余白を確保 */
+  margin: 1rem;
+  margin-left: 230px;
+  width: 90%; /* サイドバー分だけ余白を確保 */
   background-color: rgb(245, 253, 226);
   border-radius: 40px 40px 40px 40px;
   position: relative; 
@@ -36,17 +31,17 @@
   z-index: 1; /* 他の要素よりも前面に表示 */
 }
 
-
+/*
 .mainContent {
   margin-top: 1%;  
   margin-bottom: 1%;  
   margin-left: 0%;
   padding: 1px;  
-  width: calc(100% - 24vw); /* サイドバー分だけ余白を確保 */
-  background-color: rgba(184, 158, 8, 0.123);/*もとはぜろ*/
+  width: calc(100% - 24vw); 
+  background-color: rgba(184, 158, 8, 0.123);
   border-radius: 40px 40px 40px 40px;
 }
-
+*/
 
 .mainContent2 {
   margin-top: 1vw;  /* サイドバーの横幅と同じ値 */
@@ -67,8 +62,4 @@
   background-color: rgba(255, 51, 0, 0.123);
 }
 
-.sidebarA{
-  background-color: rgba(0, 255, 255, 0.171);
-  height: 60vh;
-}
 

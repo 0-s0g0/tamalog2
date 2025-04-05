@@ -2,16 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import stylesSidever from "./LeftSidebar.module.css"; // スタイルのインポート
-import local from "../../styles/local.module.css";
 import { UserCircle, Keyboard, TrayArrowUp, Footprints, ClipboardText, DeviceMobileCamera, CalendarCheck } from "@phosphor-icons/react";
 
 // 画像のインポート
 import sideBarImageOUT00 from '../../public/Sidever_imageOUT000.png';
-import sideBarImage00 from '../../public/Sidever_image000.png';
-import sideBarImage01 from '../../public/Sidever_image001a.png';
-import sideBarImage02 from '../../public/Sidever_image002.png';
-import sideBarImage03 from '../../public/Sidever_image003.png';
-import sideBarImage04 from '../../public/Sidever_image004.png';
+
 
 interface LeftsideverINDEXProps {
   isLoggedIn: boolean;
@@ -31,7 +26,7 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
   setIsCalendarModalOpen,
 }) => {
   return (
-      <div className={local.sidebarA}>
+      <div className={stylesSidever.sidebarA}>
       {isLoggedIn ? (
         <button onClick={() => setIsLogoutModalOpen(true)} className={stylesSidever.sidebarButton}>
           <div className={stylesSidever.buttonContent}>
