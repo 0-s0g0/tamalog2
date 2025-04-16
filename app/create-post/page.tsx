@@ -6,12 +6,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import axios from 'axios';
 
 
 //copmponents
 import CountDisplay from '../components/Sidebar/Countdisplay';
-import { getRandomTip } from '../components/Tip/GetRandomTip'; // 関数をインポート
 
 // Firebase
 import { auth, db} from '../../firebase/firebase';
@@ -33,7 +31,6 @@ import sideBarImageOUT00c from '../public/Sidever_imageOUT000c.png';
 import sideBarImage00c from '../public/Sidever_image000c.png';
 import sideBarImage01c from '../public/Sidever_image001c.png';
 import sideBarImage02c from '../public/Sidever_image002c.png';
-import sideBarImage03b from '../public/Sidever_image003b.png';
 import sideBarImage04c from '../public/Sidever_image004c.png';
 import sideBarImage05 from '../public/Sidever_image005.png';
 import piyo01 from '../public/piyo01.png'
@@ -198,7 +195,7 @@ const calculateTargets = () => {
           </div>
         </button>
 
-        <Link href="/" passHref>
+        <Link href="/components/PC" passHref>
           <button className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
               <Image src={sideBarImage05} alt="Go to Host" width={150} />
