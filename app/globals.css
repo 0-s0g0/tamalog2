@@ -31,7 +31,7 @@ body {
 .react-calendar {
   border: rgba(254, 253, 253, 0.3)!important; /* 枠線を削除 */
   border-radius: 20px; /* カレンダー内の角を丸くする */
-  background-color: rgba(206, 17, 17, 0.1)!important; 
+  
   width: 100%!important;
 }
 

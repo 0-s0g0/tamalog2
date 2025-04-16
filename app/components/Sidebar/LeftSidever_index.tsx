@@ -59,7 +59,7 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
       <button onClick={() => setIsCalendarModalOpen(true)} className={stylesSidever.sidebarButton}>
         <div className={stylesSidever.buttonContent}>
           <Footprints size={50} color="#4f2f2f" weight="duotone" />
-          <div className={stylesSidever.buttonText}>すぽーつ</div>
+          <div className={stylesSidever.buttonText}>すぽーつ入力</div>
         </div>
       </button>
 
@@ -81,14 +81,6 @@ const LeftsideverINDEX: React.FC<LeftsideverINDEXProps> = ({
         </button>
       </Link>
 
-      <Link href="/mobile-page" passHref>
-        <button className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <CalendarCheck size={50} color="#4f2f2f" weight="duotone" />
-            <div className={stylesSidever.buttonText}>かれんだー</div>
-          </div>
-        </button>
-      </Link>
     </div>
     
   );
