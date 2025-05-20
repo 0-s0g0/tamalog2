@@ -386,12 +386,12 @@ const handleLogout = async () => {
         <div className={local.mainbackContent}>
           <div className={local.mainContent}>
               <div className={styles.piyoback}>       
-                <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '20px' }}>
+                <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '-20px' }}>
                   <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
                 </button>
                 <div className={styles.container}>
                   <div className={styles.piyoime}>
-                  <Image src={kaunt} alt="Sample image" height={400} />
+                  <Image src={kaunt} alt="Sample image" height={500} />
                   <div className={styles.tip}>{tip}</div>
                   </div>
                 </div>

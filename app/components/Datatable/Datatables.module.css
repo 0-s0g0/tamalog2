@@ -45,3 +45,32 @@
     background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */ 
   }
+
+  @media (max-width: 500px){
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+    .table th, .table td {
+    padding: 0rem;
+    font-size: small;
+  }
+    .actionEditButton {
+    padding: 0.25rem 0.5rem;
+    background-color: #5497d542;
+    font-size: 0.5rem;
+    color: rgb(78, 74, 74);
+  }
+
+    .actionDeleteButton {
+    padding: 0.25rem 0.5rem;
+    width: 90%;
+    font-size: 0.5rem;
+    background-color: #d94e4e2a;
+    color: rgb(78, 74, 74);
+  }
+
+
+
+          
+}

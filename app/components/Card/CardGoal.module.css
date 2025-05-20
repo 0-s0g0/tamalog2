@@ -87,3 +87,37 @@
   color: #6db3d6;
   font-family: cursive;
 }
+
+
+@media (max-width: 500px){
+  .iconWrapper {
+  display: none;  
+}
+.metricContent {
+  display: flex;
+  font-family: 'KraftMincho'; 
+  flex-direction: column; /* テキストを縦に並べる */
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.metricLabel {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+  .metricValue {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #413e3e;
+    font-family:cursive;
+  }
+
+
+
+
+          
+}
+

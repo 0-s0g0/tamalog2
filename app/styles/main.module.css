@@ -89,3 +89,39 @@
   margin-left: 1rem;
   margin-right: 2rem;
 }
+
+
+@media (max-width: 500px){
+  .piyo{
+  width: 400px;
+  object-fit: cover;
+  margin-left: 10px;
+}
+
+.tip {
+  font-size: 0.6rem;
+  position: absolute;
+  top: 50%;         /* 中央に */
+  left: 50%;
+  transform: translate(-50%, -50%); /* 完全中央揃え */
+  z-index: 1;
+  color:var(--brown);
+  font-family: 'KraftMincho'; 
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none; /* クリック透過 */
+  /*background-color: rgba(127, 255, 212, 0.397);*/
+  max-width: 230px;      /* ✅ 最大600px */
+  width: 100%;           /* ✅ 親の幅に応じて調整（600px以上にはならない） */
+  white-space: normal;   /* ✅ 自動改行ON */
+}
+
+.titleImage{
+  width: 200px;
+  object-fit: cover;
+  margin-top: 50px;
+}
+
+        
+}
