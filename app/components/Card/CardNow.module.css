@@ -108,3 +108,43 @@
     color: #6db3d6;
     font-family: 'KraftMincho';  
   }
+
+
+@media (max-width: 500px){
+  .iconWrapper1 {
+      width: 40px; /* 正方形のサイズ */
+      height: 40px; /* 高さを60pxに調整 */
+      background-color: #9fbcde
+      ; /* アイコンの背景色 */
+      border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+      margin-right: 0px; /* アイコンとテキストの間にスペース */
+    }
+    .iconWrapper2 {
+      width: 40px; /* 正方形のサイズ */
+      height: 40px; /* 高さを60pxに調整 */
+      background-color: #acdbb7
+      ; /* アイコンの背景色 */
+      border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+      margin-right: 0px; /* アイコンとテキストの間にスペース */
+    }
+    .iconWrapper3 {
+      width: 40px; /* 正方形のサイズ */
+      height: 40px; /* 高さを60pxに調整 */
+      background-color: #FFC374
+      ; /* アイコンの背景色 */
+      border-radius: 8px; /* アイコンボックスを丸くする（任意） */
+      margin-right: 0px; /* アイコンとテキストの間にスペース */
+    }
+      .metricLabel {
+    font-size: 0.75rem;
+    display: none;
+  }
+   .changeIndicator {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    margin-top: 0.6vw;
+    margin-left: 1vw;
+    color:var(--brown);    
+  }
+          
+}

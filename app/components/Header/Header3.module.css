@@ -1,0 +1,39 @@
+/* ヘッダー全体 */
+.header {
+    display: flex;
+    height: 80px;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+    background-color:var(--darkyellow);
+    z-index: 1000;
+  }
+
+  /* ロゴ部分 */
+  .logo {
+    margin-left: 2%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  .Buttonleft{
+    margin-right: 5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width:200px;
+  }
+  .HeadButton{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+  }
+  .icons{
+    justify-content: center;    
+  }
+  .text{
+    font-family: 'KraftMincho';
+    justify-content: center;
+    font-size: 0.7rem;
+  }

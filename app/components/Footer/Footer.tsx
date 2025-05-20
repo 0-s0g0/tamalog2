@@ -19,7 +19,7 @@ const Footer : React.FC = () => {
                 </button>  
             </Link>
 
-            <Link href="/create-post" passHref>
+            <Link href="/create-post/mobile-prifile" passHref>
                 <button className={styles.footButton}>
                     <ClipboardText  size={50} color="#4f2f2f" weight="duotone" className={styles.icons}/>
                     <div className={styles.text}>ぷろふぃーる</div>

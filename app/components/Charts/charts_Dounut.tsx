@@ -60,6 +60,7 @@ const Charts_Dounut: React.FC<ChartsUIProps> = ({
         {/* 左側の円グラフ */}
         
         <div className={`${styles.graphCard} ${styles.donutChart}`}>
+          <div className={styles.graphTitle1}>体組成</div>
           <div className={styles.chartWrapper}>
             <div className={styles.graphTitle2}>
               {bodyFatPercentage.toFixed(2)}%

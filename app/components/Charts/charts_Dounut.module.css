@@ -49,6 +49,7 @@
     font-family: 'KraftMincho'; 
     margin-bottom: 16px; /* グラフとのスペース */
     text-align: left; /* タイトルを左寄せにする */
+    display:none;
   }
 
   .graphTitle2{
@@ -58,3 +59,21 @@
     margin-bottom: 16px; /* グラフとのスペース */
     text-align: left; /* タイトルを左寄せにする */
   }
+
+  @media (max-width: 500px){
+
+    .graphCard {
+      height: 300px;
+      margin-top: -45px;
+    }
+
+    .graphTitle2{
+      font-size: 2rem;
+      color:  #FF9E9E;
+      font-family: 'KraftMincho'; 
+      margin-bottom: 0px; /* グラフとのスペース */
+      text-align: left; /* タイトルを左寄せにする */
+      margin-top: 200px;
+  }
+          
+}
