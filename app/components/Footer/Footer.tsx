@@ -26,7 +26,7 @@ const Footer : React.FC = () => {
                 </button>  
             </Link>
 
-            <Link href="/mobile-page" passHref>
+            <Link href="/create-post/mobile-carender" passHref>
                 <button className={styles.footButton}>
                     <CalendarCheck  size={50} color="#4f2f2f" weight="duotone" className={styles.icons}/>
                     <div className={styles.text}>かれんだー</div>
