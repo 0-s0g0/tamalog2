@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "rei App",
-  description: "make post rei app",
+  title: "たまlog",
+  description: "たのしく続く体組成計アプリ",
 };
 
 export default function RootLayout({
