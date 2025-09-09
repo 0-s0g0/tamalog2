@@ -90,9 +90,23 @@
 
 
 @media (max-width: 500px){
-  .iconWrapper {
-  display: none;  
+  .goalAll{
+  display: grid; /* グリッドレイアウトを適用 */
+    height: 200px;
+
 }
+
+.iconWrapper {
+  width: 45px;
+  height: 45px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 68px; /* アイコンボックスを丸くする（任意） */
+  margin-left: 1rem; /* アイコンとテキストの間にスペース */
+  background-color:var(--darkyellow);
+}
+
 .metricContent {
   display: flex;
   font-family: 'KraftMincho'; 
@@ -105,14 +119,26 @@
   font-size: 0.75rem;
   color: #888;
 }
+.changeIndicator {
+  font-size: 0.7rem;
+   margin-top: 15px;
+  color: #888;
+  height: 25px;
+}
+
+.suuchi{
+  display: flex;
+  gap:20px;
+}
 
   .metricValue {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
     color: #413e3e;
     font-family:"KraftMincho";
+    margin-left: 50px;
   }
 
 
