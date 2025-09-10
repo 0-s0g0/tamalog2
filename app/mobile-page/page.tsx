@@ -10,7 +10,7 @@ import axios from 'axios';
 
 
 //copmponents
-import CardGoal from '../components/Card/CardGoal';
+import CardGoal2 from '../components/Card/CardGoal2';
 import CardNow from '../components/Card/CardNow';
 import Charts_Line from '../components/Charts/charts_Line';  
 import Charts_Dounut from '../components/Charts/charts_Dounut';  
@@ -431,7 +431,7 @@ const handleLogout = async () => {
 
             {/*目標カード*/}
             <div className={styles.goalback}>
-              <CardGoal
+              <CardGoal2
               latestEntryAC={latestEntryAC}
               latestEntry={latestEntrytoGOAL}
               /> 

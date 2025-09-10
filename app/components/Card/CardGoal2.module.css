@@ -1,0 +1,115 @@
+.goalAll {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Center Card (Goal Weight) */
+.centerCard {
+  width: 140px;
+  height: 140px;
+  background: #f8cc49;
+  border: 4px solid #f8cc49;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.centerIconWrapper {
+  width: 60px;
+  height: 60px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  top:-25px;
+}
+
+.centerCardContent {
+  position: absolute;
+  text-align: center;
+  font-family: 'KraftMincho';
+  top:45px;
+}
+
+.centerCardLabel {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.centerCardValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.centerCardSubLabel {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Side Cards (Goal Fat & Goal Muscle) */
+.sideCard {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #f8f8f8, #ffffff);
+  border: 3px solid #FFD700;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.iconWrapper {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--darkyellow, #FFD700);
+  margin-bottom: 10px;
+  top:-25px;
+}
+
+.sideCardContent {
+  position: absolute;
+  text-align: center;
+  font-family: 'KraftMincho';
+    top:30px;
+}
+
+.sideCardValue {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.sideCardLabel {
+  font-size: 0.8rem;
+  color: #888;
+}

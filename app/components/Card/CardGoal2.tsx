@@ -1,15 +1,8 @@
-
 //共通インポート
 import React from 'react';
-import styles from './CardGoal.module.css'; 
+import styles from './CardGoal2.module.css'; 
 import { GiFat, GiMuscleFat } from "react-icons/gi";
 import { FaWeightScale } from 'react-icons/fa6';
-//Image
-import Image from 'next/image';
-import GoalWeight_img from '../../public/GoalWeight.png';
-import GoalFat_img from '../../public/GoalFat.png';
-import GoalMuscle_img from '../../public/GoalMuscles.png';
-import { MdAirlineSeatIndividualSuite } from 'react-icons/md';
 
 // Props型定義
 interface Props {
@@ -49,57 +42,50 @@ const goalMuscleChange = calculateChange(
   (latestEntry.totalMuscle ? latestEntry.totalMuscle : 0).toString() // totalMuscleがundefinedの場合は0を使う
 );
 
-
   return (
     <div className={styles.goalAll}>
-      {/* Goal Weight */}
-      <div className={styles.metricCard00}>
-        <div className={styles.iconWrapper}>
-          <FaWeightScale size={100} color={'#ffffff'} />      
-        </div>
-        <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Weight</div>
-            <div className={styles.metricValue}>
-              あと{goalWeightChange.sign}{goalWeightChange.change}kg</div>
-            </div>
-          <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
-            {parseFloat(latestEntryAC.goalWeight).toFixed(2)}kg
-          </span>
-      </div>
-
-      {/* Goal Fat */}
-      <div className={styles.metricCard00}>
+      <div className={styles.goalContainer}>
+        {/* Goal Fat (Left) */}
+        <div className={styles.sideCard}>
           <div className={styles.iconWrapper}>
-              <GiFat size={100} color={'#ffffff'} />   
+            <GiFat size={30} color={'#ffffff'} />   
           </div>
-          <div className={styles.metricContent}>
-            <div className={styles.metricLabel}>Goal Fat</div>
-            <div className={styles.metricValue}>
-              あと{goalFatChange.sign}{goalFatChange.change}kg
+          <div className={styles.sideCardContent}>
+            <div className={styles.sideCardValue}>
+              {goalFatChange.sign}{goalFatChange.change}kg
             </div>
-            <span className={`${styles.changeIndicator} ${goalFatChange.color}`}>
-              {parseFloat(latestEntryAC.goalFat).toFixed(2)}kg
-            </span>
-        </div>
-      </div>
-
-      {/* Goal Muscle */}
-      <div className={styles.metricCard00}>
-        <div className={styles.iconWrapper}>
-          <GiMuscleFat size={100} color={'#ffffff'} />   
-        </div>
-        <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Muscle</div>
-          <div className={styles.metricValue}>
-            あと{goalMuscleChange.sign}{goalMuscleChange.change}kg
+            <div className={styles.sideCardLabel}>Fat</div>
           </div>
-          <span className={`${styles.changeIndicator} ${goalMuscleChange.color}`}>
-          {parseFloat(latestEntryAC.goalMuscle).toFixed(2)}kg
-          </span>
+        </div>
+
+        {/* Goal Weight (Center) */}
+        <div className={styles.centerCard}>
+          <div className={styles.centerIconWrapper}>
+            <FaWeightScale size={50} color={'#9e8579'} />      
+          </div>
+          <div className={styles.centerCardContent}>
+
+            <div className={styles.centerCardValue}>
+              {goalWeightChange.sign}{goalWeightChange.change}kg
+            </div>
+            <div className={styles.centerCardSubLabel}>Weight</div>
+          </div>
+        </div>
+
+        {/* Goal Muscle (Right) */}
+        <div className={styles.sideCard}>
+          <div className={styles.iconWrapper}>
+            <GiMuscleFat size={30} color={'#ffffff'} />   
+          </div>
+          <div className={styles.sideCardContent}>
+            <div className={styles.sideCardValue}>
+              {goalMuscleChange.sign}{goalMuscleChange.change}kg
+            </div>
+            <div className={styles.sideCardLabel}>Muscle</div>
+          </div>
         </div>
       </div>
     </div>
-
   );
 };
 

@@ -59,7 +59,8 @@
 
 /*各サイズ*/
 .goalback{
-  width: 95%;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .AnalysisBack {
@@ -95,7 +96,6 @@
   width: 180px;
   object-fit: cover;
   margin-top: 10px;
-  background-color: aqua;
 }
   .piyo{
   width: 400px;
