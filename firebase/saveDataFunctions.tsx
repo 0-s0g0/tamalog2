@@ -1,5 +1,5 @@
 import { db, auth } from './firebase'; // Firebaseの設定をインポート
-import { doc, setDoc, getDoc, arrayUnion,collection,getDocs } from 'firebase/firestore';
+import { doc, setDoc, getDoc, arrayUnion, arrayRemove, collection, getDocs } from 'firebase/firestore';
 import { Entry, EntryAC, EntrySports } from '../app/components/type';
 
 ///////////////////////////////////////////
@@ -270,4 +270,67 @@ export const getEntrySportsFromFirestore = async (setEntrySports: React.Dispatch
         alert("データの取得中にエラーが発生しました");
       }
     };
+
+///////////////////////////////////////////
+//Entry削除機能
+///////////////////////////////////////////
+// FirestoreからEntryを削除する関数
+export const deleteEntryFromFirestore = async (entryToDelete: Entry) => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error('ユーザーがログインしていません');
+  }
+
+  try {
+    const userDocRef = doc(db, 'userEntries', user.uid);
+
+    await setDoc(
+      userDocRef,
+      {
+        entries: arrayRemove(entryToDelete),
+      },
+      { merge: true }
+    );
+    console.log('Entry successfully deleted from Firestore');
+  } catch (error) {
+    console.error('Error deleting entry from Firestore:', error);
+    throw new Error('データの削除中にエラーが発生しました。');
+  }
+};
+
+// FirestoreのEntryを更新する関数
+export const updateEntryInFirestore = async (oldEntry: Entry, updatedEntry: Entry) => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error('ユーザーがログインしていません');
+  }
+
+  try {
+    const userDocRef = doc(db, 'userEntries', user.uid);
+    
+    // 古いエントリーを削除して新しいエントリーを追加
+    await setDoc(
+      userDocRef,
+      {
+        entries: arrayRemove(oldEntry),
+      },
+      { merge: true }
+    );
+
+    await setDoc(
+      userDocRef,
+      {
+        entries: arrayUnion(updatedEntry),
+      },
+      { merge: true }
+    );
+    
+    console.log('Entry successfully updated in Firestore');
+  } catch (error) {
+    console.error('Error updating entry in Firestore:', error);
+    throw new Error('データの更新中にエラーが発生しました。');
+  }
+};
     

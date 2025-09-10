@@ -157,3 +157,90 @@
   width: 60px;
   height: 60px;
 }
+
+/* モーダルの共通スタイル */
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modalHeader h2 {
+  color: brown;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "KraftMincho";
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: brown;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalBody {
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.modalBody p {
+  color: black;
+  font-family: "KraftMincho";
+  margin: 0.5rem 0;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.actionButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "KraftMincho";
+  font-weight: bold;
+  min-width: 100px;
+}
+
+.cancelButton {
+  background-color: #d3d3d3;
+  color: #666;
+}
+
+.cancelButton:hover {
+  background-color: #bbb;
+}
+
+.deleteButton {
+  background-color: #ff4444;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #cc3333;
+}

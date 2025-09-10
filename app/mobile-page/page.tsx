@@ -17,6 +17,9 @@ import Charts_Dounut from '../components/Charts/charts_Dounut';
 import Datatable_UI from '../components/Datatable/Datatable_UI'; 
 import Header2 from '../components/Header/Header2';
 import Footer from '../components/Footer/Footer';
+import DeleteConfirmModal from '../components/Modal/DeleteConfirmModal';
+import TextInputModal from '../components/Modal/TextInput_UI';
+import CheerModal from '../components/Modal/CheerModal';
 
 
 
@@ -27,7 +30,7 @@ import { auth, db} from '../../firebase/firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { signOut } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
-import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
+import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore, deleteEntryFromFirestore, updateEntryInFirestore} from "../../firebase/saveDataFunctions";
 
 //style
 import styles from '../styles/main.module.css';
@@ -85,6 +88,8 @@ export default function Home() {
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] = useState(false);
+  const [entryToDelete, setEntryToDelete] = useState<Entry | null>(null);
 
   // 画像関連
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -180,12 +185,6 @@ const handleEdit = (id: string) => {
   // 編集したいエントリーを、IDを元に検索
   const entryToEdit = entries.find(entry => entry.id === id);
   if (entryToEdit) {
-    // 見つかった場合、フォームにそのエントリーのデータをセット
-    setDate(entryToEdit.date);
-    setBodyWater(entryToEdit.bodyWater);
-    setProtein(entryToEdit.protein);
-    setMinerals(entryToEdit.minerals);
-    setBodyFat(entryToEdit.bodyFat);
     // 編集モードに切り替え、編集中のエントリーのIDを保存
     setEditingId(id);
     // モーダルを開く
@@ -261,16 +260,39 @@ const handleImageSubmit = async (e: React.FormEvent) => {
 
 // エントリー削除
 const handleDelete = async (id: string) => {
-  // 削除確認のダイアログ
-  if (confirm('本当に削除しますか？')) {
-    // 削除リクエスト
-    await fetch('/api/post', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
-    });
-    // エントリーリストから削除
-    setEntries(entries.filter(entry => entry.id !== id));
+  const entryToDelete = entries.find(entry => entry.id === id);
+  if (entryToDelete) {
+    setEntryToDelete(entryToDelete);
+    setIsDeleteConfirmModalOpen(true);
+  }
+};
+
+// 削除確認後の処理
+const confirmDelete = async () => {
+  if (entryToDelete) {
+    try {
+      // Firestoreから削除
+      await deleteEntryFromFirestore(entryToDelete);
+      
+      // ローカルAPIからも削除（既存のAPI）
+      await fetch('/api/post', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: entryToDelete.id }),
+      });
+      
+      // ローカル状態から削除
+      setEntries(entries.filter(entry => entry.id !== entryToDelete.id));
+      
+      // モーダルを閉じる
+      setIsDeleteConfirmModalOpen(false);
+      setEntryToDelete(null);
+      
+      alert('データが正常に削除されました。');
+    } catch (error) {
+      console.error('削除エラー:', error);
+      alert('削除中にエラーが発生しました。');
+    }
   }
 };
 //
@@ -390,6 +412,7 @@ const handleLogout = async () => {
   // UIレンダリング
   ///////////////////////////////////////////
   return (
+    <>
     <div className={local.body}>
       <Header2/>
       {/* メインコンテンツ */}
@@ -484,8 +507,39 @@ const handleLogout = async () => {
           </div>
 
         </div>
+        
       <Footer/>
+      
     </div>
     
+    {/* 削除確認モーダル */}
+    <DeleteConfirmModal
+      isOpen={isDeleteConfirmModalOpen}
+      onClose={() => {
+        setIsDeleteConfirmModalOpen(false);
+        setEntryToDelete(null);
+      }}
+      onConfirm={confirmDelete}
+      entryDate={entryToDelete?.date}
+    />
+    
+    {/* テキスト入力モーダル */}
+    <TextInputModal
+      isTextInputModalOpen={isTextInputModalOpen}
+      setIsTextInputModalOpen={setIsTextInputModalOpen}
+      isCheerModalOpen={isCheerModalOpen}
+      setIsCheerModalOpen={setIsCheerModalOpen}
+      setEntries={setEntries}
+      entries={entries}
+      editingId={editingId}
+      setEditingId={setEditingId}
+    />
+    
+    {/* 応援モーダル */}
+    <CheerModal
+      isCheerModalOpen={isCheerModalOpen}
+      setIsCheerModalOpen={setIsCheerModalOpen}
+    />
+    </>
   );
 }

@@ -81,6 +81,27 @@ const TextInputModal: React.FC<Props> = ({
   const [minerals, setMinerals] = useState('');
   const [bodyFat, setBodyFat] = useState('');
 
+  // 編集モードでモーダルが開かれた時にフォームにデータを設定
+  useEffect(() => {
+    if (isTextInputModalOpen && editingId) {
+      const entryToEdit = entries.find(entry => entry.id === editingId);
+      if (entryToEdit) {
+        setDate(entryToEdit.date);
+        setBodyWater(entryToEdit.bodyWater);
+        setProtein(entryToEdit.protein);
+        setMinerals(entryToEdit.minerals);
+        setBodyFat(entryToEdit.bodyFat);
+      }
+    } else if (!isTextInputModalOpen) {
+      // モーダルが閉じられた時にフォームをリセット
+      setDate('');
+      setBodyWater('');
+      setProtein('');
+      setMinerals('');
+      setBodyFat('');
+    }
+  }, [isTextInputModalOpen, editingId, entries]);
+
   // フォーム送信処理（エントリー追加・更新）
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -105,9 +126,16 @@ const TextInputModal: React.FC<Props> = ({
   
     try {
       if (editingId) {
-        // 編集モードのロジックが必要であればここに記述
+        // 編集モード: 既存エントリーを更新
+        const updatedEntries = entries.map(entry =>
+          entry.id === editingId ? newEntry : entry
+        );
+        setEntries(updatedEntries);
+        
+        // Firestoreでも更新処理を行う場合はここに記述
+        // await updateEntryInFirestore(oldEntry, newEntry);
       } else {
-        // Firestoreにデータを保存
+        // 新規追加モード: 新しいエントリーを追加
         await saveEntryToFirestore(newEntry);
         setEntries([...entries, newEntry]);
       }
@@ -184,7 +212,9 @@ const TextInputModal: React.FC<Props> = ({
               className="border p-2 w-full"
             />
           </div>
-          <button type="submit" className={styles.modalButton}>Add</button>
+          <button type="submit" className={styles.modalButton}>
+            {editingId ? 'Update' : 'Add'}
+          </button>
           <button type="button" onClick={() => {setIsTextInputModalOpen(false)}} className={styles.modalButtonclose}>Close</button>
         </form>
       </div>
