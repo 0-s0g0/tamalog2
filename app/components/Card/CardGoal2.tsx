@@ -25,7 +25,7 @@ interface Props {
   };
 }
 
-const CardGoal: React.FC<Props> = ({ latestEntryAC, latestEntry }) => {
+const CardGoal2: React.FC<Props> = ({ latestEntryAC, latestEntry }) => {
   // 変化量を計算する関数
 const calculateChange = (goal: string, actual: string) => {
   const goalValue = parseFloat(goal);
@@ -103,4 +103,4 @@ const goalMuscleChange = calculateChange(
   );
 };
 
-export default CardGoal;
+export default CardGoal2;

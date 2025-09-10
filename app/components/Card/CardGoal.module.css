@@ -92,7 +92,7 @@
 @media (max-width: 500px){
   .goalAll{
   display: grid; /* グリッドレイアウトを適用 */
-    height: 200px;
+  height: 200px;
 
 }
 
@@ -118,12 +118,15 @@
 .metricLabel {
   font-size: 0.75rem;
   color: #888;
+
+
 }
 .changeIndicator {
   font-size: 0.7rem;
    margin-top: 15px;
   color: #888;
   height: 25px;
+  display: none;
 }
 
 .suuchi{
@@ -138,7 +141,7 @@
     margin-bottom: 10px;
     color: #413e3e;
     font-family:"KraftMincho";
-    margin-left: 50px;
+    margin-left: 20px;
   }
 
 
