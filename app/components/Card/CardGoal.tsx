@@ -59,13 +59,12 @@ const goalMuscleChange = calculateChange(
         </div>
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Weight</div>
-          <div className={styles.suuchi}>
-            <div className={styles.metricValue}>あと{goalWeightChange.sign}{goalWeightChange.change}kg</div>
+            <div className={styles.metricValue}>
+              あと{goalWeightChange.sign}{goalWeightChange.change}kg</div>
+            </div>
           <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
             {parseFloat(latestEntryAC.goalWeight).toFixed(2)}kg
           </span>
-        </div>
-      </div>
       </div>
 
       {/* Goal Fat */}
@@ -75,14 +74,12 @@ const goalMuscleChange = calculateChange(
           </div>
           <div className={styles.metricContent}>
             <div className={styles.metricLabel}>Goal Fat</div>
-            <div className={styles.suuchi}>
             <div className={styles.metricValue}>
               あと{goalFatChange.sign}{goalFatChange.change}kg
             </div>
             <span className={`${styles.changeIndicator} ${goalFatChange.color}`}>
               {parseFloat(latestEntryAC.goalFat).toFixed(2)}kg
             </span>
-        </div>
         </div>
       </div>
 
@@ -93,14 +90,12 @@ const goalMuscleChange = calculateChange(
         </div>
         <div className={styles.metricContent}>
           <div className={styles.metricLabel}>Goal Muscle</div>
-                    <div className={styles.suuchi}>
           <div className={styles.metricValue}>
             あと{goalMuscleChange.sign}{goalMuscleChange.change}kg
           </div>
           <span className={`${styles.changeIndicator} ${goalMuscleChange.color}`}>
           {parseFloat(latestEntryAC.goalMuscle).toFixed(2)}kg
           </span>
-        </div>
         </div>
       </div>
     </div>
