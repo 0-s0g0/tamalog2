@@ -43,6 +43,11 @@
       cursor: pointer;
       transition: background-color 0.3s, color 0.3s;
       font-family: 'KraftMincho'; 
+      touch-action: manipulation;   /* タッチイベント最適化 */
+      -webkit-tap-highlight-color: transparent; /* タップ時のハイライトを無効化 */
+      user-select: none;           /* テキスト選択を無効化 */
+      position: relative;          /* z-indexを機能させる */
+      z-index: 10;                 /* ボタンを前面に表示 */
     }
 
     /* 選択中のボタン */

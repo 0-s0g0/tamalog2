@@ -56,6 +56,16 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
     setSelectedMetric(metric);
   };
 
+  // Touch event handlers for mobile support
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+  };
+
+  const handleTouchEnd = (metric: 'weight' | 'bodyFat' | 'totalMuscle') => (e: React.TouchEvent) => {
+    e.preventDefault();
+    handleMetricChange(metric);
+  };
+
   // Data for the selected chart
   const chartData = (() => {
     switch (selectedMetric) {
@@ -75,6 +85,8 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
       <div className={styles.buttonGroup}>
   <button
     onClick={() => handleMetricChange('weight')}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd('weight')}
     style={{
       color: selectedMetric === 'weight' ? '#d3d3d3' : 'rgba(75, 192, 192, 1)', // Weight (Green)
       backgroundColor: selectedMetric === 'weight' ? 'rgba(75, 192, 192, 1)' : '#d3d3d3'
@@ -86,6 +98,8 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
   
   <button
     onClick={() => handleMetricChange('bodyFat')}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd('bodyFat')}
     style={{
       color: selectedMetric === 'bodyFat' ? '#d3d3d3' : 'rgba(255, 99, 132, 1)', // Body Fat (Red)
       backgroundColor: selectedMetric === 'bodyFat' ? 'rgba(255, 99, 132, 1)' : '#d3d3d3'
@@ -97,6 +111,8 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
   
   <button
     onClick={() => handleMetricChange('totalMuscle')}
+    onTouchStart={handleTouchStart}
+    onTouchEnd={handleTouchEnd('totalMuscle')}
     style={{
       color: selectedMetric === 'totalMuscle' ? '#d3d3d3' : 'rgba(54, 162, 235, 1)', // Total Muscle (Blue)
       backgroundColor: selectedMetric === 'totalMuscle' ? 'rgba(54, 162, 235, 1)' : '#d3d3d3'
