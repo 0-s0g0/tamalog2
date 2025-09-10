@@ -19,7 +19,7 @@
     background-color: rgb(245, 253, 226);
     border-radius: 40px 40px 40px 40px;
     position: relative; 
-    z-index: -10; /* 他の要素よりも前面に表示 */
+    z-index: 1; /* インタラクティブ要素を前面に表示 */
   }
   
   .mainbackContent2 {

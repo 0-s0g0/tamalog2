@@ -312,6 +312,16 @@ const handleNewTip = () => {
   setTip(getRandomTip());
 };
 
+// Touch event handlers for piyo button
+const handlePiyoTouchStart = (e: React.TouchEvent) => {
+  e.preventDefault();
+};
+
+const handlePiyoTouchEnd = (e: React.TouchEvent) => {
+  e.preventDefault();
+  handleNewTip();
+};
+
 
 // ログアウト処理
 const handleLogout = async () => {
@@ -386,7 +396,24 @@ const handleLogout = async () => {
         <div className={local.mainbackContent}>
           <div className={local.mainContent}>
               <div className={styles.piyoback}>       
-                <button onClick={handleNewTip} style={{ padding: '10px', fontSize: '16px', marginLeft: '-20px' }}>
+                <button 
+                  onClick={handleNewTip} 
+                  onTouchStart={handlePiyoTouchStart}
+                  onTouchEnd={handlePiyoTouchEnd}
+                  style={{ 
+                    padding: '10px', 
+                    fontSize: '16px', 
+                    marginLeft: '-20px',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent',
+                    userSelect: 'none',
+                    position: 'relative',
+                    zIndex: 20
+                  }}
+                >
                   <Image src={currentImage} alt="Piyo image" className={styles.piyo}></Image>
                 </button>
                 <div className={styles.container}>
