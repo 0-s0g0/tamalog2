@@ -4,12 +4,7 @@ import React from 'react';
 import styles from './CardGoal.module.css'; 
 import { GiFat, GiMuscleFat } from "react-icons/gi";
 import { FaWeightScale } from 'react-icons/fa6';
-//Image
-import Image from 'next/image';
-import GoalWeight_img from '../../public/GoalWeight.png';
-import GoalFat_img from '../../public/GoalFat.png';
-import GoalMuscle_img from '../../public/GoalMuscles.png';
-import { MdAirlineSeatIndividualSuite } from 'react-icons/md';
+
 
 // Props型定義
 interface Props {

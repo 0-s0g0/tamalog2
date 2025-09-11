@@ -54,7 +54,7 @@ const goalMuscleChange = calculateChange(
             <div className={styles.sideCardValue}>
               {goalFatChange.sign}{goalFatChange.change}kg
             </div>
-            <div className={styles.sideCardLabel}>Fat</div>
+            <div className={styles.sideCardLabel}>BodyFat</div>
           </div>
         </div>
 
@@ -81,7 +81,7 @@ const goalMuscleChange = calculateChange(
             <div className={styles.sideCardValue}>
               {goalMuscleChange.sign}{goalMuscleChange.change}kg
             </div>
-            <div className={styles.sideCardLabel}>Muscle</div>
+            <div className={styles.sideCardLabel}> Muscle</div>
           </div>
         </div>
       </div>
