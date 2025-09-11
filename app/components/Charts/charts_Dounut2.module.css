@@ -1,0 +1,49 @@
+/* グラフカード全般のスタイル */
+.graphCard {
+  height: 200px;
+  display: flex;
+  top: -100px;
+
+}
+
+
+.graphTitle2 {
+  position: absolute;
+  z-index: 1;
+  font-size: 1.5rem; /* お好みで調整 */
+  font-weight: bold;
+  color: #333; /* チャートの背景に応じて調整 */
+  pointer-events: none; /* チャート操作に影響しないように */
+}
+
+
+
+  /* 円グラフのスタイル */
+  .donutChart {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center; /* 縦方向に中央揃え */
+    justify-content: center; /* 横方向に中央揃え */
+    margin-left: 0.5rem;
+  }
+  
+  /* グラフのタイトル */
+  .graphTitle1{
+    font-size: 2rem;
+    color: #888;
+    font-family: 'KraftMincho'; 
+    margin-bottom: 16px; /* グラフとのスペース */
+    text-align: left; /* タイトルを左寄せにする */
+    display:none;
+  }
+
+  .graphTitle2{
+    font-size: 2rem;
+    color:  #FF9E9E;
+    font-family: 'KraftMincho'; 
+    margin-bottom: 16px; /* グラフとのスペース */
+    text-align: left; /* タイトルを左寄せにする */
+  }
+

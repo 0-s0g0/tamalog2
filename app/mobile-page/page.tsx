@@ -11,9 +11,9 @@ import axios from 'axios';
 
 //copmponents
 import CardGoal2 from '../components/Card/CardGoal2';
-import CardNow from '../components/Card/CardNow';
+import CardNow2 from '../components/Card/CardNow';
 import Charts_Line from '../components/Charts/charts_Line';  
-import Charts_Dounut from '../components/Charts/charts_Dounut';  
+import Charts_Dounut2 from '../components/Charts/charts_Dounut2';  
 import Datatable_UI from '../components/Datatable/Datatable_UI'; 
 import Header2 from '../components/Header/Header2';
 import Footer from '../components/Footer/Footer';
@@ -444,14 +444,9 @@ const handleLogout = async () => {
 
             <div className={local.grid}>
               {/* グラフ表示*/}
-              <Charts_Dounut
+              <Charts_Dounut2
                   entries={entries}
                   latestEntry={latestEntry}
-                  bodyFatPercentage={bodyFatPercentage}
-              />
-              <CardNow
-                latestEntry={latestEntry}
-                previousEntry={previousEntry}
               />
             </div>
             
