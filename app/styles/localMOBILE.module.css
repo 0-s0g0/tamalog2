@@ -48,11 +48,9 @@
   
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;  /* 2列に設定 */
     gap: 16px;  /* カードとグラフの間にスペースを追加 */
-    height: 330px;
+    height: 200px;
     align-items: center; /*縦方向の中央揃え */
-    background-color: rgba(255, 51, 0, 0.123);
   }
   
   .sidebarA{
