@@ -141,6 +141,7 @@ const Charts_Dounut2: React.FC<ChartsUIProps> = ({
                   fontSize: '16px',
                   fontWeight: 'bold',
                   color: '#333',
+                  fontFamily: 'KraftMincho',
                 }}>
                   {item.value}kg
                 </div>
@@ -152,6 +153,7 @@ const Charts_Dounut2: React.FC<ChartsUIProps> = ({
                   top: '-16px',
                   fontSize: '12px',
                   color: '#888',
+                  fontFamily: 'KraftMincho',
                 }}>
                   {item.label}
                 </div>

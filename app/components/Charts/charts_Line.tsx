@@ -129,7 +129,7 @@ const Charts_Line: React.FC<ChartsUIProps> = ({
         <div className={styles.graphTitle}>
           {selectedMetric === 'weight' ? 'Weight History' : selectedMetric === 'bodyFat' ? 'Body Fat History' : 'Total Muscle History'}
         </div>
-        <Line data={chartData} />
+        <Line data={chartData} style={{fontFamily: 'KraftMincho'}}/>
       </div>
     </div>
   );
