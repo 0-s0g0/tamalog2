@@ -55,25 +55,25 @@ const Charts_Dounut2: React.FC<ChartsUIProps> = ({
 
   const barData = [
     { 
-      label: 'ミネラル', 
+      label: 'Mineral', 
       value: latestEntry. minerals || 0, 
       color: '#FFB366', 
       maxValue: 5 
     },
     { 
-      label: '体脂肪量', 
+      label: 'BodyFat', 
       value: latestEntry.bodyFat || 0, 
       color: '#FF9E9E', 
       maxValue: 23 
     },
     { 
-      label: 'タンパク質', 
+      label: 'Protein', 
       value: latestEntry.protein || 0, 
       color: '#A8D5A8', 
       maxValue: 15 
     },
     { 
-      label: '水分量', 
+      label: 'BodyWater', 
       value: latestEntry.bodyWater || 0, 
       color: '#7BB3E8', 
       maxValue: 40 

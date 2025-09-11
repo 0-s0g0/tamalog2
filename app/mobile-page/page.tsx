@@ -11,10 +11,9 @@ import axios from 'axios';
 
 //copmponents
 import CardGoal2 from '../components/Card/CardGoal2';
-import CardNow2 from '../components/Card/CardNow';
+//import CardNow2 from '../components/Card/CardNow';
 import Charts_Line from '../components/Charts/charts_Line';  
 import Charts_Dounut2 from '../components/Charts/charts_Dounut2';  
-import Datatable_UI from '../components/Datatable/Datatable_UI'; 
 import Header2 from '../components/Header/Header2';
 import Footer from '../components/Footer/Footer';
 
@@ -55,6 +54,7 @@ import piyo04 from '../public/piyo04.png'
 import piyo05 from '../public/piyo05.png'
 import piyo06 from '../public/piyo06.png'
 import kaunt from '../public/kaunt1.png'
+import Datatable_UI2 from '../components/Datatable/Datatable_UI2';
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -468,7 +468,7 @@ const handleLogout = async () => {
 
 
             {/* データテーブル表示 */}
-            <Datatable_UI 
+            <Datatable_UI2 
                 entries={entries} 
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}

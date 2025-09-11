@@ -14,17 +14,17 @@ export const getLineChartData = (entries: Entry[], metric: 'totalWeight' | 'body
 
   switch (metric) {
     case 'bodyFat':
-      label = '体脂肪';
+      label = 'BodyFat';
       borderColor = 'rgba(255, 99, 132, 1)';      // Red for body fat
       backgroundColor = 'rgba(255, 99, 132, 0.2)';
       break;
     case 'totalMuscle':
-      label = '筋肉量';
+      label = ' Muscle';
       borderColor = 'rgba(54, 162, 235, 1)';      // Blue for muscle mass
       backgroundColor = 'rgba(54, 162, 235, 0.2)';
       break;
     default:
-      label = '体重';
+      label = 'Weight';
       borderColor = 'rgba(75, 192, 192, 1)';      // Green for weight
       backgroundColor = 'rgba(75, 192, 192, 0.2)';
   }

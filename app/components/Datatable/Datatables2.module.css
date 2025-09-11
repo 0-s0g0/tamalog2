@@ -1,0 +1,60 @@
+/* 表のスタイル */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ddd;
+    padding: 0.1rem;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+    font-family: 'KraftMincho';
+    color: #2e7d7e;
+    
+  }
+
+  /* アクションボタンのスタイル */
+  .actionEditButton {
+    border: none;
+    margin-Right: 10%;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #5497d577;
+  }
+
+  .actionDeleteButton {
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #d94e4e65;
+  }
+
+  .tableCard {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */ 
+  }
+
+  @media (max-width: 500px){
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+    .table th, .table td {
+    padding: 0rem;
+    font-size: 0.5rem;
+  }
+
+
+
+
+          
+}

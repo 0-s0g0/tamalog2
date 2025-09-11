@@ -215,7 +215,7 @@
 
  .HSback{
     margin-right: 1vw;
-    background-color: rgba(233, 184, 212, 0.361);
+
     width: 200px;
     height: 5vw;
     display: flex; /* 子要素を横並びにする */
