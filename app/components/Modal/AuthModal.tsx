@@ -132,7 +132,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
           onClick={() => setIsSignUpModalOpen(false)}
           className={styles.modalButtonclose}
         >
-          閉じる
+        とじる
         </button>
        <Image src={piyo01} alt="Piyo" width={150} height={150} className={styles['overlay-image']} />
       </div>
