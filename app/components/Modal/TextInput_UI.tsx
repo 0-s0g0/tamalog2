@@ -161,7 +161,7 @@ const TextInputModal: React.FC<Props> = ({
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
-        <h2 className="text-xl font-bold mb-4">Add Data</h2>
+        <h2 className="text-xl font-bold mb-4">にゅうりょく</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block mb-1">Date:</label>
@@ -215,7 +215,7 @@ const TextInputModal: React.FC<Props> = ({
           <button type="submit" className={styles.modalButton}>
             {editingId ? 'Update' : 'Add'}
           </button>
-          <button type="button" onClick={() => {setIsTextInputModalOpen(false)}} className={styles.modalButtonclose}>Close</button>
+          <button type="button" onClick={() => {setIsTextInputModalOpen(false)}} className={styles.modalButtonclose}>とじる</button>
         </form>
       </div>
     </div>

@@ -2,17 +2,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header3.module.css"; // スタイルのインポート
-import local from "../../styles/local.module.css";
-import { useState } from "react";
+
 import { UserCircle, KeyReturn, Keyboard, TrayArrowUp, Footprints, ClipboardText, DeviceMobileCamera, CalendarCheck } from "@phosphor-icons/react";
-import Input from "postcss/lib/input";
+
 // 画像のインポート
 import logo from '../../public/logo2.png';
-import InputModal from "../Modal/InputModal";
-import LogoutModal from "../Modal/LogoutModal";
-import TextInputModal from "../Modal/TextInput_UI";
-import ImageInputModal from "../Modal/ImageInputModal";
-import { setMaxListeners } from "events";
+
 
 
 export default function Header3() {

@@ -49,18 +49,19 @@ const goalMuscleChange = calculateChange(
     <div className={styles.goalAll}>
       {/* Goal Weight */}
       <div className={styles.metricCard00}>
-        <div className={styles.iconWrapper}>
-          <FaWeightScale size={100} color={'#ffffff'} />      
-        </div>
-        <div className={styles.metricContent}>
-          <div className={styles.metricLabel}>Goal Weight</div>
-            <div className={styles.metricValue}>
-              あと{goalWeightChange.sign}{goalWeightChange.change}kg</div>
-            </div>
-          <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
-            {parseFloat(latestEntryAC.goalWeight).toFixed(2)}kg
-          </span>
+  <div className={styles.iconWrapper}>
+    <FaWeightScale size={100} color={'#ffffff'} />      
+  </div>
+  <div className={styles.metricContent}>
+    <div className={styles.metricLabel}>Goal Weight</div>
+      <div className={styles.metricValue}>
+        あと{goalWeightChange.sign}{goalWeightChange.change}kg
       </div>
+    <span className={`${styles.changeIndicator} ${goalWeightChange.color}`}>
+      {parseFloat(latestEntryAC.goalWeight).toFixed(2)}kg
+    </span>
+  </div>
+</div>
 
       {/* Goal Fat */}
       <div className={styles.metricCard00}>
@@ -93,6 +94,7 @@ const goalMuscleChange = calculateChange(
           </span>
         </div>
       </div>
+      <div style={{height:'10px', backgroundColor:'red'}}></div>
     </div>
 
   );

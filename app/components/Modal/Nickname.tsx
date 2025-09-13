@@ -209,7 +209,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             </select>
           </div>
           <button type="submit" className={styles.modalButton}>Save</button>
-          <button type="button" onClick={() => setIsNicknameModalOpen(false)} className={styles.modalButtonclose}>Close</button>
+          <button type="button" onClick={() => setIsNicknameModalOpen(false)} className={styles.modalButtonclose}>閉じる</button>
         </form>
       </div>
     </div>

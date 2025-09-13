@@ -40,7 +40,7 @@ export const LogoutModal: React.FC<LogoutModalProps> = ({
               onClick={() => setIsLogoutModalOpen(false)}
               className={styles.modalButtonclose}
             >
-              Close
+              閉じる
             </button>
             <button
               onClick={handleLogout}

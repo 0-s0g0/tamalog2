@@ -4,14 +4,11 @@
 ///////////////////////////////////////////
 //main
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Header3 from '../../components/Header/Header3';
+
+
+import Header4 from '../../components/Header/Header4';
 import RightSidebar2 from '../../components/Sidebar/RightSidebaer2';
 
-
-//copmponents
-import CountDisplay from '../../components/Sidebar/Countdisplay';
 
 // Firebase
 import { auth, db} from '../../../firebase/firebase';
@@ -27,13 +24,6 @@ import { Entry,EntryAC, EntrySports } from '../../components/type';
 
 
 //Image
-import logo from '../../public/logo2.png';
-import sideBarImageOUT00c from '../../public/Sidever_imageOUT000c.png';
-import sideBarImage00c from '../../public/Sidever_image000c.png';
-import sideBarImage01c from '../../public/Sidever_image001c.png';
-import sideBarImage02c from '../../public/Sidever_image002c.png';
-import sideBarImage04c from '../../public/Sidever_image004c.png';
-import sideBarImage05 from '../../public/Sidever_image005.png';
 import piyo01 from '../../public/piyo01.png'
 import piyo02 from '../../public/piyo02.png'
 import piyo03 from '../../public/piyo03.png'
@@ -41,20 +31,6 @@ import piyo04 from '../../public/piyo04.png'
 import piyo05 from '../../public/piyo05.png'
 import piyo06 from '../../public/piyo06.png'
 import kaunt from '../../public/kaunt1.png';
-
-import Pro1 from '../../public/Pro1.png';
-import Pro2 from '../../public/Pro2.png';
-import Pro8 from '../../public/Pro8.png';
-import Pro9 from '../../public/Pro9.png';
-
-import ProTitle1 from '../../public/proTitle1.png'
-import ProTitle2 from '../../public/proTitle2.png'
-import ProTitle3 from '../../public/proTitle3.png'
-import ProTitle4 from '../../public/proTitle4.png'
-import ProTitle5 from '../../public/proTitle5.png'
-import ProCAL from '../../public/proCAl.png'
-import save from '../../public/save.png';
-import edit from '../../public/edit.png';
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -160,7 +136,7 @@ const calculateTargets = () => {
   ///////////////////////////////////////////
   return (
     <div className={styles.body}>
-    <Header3 />
+    <Header4 />
       <div className={create.fullbackContent}>
       <RightSidebar2 sportsEntries={sportsEntries} />
       

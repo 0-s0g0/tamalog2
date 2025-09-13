@@ -64,6 +64,14 @@ const CalendarModal: React.FC<CalendarModalProps> = ({ isModalOpen, setIsModalOp
       // 親のstateを更新
       setSportsEntries(prevEntries => [...prevEntries, newEntry]);
       setIsModalOpen(false);  // モーダルを閉じる
+      
+      // フォームをリセット
+      setSelectedIcon(null);
+      setDate('');
+      setTime('');
+      
+      // ページをリロードして即座に反映
+      window.location.reload();
     } catch (error) {
       console.error('Firestoreへのデータ保存に失敗:', error);
       alert('データ保存中にエラーが発生しました。');
@@ -81,7 +89,7 @@ const CalendarModal: React.FC<CalendarModalProps> = ({ isModalOpen, setIsModalOp
             <div className="mb-4">
               <label className="block mb-1">Date:</label>
               <input
-                type="text"
+                type="date"
                 id="date"
                 value={date}
                 onChange={handleDateChange}
@@ -136,8 +144,8 @@ const CalendarModal: React.FC<CalendarModalProps> = ({ isModalOpen, setIsModalOp
             </div>
 
             <div className={styles.buttons}>
-              <button onClick={handleSubmit} className={styles.modalButton}>Add</button>
-              <button onClick={() => setIsModalOpen(false)} className={styles.modalButtonclose}>Close</button>
+              <button onClick={handleSubmit} className={styles.modalButton}>とうろく</button>
+              <button onClick={() => setIsModalOpen(false)} className={styles.modalButtonclose}>閉じる</button>
             </div>
           </div>
         </div>

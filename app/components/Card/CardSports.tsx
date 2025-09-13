@@ -70,7 +70,7 @@ const CardSports: React.FC<Props> = ({ entrySports }) => {
           <div className={styles.metricContent}>
             <div className={styles.metricLabel}>{sport.icon}</div>
             <div className={styles.metricValue}>
-              {sport.totalHours.toFixed(2)} H
+              {sport.totalHours.toFixed(2)} じかん
             </div>
           </div>
         </div>

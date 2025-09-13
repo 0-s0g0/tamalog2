@@ -76,10 +76,9 @@ const ImageInputModal: React.FC<ImageInputModalProps> = ({
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContent}>
-        <h2 className="text-xl font-bold mb-4">Upload Image</h2>
+        <h2 className="text-xl font-bold mb-4">がぞうよみとり</h2>
         <form onSubmit={handleImageSubmit}>
           <div className="mb-4">
-            <label className="block mb-1">Choose Image:</label>
             <input
               type="file"
               accept="image/*"
@@ -93,10 +92,10 @@ const ImageInputModal: React.FC<ImageInputModalProps> = ({
             </div>
           )}
           <button type="submit" className={styles.modalButton}>
-            Upload
+            そうしん
           </button>
           <button type="button" onClick={() => setIsImageInputModalOpen(false)} className={styles.modalButtonClose}>
-            Close
+            とじる
           </button>
         </form>
       </div>

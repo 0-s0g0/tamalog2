@@ -13,21 +13,30 @@ import { getEntrySportsFromFirestore } from '../../../firebase/saveDataFunctions
 
 interface CalendarProps {
   sportsEntries: EntrySports[];
+  refreshData?: () => void;
 }
 
-export const CalendarWithIcons: React.FC<CalendarProps> = ({ sportsEntries }) => {
+export const CalendarWithIcons: React.FC<CalendarProps> = ({ sportsEntries, refreshData }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null); // 選択された日付
   const [loadedSportsEntries, setLoadedSportsEntries] = useState<EntrySports[]>([]);
 
   // Firestoreからデータを取得する処理
-  useEffect(() => {
-    const fetchData = async () => {
-      // Firebaseからデータを取得
-      await getEntrySportsFromFirestore(setLoadedSportsEntries);
-    };
+  const fetchData = async () => {
+    // Firebaseからデータを取得
+    await getEntrySportsFromFirestore(setLoadedSportsEntries);
+  };
 
+  useEffect(() => {
     fetchData();
   }, []); // コンポーネントの初回レンダリング時にデータを取得
+
+  // 外部から呼び出し可能なリフレッシュ関数を公開
+  useEffect(() => {
+    if (refreshData) {
+      // refreshData関数をfetchDataに置き換えて外部から呼び出せるようにする
+      (window as any).refreshCalendarData = fetchData;
+    }
+  }, [refreshData]);
 
   const tileContent = ({ date }: any) => {
     // カレンダーからの選択された日付を string 型（yyyy-mm-dd）で取得
@@ -94,9 +103,8 @@ export const CalendarWithIcons: React.FC<CalendarProps> = ({ sportsEntries }) =>
         onClickDay={handleDateClick} // 日付をクリックしたときの処理
         locale="en-US" // カレンダーを英語表示にする
       />
-      <div className={styles['selected-date']}>
-        <h4>Selected Date: {selectedDate ? selectedDate.toLocaleDateString() : 'None'}</h4>
-      </div>
+      <div style={{margin:'20px'}}></div>
+
     </div>
   );
 }
