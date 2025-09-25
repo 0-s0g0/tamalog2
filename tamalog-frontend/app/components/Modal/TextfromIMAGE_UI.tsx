@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './01Modal.module.css'; 
-import axios from 'axios';  // axiosを使って画像をAPIに送信
 import { Entry } from '../type';
-import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
 import { db, auth } from '../../../firebase/firebase';
 
 // エントリーをFirestoreに保存する関数
