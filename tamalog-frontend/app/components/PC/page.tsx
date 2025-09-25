@@ -1,12 +1,10 @@
 "use client";
 ///////////////////////////////////////////
 // import
-///////////////////////////////////////////
+
 //main
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-
 
 //copmponents
 import CountDisplay from '../../components/Sidebar/Countdisplay';
@@ -20,25 +18,16 @@ import LeftSidebar from '../../components/Sidebar/LeftSidebar';
 import DeleteConfirmModal from '../../components/Modal/DeleteConfirmModal';
 import TextInputModal from '../../components/Modal/TextInput_UI';
 import CheerModal from '../../components/Modal/CheerModal';
-
-
-
-
-import { getRandomTip } from '../../components/Tip/GetRandomTip'; // 関数をインポート
-
+//lib
+import { getRandomTip } from '../../components/Tip/GetRandomTip'; 
 // Firebase
 import { auth, db} from '../../../firebase/firebase';
 import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore, deleteEntryFromFirestore, updateEntryInFirestore} from "../../../firebase/saveDataFunctions";
-
 //style
 import styles from '../../styles/main.module.css';
 import stylesSidever from '../../components/Sidebar/LeftSidebar.module.css';
-
-
 //type
 import { Entry,EntryAC, EntrySports } from '../../components/type'; 
-
-
 //Image
 import logo from '../../public/logo2.png';
 import Title01 from '../../public/Title01.png';
@@ -52,6 +41,7 @@ import piyo04 from '../../public/piyo04.png'
 import piyo05 from '../../public/piyo05.png'
 import piyo06 from '../../public/piyo06.png'
 import kaunt from '../../public/kaunt1.png'
+
 ///////////////////////////////////////////
 // メインコンポーネント
 ///////////////////////////////////////////
@@ -82,15 +72,7 @@ export default function Home() {
 
 
   // 認証関連のstate
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [nickname, setNickname] = useState<string>(''); 
-  const [isSignupSuccess, setIsSignupSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); 
-  
-  //env
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   ///////////////////////////////////////////
   // レンダリング時の処理

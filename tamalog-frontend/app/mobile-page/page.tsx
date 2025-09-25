@@ -5,7 +5,6 @@
 //main
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import axios from 'axios';
 
 
 //copmponents
@@ -21,10 +20,7 @@ import Footer from '../components/Footer/Footer';
 import { getRandomTip } from '../components/Tip/GetRandomTip'; // 関数をインポート
 
 // Firebase
-import { auth, db} from '../../firebase/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { signOut } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc} from 'firebase/firestore';
+import { auth} from '../../firebase/firebase';
 import { getEntriesFromFirestore, getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
@@ -38,10 +34,6 @@ import { Entry,EntryAC, EntrySports } from '../components/type';
 
 
 //Image
-import icon01 from '../public/icon1.png';
-import icon02 from '../public/icon2.png';
-import icon03 from '../public/icon3.png';
-import icon04 from '../public/icon4.png';
 import Title01 from '../public/Title01.png';
 import Title02 from '../public/Title02.png';
 import Title03 from '../public/Title03.png';
@@ -73,44 +65,12 @@ export default function Home() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [count, setCount] = useState<number>(0); // カウント用の状態
   const [tip, setTip] = useState(getRandomTip())
-  const [error, setError] = useState<string>(''); // エラーメッセージの状態
 
   // モーダル開閉制御
   const [isTextInputModalOpen, setIsTextInputModalOpen] = useState(false);
-  const [isImageInputModalOpen, setIsImageInputModalOpen] = useState(false);
-  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
-  const [isCheerModalOpen, setIsCheerModalOpen] = useState(false);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
-
-  // 画像関連
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [imageProcessingResults, setImageProcessingResults] = useState<number[]>([]);
-  
-
 
   // 認証関連のstate
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoginMode, setIsLoginMode] = useState(true);
-  const [nickname, setNickname] = useState<string>(''); 
-  const [isSignupSuccess, setIsSignupSuccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  //右サイドバー
-  
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());  // 選択された日付の状態
- 
-
-  // アイコンの選択
-  const icons = [icon01, icon02, icon03, icon04];
-  const [selectedIcon, setSelectedIcon] = useState<number | null>(null); // 選択されたアイコンのインデックス
-  
-  //env
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   ///////////////////////////////////////////
   // レンダリング時の処理
@@ -192,71 +152,6 @@ const handleEdit = (id: string) => {
   }
 };
 
-// 画像アップロード処理
-const saveImageUrlToFirestore = async (url: string) => {
-  // Firestoreへの参照を取得
-  const db = getFirestore();
-  const entryId = Date.now().toString(); // 画像アップロード時のユニークなIDを生成
-  try {
-    // Firestoreの 'entries' コレクションに、画像URLを保存
-    await setDoc(doc(db, 'entries', entryId), { imageUrl: url });
-    console.log('Image URL saved to Firestore:', url);
-  } catch (error) {
-    // エラーハンドリング
-    console.error('Error saving image URL to Firestore:', error);
-  }
-};
-
-// 画像アップロードイベント
-const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.files) {
-    const file = e.target.files[0];
-    setImageFile(file);
-    setImagePreview(URL.createObjectURL(file));
-  }
-};
-
-// フォーム送信処理（エントリー追加・更新）
-const handleImageSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (imageFile) {
-    const formData = new FormData();
-    formData.append('image', imageFile);
-
-    try {
-      const response = await axios.post(`http://127.0.0.1:5001/backend/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      // 画像処理結果を取得
-      const result = response.data;
-      setImageProcessingResults(result);  // 結果を状態に保存
-      setIsTextInputModalOpen(true);  // モーダルを開く
-
-    } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-        // Axios固有のエラーの場合
-        if (error.response) {
-          // サーバーがエラーを返した場合（4xx, 5xx）
-          const statusCode = error.response.status;
-          if (statusCode >= 400 && statusCode < 500) {
-            alert(`クライアントエラーが発生しました: ${statusCode} - ${error.response.data.error || '不明なエラー'}`);
-          } else if (statusCode >= 500) {
-            alert(`サーバーエラーが発生しました: ${statusCode} - サーバーが正常に処理できませんでした`);
-          }
-        } else if (error.request) {
-          // サーバーからのレスポンスがなかった場合（ネットワークエラーなど）
-          alert('ネットワークエラーが発生しました。サーバーに接続できませんでした。');
-        }
-      } else {
-        // その他のエラー（一般的なJavaScriptエラーなど）
-        console.error('エラー詳細:', error);
-        alert('画像アップロード中にエラーが発生しました');
-      }
-    }
-  }
-};
-
 
 // エントリー削除
 const handleDelete = async (id: string) => {
@@ -272,40 +167,7 @@ const handleDelete = async (id: string) => {
     setEntries(entries.filter(entry => entry.id !== id));
   }
 };
-//
-const handleSetNickname = (newNickname: string) => {
-  setNickname(newNickname); // NicknameModal から受け取ったニックネームを設定
-};
 
-// 認証関連ハンドラー（ログイン/サインアップ）
-const handleAuthSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault(); // フォーム送信時にページ遷移を防ぐ
-
-  try {
-    if (isLoginMode) {
-      // ログイン処理
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('ログイン成功');
-    } else {
-      // サインアップ処理
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert('アカウント作成成功');
-      setIsSignUpModalOpen(false);  // サインアップモーダルを閉じる
-      setIsNicknameModalOpen(true); // ニックネーム設定モーダルを開く
-    }
-  } catch (error: any) {
-    // エラーハンドリング
-    if (error.code === 'auth/email-already-in-use') {
-      alert('このメールアドレスはすでに使用されています。');
-    } else if (error.code === 'auth/invalid-email') {
-      alert('無効なメールアドレスです。');
-    } else if (error.code === 'auth/wrong-password') {
-      alert('間違ったパスワードです。');
-    } else {
-      alert('エラーが発生しました: ' + error.message);
-    }
-  }
-};
 
 const handleNewTip = () => {
   setTip(getRandomTip());
@@ -322,20 +184,7 @@ const handlePiyoTouchEnd = (e: React.TouchEvent) => {
 };
 
 
-// ログアウト処理
-const handleLogout = async () => {
-  try {
-    await signOut(auth); // Firebase Auth でログアウト
-    console.log("ログアウトしました");
-    setIsSignupSuccess(false); // サインアップ成功フラグをリセット
-    setIsNicknameModalOpen(false); // ニックネームモーダルを閉じる
-    // ログイン・サインアップモーダルを開く、または必要に応じてリダイレクト
-    // history.push('/login'); // React Routerを使用している場合、ログインページへリダイレクト
-  } catch (error) {
-    console.error("ログアウト時にエラーが発生しました:", error);
-    alert("ログアウト時にエラーが発生しました");
-  }
-};
+
 
 //ランクに応じて画像変更
   // カウント数に基づいて画像を切り替える関数
@@ -353,7 +202,7 @@ const handleLogout = async () => {
   ///////////////////////////////////////////
   // 各データ計算
   ///////////////////////////////////////////
-  const Mynickname = entryAC[entryAC.length - 1]?.nickname || 'user';
+
   
   // 最新のgoal
   const latestEntryAC = entryAC[entryAC.length - 1] || {
@@ -369,13 +218,6 @@ const handleLogout = async () => {
   };
   // 最新(現在の)Entry
   const latestEntry = entries[entries.length - 1] || {
-    bodyWater: '0',
-    protein: '0',
-    minerals: '0',
-    bodyFat: '0'
-  };
-  // 最新からひとつ前のEntry
-  const previousEntry = entries[entries.length - 2] || {
     bodyWater: '0',
     protein: '0',
     minerals: '0',

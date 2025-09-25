@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import styles from './01Modal.module.css'; 
 import { Entry } from '../type';
 
-import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
 //import { getAuth } from 'firebase/auth';
 import { db, auth } from '../../../firebase/firebase'
 
