@@ -4,13 +4,8 @@
 
 //共通インポート
 import React from 'react';
-import { useState, useEffect } from 'react';
 import styles from './01Modal.module.css'; 
-import { UserCircle, Keyboard, TrayArrowUp, Footprints, ClipboardText, DeviceMobileCamera, CalendarCheck, X } from "@phosphor-icons/react";
-import { Entry } from '../type';
-import { getFirestore, doc, setDoc, getDoc, arrayUnion } from 'firebase/firestore';
-import { db, auth } from '../../../firebase/firebase'
-
+import { Keyboard, TrayArrowUp} from "@phosphor-icons/react";
 interface InputModalProps {
   isInputModalOpen: boolean;
   setIsInputModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
