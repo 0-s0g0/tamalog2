@@ -1,10 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import styles from "./Footer.module.css"; // スタイルのインポート
-import local from "../../styles/local.module.css";
-import { useState } from "react";
-import { Footprints, ClipboardText, DeviceMobileCamera, CalendarCheck, HouseLine } from "@phosphor-icons/react";
+import { ClipboardText, CalendarCheck, HouseLine } from "@phosphor-icons/react";
 
 
 const Footer : React.FC = () => {
