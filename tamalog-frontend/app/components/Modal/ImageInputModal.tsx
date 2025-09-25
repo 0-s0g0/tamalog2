@@ -15,8 +15,6 @@ const ImageInputModal: React.FC<ImageInputModalProps> = ({
   isImageInputModalOpen, 
   setIsImageInputModalOpen,
   setIsTextfromIMAGEModalOpen,
-  isTextfromIMAGEModalOpen,
-  imageProcessingResults,
   setImageProcessingResults,
   
 }) => {
