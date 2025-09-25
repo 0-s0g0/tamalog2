@@ -1,19 +1,17 @@
 "use client";
-///////////////////////////////////////////
-// import
-///////////////////////////////////////////
+// PC版のプロフィール
+
 //main
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-
 //copmponents
 import CountDisplay from '../components/Sidebar/Countdisplay';
 
 // Firebase
-import { auth, db} from '../../firebase/firebase';
-import { saveEntryACToFirestore, getEntriesFromFirestore, getEntryACNFromFirestore,getEntryACFromFirestore, getEntrySportsFromFirestore, getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
+import { auth} from '../../firebase/firebase';
+import { saveEntryACToFirestore, getEntryACNFromFirestore,getCountEntriesFromFirestore} from "../../firebase/saveDataFunctions";
 
 //style
 import styles from './../styles/main.module.css';
@@ -22,16 +20,11 @@ import create from './createpage.module.css';
 
 
 //type
-import { Entry,EntryAC, EntrySports } from '../components/type'; 
+import { Entry,EntryAC, } from '../components/type'; 
 
 
 //Image
 import logo from '../public/logo2.png';
-import sideBarImageOUT00c from '../public/Sidever_imageOUT000c.png';
-import sideBarImage00c from '../public/Sidever_image000c.png';
-import sideBarImage01c from '../public/Sidever_image001c.png';
-import sideBarImage02c from '../public/Sidever_image002c.png';
-import sideBarImage04c from '../public/Sidever_image004c.png';
 import sideBarImage05 from '../public/Sidever_image005.png';
 import piyo01 from '../public/piyo01.png'
 import piyo02 from '../public/piyo02.png'
@@ -39,7 +32,6 @@ import piyo03 from '../public/piyo03.png'
 import piyo04 from '../public/piyo04.png'
 import piyo05 from '../public/piyo05.png'
 import piyo06 from '../public/piyo06.png'
-import kaunt from '../public/kaunt1.png';
 
 import Pro1 from '../public/Pro1.png';
 import Pro2 from '../public/Pro2.png';
@@ -162,39 +154,6 @@ const calculateTargets = () => {
       <aside className={stylesSidever.sidebar}>
       <Image src={logo} alt="Open Modal" width={200} />
         <div className={styles.sidebarA}>
-        {isLoggedIn ? (
-          <button className={stylesSidever.sidebarButton}>
-            <div className={stylesSidever.buttonContent}>
-              <Image src={sideBarImageOUT00c} alt="Open Modal" width={150} />
-            </div>
-          </button>
-        ) : (
-          <button  className={stylesSidever.sidebarButton}>
-            <div className={stylesSidever.buttonContent}>
-              <Image src={sideBarImage00c}  alt="Open Modal" width={150} />
-            </div>
-          </button>
-        )}
-
-        <button  className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage01c} alt="Open Modal" width={150} />
-          </div>
-        </button>
-
-        <button className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage02c} alt="Open Modal" width={150} />
-          </div>
-        </button>
-
-        
-        <button  className={stylesSidever.sidebarButton}>
-          <div className={stylesSidever.buttonContent}>
-            <Image src={sideBarImage04c} alt="Open Modal" width={150} />
-          </div>
-        </button>
-
         <Link href="/components/PC" passHref>
           <button className={stylesSidever.sidebarButton}>
             <div className={stylesSidever.buttonContent}>
@@ -202,8 +161,6 @@ const calculateTargets = () => {
             </div>
           </button>
         </Link>
-
-        
         </div>
         <div className={stylesSidever.imageContainer}>         
           <CountDisplay entries={entries} />
